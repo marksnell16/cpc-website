@@ -1,0 +1,98 @@
+---
+import DDHubLayout from '../../layouts/DDHubLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const modules = [
+  {
+    title: 'Compliance Centre',
+    description: 'ISO 9001, 14001 and 45001 certificates, JAS-ANZ accreditation details, audit records and all insurance documentation.',
+    href: '/due-diligence/compliance-centre/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>`,
+  },
+  {
+    title: 'Social Procurement',
+    description: 'Modern Slavery Act compliance, Indigenous employment and procurement, workforce diversity and Commonwealth IPP documentation.',
+    href: '/due-diligence/social-procurement/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>`,
+  },
+  {
+    title: 'Management Approach',
+    description: 'Operating systems, technology platforms, workforce management model, contract management and continuous improvement frameworks.',
+    href: '/due-diligence/management-approach/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" /></svg>`,
+  },
+  {
+    title: 'Testimonials',
+    description: 'Client references and testimonials from government, education and commercial sectors. Verified references available on request.',
+    href: '/due-diligence/testimonials/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" /></svg>`,
+  },
+  {
+    title: 'Case Studies',
+    description: 'Verified outcomes from the national portfolio across government, industrial, education and carbon neutral contracts.',
+    href: '/due-diligence/case-studies/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" /></svg>`,
+  },
+  {
+    title: 'Contact for References',
+    description: 'Direct contact for procurement reference checks. Same-sector references available: government, industrial and education.',
+    href: 'mailto:references@cpclean.com.au',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>`,
+  },
+]
+---
+
+<DDHubLayout
+  title="Due Diligence Hub — CPC Commercial Property Cleaning"
+  description="All of CPC's compliance credentials, certifications, management documentation and client references, structured for formal procurement evaluation. No request required."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Due Diligence Hub', url: 'https://cpclean.com.au/due-diligence/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Due Diligence Hub</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          Everything procurement needs.<br class="hidden sm:block" /> No request required.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+          All of CPC's compliance credentials, certifications, management documentation and client references, structured for formal procurement evaluation.
+        </p>
+        <p class="mt-4 text-sm text-slate-400 leading-relaxed max-w-2xl">
+          Organised by the four standard assessment categories: compliance and certification, social procurement, operational capability, and verified outcomes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module cards -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {modules.map(mod => (
+          <a
+            href={mod.href}
+            class="group relative bg-white border border-slate-200 rounded-xl p-6 flex flex-col hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
+          >
+            <!-- Teal top border -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-teal rounded-t-xl"></div>
+
+            <!-- Icon -->
+            <div class="text-teal mb-4 mt-1" set:html={mod.icon} />
+
+            <h2 class="text-lg font-bold text-navy mb-2">{mod.title}</h2>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">{mod.description}</p>
+            <span class="mt-4 text-sm font-bold text-teal group-hover:underline">View →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DDHubLayout>

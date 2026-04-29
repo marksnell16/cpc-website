@@ -1,0 +1,102 @@
+---
+const sectors = [
+  {
+    code: 'A1',
+    label: 'Government & Defence',
+    desc: 'Facilities management cleaning for federal and state government buildings, secure sites and defence installations.',
+    href: '/authority/government-defence-cleaning/',
+  },
+  {
+    code: 'A2',
+    label: 'Local Government & Councils',
+    desc: 'Compliant cleaning programs for council chambers, community facilities and public-facing municipal buildings.',
+    href: '/authority/local-government-council-cleaning/',
+  },
+  {
+    code: 'A3',
+    label: 'Industrial & Power Station',
+    desc: 'High-hazard industrial cleaning for power stations, refineries and manufacturing plants with OHS compliance.',
+    href: '/authority/industrial-power-station-cleaning/',
+  },
+  {
+    code: 'A4',
+    label: 'Education & TAFE',
+    desc: 'Safe, consistent cleaning across schools, universities and TAFE campuses meeting education sector duty-of-care requirements.',
+    href: '/authority/education-tafe-cleaning/',
+  },
+  {
+    code: 'A5',
+    label: 'Commercial Office Towers',
+    desc: 'Precision commercial cleaning for CBD towers and corporate precincts, aligned to tenancy and base building obligations.',
+    href: '/authority/commercial-office-tower-cleaning/',
+  },
+  {
+    code: 'A6',
+    label: 'Carbon Neutral Cleaning',
+    desc: 'Carbon neutral certified cleaning programs. Scope 3 emissions accounted, verified annually, not self-declared.',
+    href: '/authority/carbon-neutral-cleaning/',
+  },
+  {
+    code: 'A7',
+    label: 'ISO Cleaning Provider',
+    desc: 'ISO 9001 / 14001 / 45001 certified operations with documented quality management audited by JAS-ANZ accredited bodies.',
+    href: '/authority/iso-cleaning-provider/',
+  },
+  {
+    code: 'A8',
+    label: 'National Operations',
+    desc: 'Consistent service delivery across QLD, NSW, VIC, WA and SA. One provider, one standard, national coverage.',
+    href: '/authority/national-cleaning-operations/',
+  },
+  {
+    code: 'A9',
+    label: 'Technology & Robotics',
+    desc: 'Robotic floor care, IoT consumable monitoring and digital reporting integrated into standard cleaning programs.',
+    href: '/authority/cleaning-technology-robotics/',
+  },
+  {
+    code: 'A10',
+    label: 'Modern Slavery & Ethical Supply',
+    desc: 'Annual Modern Slavery Act reporting, ethical supply chain documentation and social procurement commitments.',
+    href: '/authority/modern-slavery-ethical-cleaning/',
+  },
+]
+---
+
+<section id="main-content-below" class="bg-[#0a0f1a] py-20 lg:py-28" aria-label="Sectors we serve">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+    <div class="mb-12">
+      <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">10 Regulated Sectors</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight">
+        Ten regulated sectors. One operating standard.
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {sectors.map(s => (
+        <a
+          href={s.href}
+          class="group relative block bg-white rounded-xl overflow-hidden
+                 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          <!-- Teal top stripe -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-teal" aria-hidden="true"></div>
+
+          <div class="p-6 pt-7">
+            <h3 class="text-base font-semibold text-[#0f172a] mb-2 group-hover:text-teal transition-colors leading-snug">
+              {s.label}
+            </h3>
+            <p class="text-sm text-[#475569] leading-relaxed mb-4">
+              {s.desc}
+            </p>
+            <span class="text-sm text-teal font-semibold group-hover:text-teal-bright transition-colors">
+              View →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>

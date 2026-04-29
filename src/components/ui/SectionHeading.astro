@@ -1,0 +1,35 @@
+---
+interface Props {
+  eyebrow?: string
+  tealAccent?: boolean
+  centered?: boolean
+  light?: boolean
+  class?: string
+}
+
+const {
+  eyebrow,
+  tealAccent = false,
+  centered = false,
+  light = false,
+  class: className = '',
+} = Astro.props
+---
+
+<div class:list={['mb-8', centered && 'text-center', className]}>
+  {eyebrow && (
+    <p class:list={[
+      'text-xs font-bold tracking-widest uppercase mb-3',
+      light ? 'text-teal' : 'text-teal'
+    ]}>
+      {eyebrow}
+    </p>
+  )}
+  <h2 class:list={[
+    'text-3xl md:text-4xl font-bold leading-tight',
+    light ? 'text-white' : 'text-navy',
+    tealAccent && 'border-l-4 border-teal pl-4',
+  ]}>
+    <slot />
+  </h2>
+</div>

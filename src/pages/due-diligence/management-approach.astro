@@ -1,0 +1,124 @@
+---
+import DDHubLayout from '../../layouts/DDHubLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const sections = [
+  {
+    eyebrow: 'Quality',
+    title: 'Quality Management System',
+    body: [
+      'CPC operates a documented Quality Management System certified to ISO 9001:2015 by SAI Global, a JAS-ANZ accredited certification body. The QMS covers all aspects of service delivery, from site induction and cleaning procedures through to internal auditing, client reporting and corrective action management.',
+      'Documented procedures exist for every routine and non-routine cleaning activity undertaken across CPC\'s contract portfolio. Internal audits are conducted quarterly at operational level and annually at management system level, with findings recorded and corrective actions tracked to closure. The audit program provides procurement teams and clients with a continuous evidence stream demonstrating system effectiveness, not just initial certification.',
+      'Client reporting is a standard QMS output. Every CPC contract includes a reporting schedule that documents service delivery against specified KPIs, audit results and corrective actions taken during the reporting period.',
+    ],
+  },
+  {
+    eyebrow: 'Technology',
+    title: 'Technology and Reporting',
+    body: [
+      'CPC\'s operational technology platform integrates IoT monitoring, digital job cards and real-time reporting to provide verifiable evidence of service delivery across the contract portfolio. IoT sensors in high-use environments — including amenity blocks, high-traffic corridors and washrooms — provide objective data on cleaning frequency and consumable status without reliance on manual records.',
+      'Digital job cards replace paper-based attendance and task records. Every service event is recorded with a timestamp, staff identifier and task completion status, creating an immutable audit trail that is available through the CPC client portal within 24 hours of service completion.',
+      'The CPC client portal provides real-time visibility of service status, historical performance data, incident records and audit results for all sites under contract. Access is provided to contract managers and facilities managers as a standard component of service delivery, not an optional add-on.',
+    ],
+  },
+  {
+    eyebrow: 'Workforce',
+    title: 'Workforce Management',
+    body: [
+      'CPC operates a direct employment model. 500+ people are directly employed across the national portfolio, not engaged through subcontractors or labour hire. Direct employment means CPC controls training, screening, performance management and IR compliance for every person working on a client contract.',
+      'All staff complete a structured induction program covering WHS obligations, chemical handling, site-specific procedures and client-specific requirements before commencing on any contract. Ongoing training is managed through a documented training register and includes annual refreshers, licence renewals and role-specific competency assessments.',
+      'Background screening is standard for all staff. This includes national police checks for general site access, Working With Children checks where applicable, and AGSVA security clearances for defence and high-security government sites. CPC maintains a centralised screening register that enables rapid reporting of clearance status for any staff member on any contract.',
+    ],
+  },
+  {
+    eyebrow: 'Contract Management',
+    title: 'Contract Management',
+    body: [
+      'Every CPC contract operates under a site-specific Contract Management Plan that documents the cleaning specification, KPI framework, reporting schedule, escalation procedures and key contacts for both parties. The plan is developed during the mobilisation phase and updated at each contract review.',
+      'KPI frameworks are tailored to each contract\'s requirements, drawing from CPC\'s standard KPI library but structured around the specific obligations in the contract schedule. For government contracts, this typically includes service quality scores, audit compliance rates, response times for reactive work and workforce compliance metrics.',
+      'Contracts above a threshold volume are assigned a dedicated Account Manager who is the primary relationship contact for the client. The Account Manager participates in contract review meetings, manages escalations and is responsible for ensuring the Contract Management Plan remains current and effective over the life of the contract.',
+    ],
+  },
+  {
+    eyebrow: 'Incident Management',
+    title: 'Incident Management',
+    body: [
+      'CPC operates a zero lost-time injury (LTI) target across all operations. All incidents — including near misses, property damage and personal injury — are recorded in CPC\'s incident management system within 24 hours of occurrence. Serious incidents are reported to the relevant WHS regulator in accordance with legislative requirements.',
+      'Client notification is a standard component of CPC\'s incident response protocol. For any incident that affects a client\'s facility or involves a client\'s personnel, the contract Account Manager notifies the client\'s nominated contact within 2 hours of CPC becoming aware of the incident. A formal incident report is provided within 5 business days.',
+      'Corrective actions arising from incident investigations are tracked in the QMS and reviewed for systemic implications. Where an incident reveals a gap in procedure, training or equipment, corrective action is implemented across all relevant contracts, not just the site where the incident occurred.',
+    ],
+  },
+  {
+    eyebrow: 'Improvement',
+    title: 'Continuous Improvement',
+    body: [
+      'CPC conducts an annual management review that evaluates the performance of all three ISO management systems — quality, environmental and WHS — against objectives and targets. The review considers client satisfaction data, internal audit results, incident trends, supplier performance and regulatory changes to identify improvement opportunities and set objectives for the coming year.',
+      'Client satisfaction is assessed through an annual client satisfaction survey administered to the primary contract contact at each site. Survey results are reviewed at management level and fed into the annual management review. Clients who raise concerns through the survey receive a direct response within 10 business days.',
+      'CPC benchmarks its management system performance against the requirements of ISO 9001, 14001 and 45001 on an ongoing basis. Surveillance audits conducted by SAI Global provide an independent benchmark of system performance against the standards, with findings that are visible to procurement teams on request.',
+    ],
+  },
+]
+---
+
+<DDHubLayout
+  title="Management Approach: Operations at Scale — CPC Due Diligence Hub"
+  description="How CPC manages quality, technology, workforce, contracts, incidents and continuous improvement across its national cleaning portfolio. Documented systems for procurement evaluation."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Due Diligence Hub', url: 'https://cpclean.com.au/due-diligence/' },
+    { name: 'Management Approach', url: 'https://cpclean.com.au/due-diligence/management-approach/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Management Approach</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          How CPC manages<br class="hidden sm:block" /> operations at scale.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+          Six documented management frameworks — quality, technology, workforce, contracts, incidents and continuous improvement — structured for procurement teams evaluating operational capability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content sections alternating -->
+  {sections.map((section, i) => (
+    <section class={i % 2 === 0 ? 'bg-white py-16 lg:py-20' : 'bg-slate-50 py-16 lg:py-20'}>
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+        <div class="max-w-4xl">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">{section.eyebrow}</p>
+          <h2 class="text-2xl font-bold text-navy mb-6">{section.title}</h2>
+          <div class="space-y-4">
+            {section.body.map(para => (
+              <p class="text-slate-600 leading-relaxed">{para}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Summary callout -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <div class="bg-teal/10 border border-teal/30 rounded-xl p-6 lg:p-8">
+          <p class="text-sm font-bold text-teal uppercase tracking-widest mb-2">Full Documentation</p>
+          <p class="text-navy font-semibold text-lg mb-3">
+            Need management system documentation for a tender?
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            CPC can provide a complete Management Approach document — covering all six frameworks above — formatted for inclusion in a tender response. Contact <a href="mailto:compliance@cpclean.com.au" class="font-bold text-teal hover:underline">compliance@cpclean.com.au</a> with your tender reference and turnaround requirements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DDHubLayout>

@@ -1,0 +1,173 @@
+---
+const sectors = [
+  { label: 'Government & Defence',          href: '/authority/government-defence-cleaning',       code: 'A1' },
+  { label: 'Local Government & Councils',   href: '/authority/local-government-council-cleaning',  code: 'A2' },
+  { label: 'Industrial & Power Station',    href: '/authority/industrial-power-station-cleaning',  code: 'A3' },
+  { label: 'Education & TAFE',              href: '/authority/education-tafe-cleaning',             code: 'A4' },
+  { label: 'Commercial Office Towers',      href: '/authority/commercial-office-tower-cleaning',   code: 'A5' },
+  { label: 'Carbon Neutral Cleaning',       href: '/authority/carbon-neutral-cleaning',            code: 'A6' },
+  { label: 'ISO Cleaning Provider',         href: '/authority/iso-cleaning-provider',              code: 'A7' },
+  { label: 'National Operations',           href: '/authority/national-cleaning-operations',       code: 'A8' },
+  { label: 'Technology & Robotics',         href: '/authority/cleaning-technology-robotics',       code: 'A9' },
+  { label: 'Modern Slavery & Ethical Supply', href: '/authority/modern-slavery-ethical-cleaning', code: 'A10' },
+]
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 w-full bg-[#0f172a] border-b border-white/8 transition-shadow duration-300"
+>
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center h-16 gap-6">
+
+      <!-- Logo -->
+      <a href="/" class="flex-shrink-0" aria-label="Commercial Property Cleaning — Home">
+        <img src="/images/logo/cpc-logo-white.svg" alt="Commercial Property Cleaning" class="h-10 w-auto" width="40" height="40" />
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-1 flex-1" aria-label="Main navigation">
+
+        <!-- Sectors dropdown -->
+        <div class="relative group">
+          <button
+            class="flex items-center gap-1 px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Sectors
+            <svg class="w-3.5 h-3.5 mt-0.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <!-- Dropdown panel -->
+          <div class="absolute left-0 top-full pt-1 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+            <div class="bg-[#0f172a] border border-white/10 rounded-lg shadow-2xl py-2">
+              {sectors.map(s => (
+                <a
+                  href={s.href}
+                  class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <a href="/knowledge-hub/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Knowledge Hub</a>
+        <a href="/case-studies/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Case Studies</a>
+        <a href="/about/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">About</a>
+        <a href="/locations/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Locations</a>
+        <a href="/careers/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Careers</a>
+        <a href="/contact/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Contact</a>
+      </nav>
+
+      <!-- Desktop CTAs -->
+      <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+        <a
+          href="/request-a-proposal/"
+          class="inline-flex items-center px-4 py-2 text-sm font-bold bg-teal text-navy rounded hover:bg-teal-bright transition-colors"
+        >
+          Get a Proposal
+        </a>
+        <a
+          href="/due-diligence/"
+          class="inline-flex items-center px-4 py-2 text-sm font-bold border border-white/30 text-white rounded hover:bg-white/10 transition-colors"
+        >
+          Due Diligence Hub
+        </a>
+        <a
+          href="/client-portal/"
+          class="inline-flex items-center px-4 py-2 text-sm font-semibold border border-white/20 text-white/50 rounded hover:text-white/80 hover:border-white/40 transition-colors"
+        >
+          🔒 Client Portal
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden ml-auto p-2 text-slate-300 hover:text-white transition-colors"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden border-t border-white/10 bg-[#0f172a]"
+    aria-label="Mobile navigation"
+  >
+    <nav class="max-w-screen-xl mx-auto px-4 py-4 flex flex-col gap-1">
+
+      <!-- Sectors (expanded in mobile) -->
+      <div>
+        <p class="px-3 py-1.5 text-xs font-bold text-teal tracking-widest uppercase">Sectors</p>
+        {sectors.map(s => (
+          <a href={s.href} class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">
+            {s.label}
+          </a>
+        ))}
+      </div>
+
+      <hr class="border-white/10 my-2" />
+
+      <a href="/knowledge-hub/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Knowledge Hub</a>
+      <a href="/case-studies/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Case Studies</a>
+      <a href="/about/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">About</a>
+      <a href="/locations/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Locations</a>
+      <a href="/careers/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Careers</a>
+      <a href="/contact/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Contact</a>
+
+      <hr class="border-white/10 my-2" />
+
+      <div class="flex flex-col gap-2 px-3 pt-1 pb-3">
+        <a href="/request-a-proposal/" class="flex justify-center py-2.5 text-sm font-bold bg-teal text-navy rounded hover:bg-teal-bright transition-colors">Get a Proposal</a>
+        <a href="/due-diligence/" class="flex justify-center py-2.5 text-sm font-bold border border-white/30 text-white rounded hover:bg-white/10 transition-colors">Due Diligence Hub</a>
+        <a href="/client-portal/" class="flex justify-center py-2.5 text-sm font-semibold border border-white/20 text-white/50 rounded hover:text-white/80 transition-colors">🔒 Client Portal</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Scroll-based header transparency
+  const header = document.getElementById('site-header')
+
+  function updateHeader() {
+    if (window.scrollY > 20) {
+      header?.classList.add('shadow-xl')
+    } else {
+      header?.classList.remove('shadow-xl')
+    }
+  }
+
+  updateHeader()
+  window.addEventListener('scroll', updateHeader, { passive: true })
+
+  // Mobile hamburger
+  const btn = document.getElementById('mobile-menu-btn')
+  const menu = document.getElementById('mobile-menu')
+  const iconOpen = document.getElementById('icon-open')
+  const iconClose = document.getElementById('icon-close')
+
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden')
+    menu?.classList.toggle('hidden', isOpen)
+    iconOpen?.classList.toggle('hidden', !isOpen)
+    iconClose?.classList.toggle('hidden', isOpen)
+    btn.setAttribute('aria-expanded', String(!isOpen))
+  })
+</script>

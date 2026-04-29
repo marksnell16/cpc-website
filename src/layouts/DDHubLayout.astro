@@ -1,0 +1,32 @@
+---
+import DefaultLayout from './DefaultLayout.astro'
+import DDNavBar from '../components/dd/DDNavBar.astro'
+
+interface BreadcrumbItem {
+  name: string
+  url: string
+}
+
+interface Props {
+  title: string
+  description: string
+  ogImage?: string
+  canonical?: string
+  noindex?: boolean
+  breadcrumbs?: BreadcrumbItem[]
+}
+
+const { title, description, ogImage, canonical, noindex, breadcrumbs } = Astro.props
+---
+
+<DefaultLayout
+  {title}
+  {description}
+  {ogImage}
+  {canonical}
+  {noindex}
+  {breadcrumbs}
+>
+  <DDNavBar />
+  <slot />
+</DefaultLayout>

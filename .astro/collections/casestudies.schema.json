@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "sectorCluster": {
+      "type": "string",
+      "enum": [
+        "government",
+        "industrial",
+        "education",
+        "carbon",
+        "procurement",
+        "technology"
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "contractTerm": {
+      "type": "string"
+    },
+    "outcomes": {
+      "minItems": 3,
+      "maxItems": 6,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "sub": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "value"
+        ]
+      }
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "quote": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "attribution"
+      ]
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "relatedAuthority": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relatedArticles": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "code",
+    "sector",
+    "sectorCluster",
+    "location",
+    "contractTerm",
+    "outcomes",
+    "services",
+    "metaDescription"
+  ]
+}

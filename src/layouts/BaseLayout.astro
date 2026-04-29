@@ -1,0 +1,57 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+  ogImage?: string
+  canonical?: string
+  noindex?: boolean
+}
+
+const {
+  title,
+  description = 'Commercial Property Cleaning — ISO-certified commercial cleaning services across Australia. Government, industrial, education and corporate sectors.',
+  ogImage = '/images/og-default.jpg',
+  canonical,
+  noindex = false,
+} = Astro.props
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toString()
+const ogImageUrl = new URL(ogImage, Astro.site).toString()
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="Commercial Property Cleaning" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Google Fonts CDN — self-hosting deferred to Phase 11 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

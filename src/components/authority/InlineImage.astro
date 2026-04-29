@@ -1,0 +1,49 @@
+---
+interface Props {
+  src: string
+  alt: string
+  caption?: string
+  height?: string
+}
+
+const { src, alt, caption, height = '320px' } = Astro.props
+---
+
+<figure class="inline-figure" aria-label={caption ?? alt}>
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+    style={`height: ${height}; width: 100%; object-fit: cover; display: block;`}
+  />
+  {caption && (
+    <figcaption class="inline-figure-caption">{caption}</figcaption>
+  )}
+</figure>
+
+<style>
+  .inline-figure {
+    margin: 3rem -1rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+  }
+
+  @media (min-width: 640px) {
+    .inline-figure {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+  }
+
+  .inline-figure-caption {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    padding: 0.625rem 1.25rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    font-style: italic;
+    display: block;
+  }
+</style>

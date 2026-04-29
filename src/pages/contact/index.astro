@@ -1,0 +1,364 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import ProposalForm from '../../components/forms/ProposalForm.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+// ⚠️ CONFIRM WITH MARK: Geo coordinates below are approximate suburb centres
+// Update with precise coordinates if needed for go-live
+
+const offices = [
+  {
+    name: "Brisbane",
+    badge: "HQ",
+    address: "81 Dunhill Cres",
+    suburb: "Morningside QLD 4170",
+    directions: "https://maps.google.com/?q=81+Dunhill+Cres,+Morningside+QLD+4170",
+    geo: { lat: -27.4625, lng: 153.0741 },
+  },
+  {
+    name: "Sydney",
+    address: "383 George Street",
+    suburb: "Sydney NSW 2000",
+    directions: "https://maps.google.com/?q=383+George+Street,+Sydney+NSW+2000",
+    geo: { lat: -33.8688, lng: 151.2093 },
+  },
+  {
+    name: "Melbourne",
+    address: "222 Exhibition Street",
+    suburb: "Melbourne VIC 3000",
+    directions: "https://maps.google.com/?q=222+Exhibition+Street,+Melbourne+VIC+3000",
+    geo: { lat: -37.8136, lng: 144.9631 },
+  },
+  {
+    name: "Perth",
+    address: "152 St Georges Terrace",
+    suburb: "Perth WA 6000",
+    directions: "https://maps.google.com/?q=152+St+Georges+Terrace,+Perth+WA+6000",
+    geo: { lat: -31.9505, lng: 115.8605 },
+  },
+  {
+    name: "Townsville",
+    address: "2nd Floor, 280 Flinders St",
+    suburb: "Townsville City QLD 4810",
+    directions: "https://maps.google.com/?q=2nd+Floor+280+Flinders+St,+Townsville+QLD+4810",
+    geo: { lat: -19.2590, lng: 146.8169 },
+  },
+]
+
+// LocalBusiness JSON-LD for contact page
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@graph": offices.map(o => ({
+    "@type": "LocalBusiness",
+    "name": `Commercial Property Cleaning. ${o.name}${o.badge ? ' (HQ)' : ''}`,
+    "telephone": "+611300272888",
+    "email": "contact@cpclean.com.au",
+    "openingHours": "Mo-Fr 08:00-18:00",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": o.address,
+      "addressLocality": o.suburb.split(' ')[0],
+      "addressRegion": o.suburb.includes('QLD') ? 'QLD' : o.suburb.includes('NSW') ? 'NSW' : o.suburb.includes('VIC') ? 'VIC' : 'WA',
+      "postalCode": o.suburb.match(/\d{4}/)?.[0] ?? '',
+      "addressCountry": "AU"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": o.geo.lat,
+      "longitude": o.geo.lng
+    },
+    "parentOrganization": { "@id": "https://cpclean.com.au/#organization" }
+  }))
+}
+---
+
+<DefaultLayout
+  title="Contact CPC. Five Offices, National Coverage, One Number"
+  description="Contact Commercial Property Cleaning. national phone 1300 272 888, offices in Brisbane, Sydney, Melbourne, Perth and Townsville. General enquiries and proposal requests."
+  breadcrumbs={[
+    { name: "Home", url: "https://cpclean.com.au/" },
+    { name: "Contact", url: "https://cpclean.com.au/contact/" },
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+  <!-- Hero -->
+  <section class="ct-hero">
+    <div class="ct-hero-inner">
+      <p class="ct-eyebrow">Contact Us</p>
+      <h1 class="ct-h1">Five offices. National coverage. One number.</h1>
+      <p class="ct-sub">Whether you need a proposal, have a procurement question, or want to talk to someone about an existing contract. we're here.</p>
+    </div>
+  </section>
+
+  <!-- National contact block -->
+  <section class="ct-contact-bar">
+    <div class="ct-contact-bar-inner">
+
+      <div class="ct-contact-item">
+        <p class="ct-contact-label">National Phone</p>
+        <a href="tel:1300272888" class="ct-contact-value ct-contact-phone">1300 272 888</a>
+        <p class="ct-contact-note">Office hours: 8am – 6pm AEST</p>
+      </div>
+
+      <div class="ct-contact-divider" aria-hidden="true"></div>
+
+      <div class="ct-contact-item">
+        <p class="ct-contact-label">General Enquiries</p>
+        <a href="mailto:contact@cpclean.com.au" class="ct-contact-value">contact@cpclean.com.au</a>
+        <p class="ct-contact-note">General questions about services or contracts</p>
+      </div>
+
+      <div class="ct-contact-divider" aria-hidden="true"></div>
+
+      <div class="ct-contact-item">
+        <p class="ct-contact-label">Proposals and Tenders</p>
+        <a href="mailto:sales@cpclean.com.au" class="ct-contact-value">sales@cpclean.com.au</a>
+        <p class="ct-contact-note">New business, proposal requests, tender enquiries</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Offices -->
+  <section class="ct-offices" id="offices">
+    <div class="ct-offices-inner">
+      <p class="ct-section-eyebrow">Our Offices</p>
+      <h2 class="ct-section-h2">Five offices across Australia</h2>
+      <div class="ct-offices-grid">
+        {offices.map(o => (
+          <div class={`ct-office-card${o.badge ? ' ct-office-card--hq' : ''}`}>
+            <div class="ct-office-header">
+              <p class="ct-office-name">{o.name}</p>
+              {o.badge && <span class="ct-hq-badge">{o.badge}</span>}
+            </div>
+            <p class="ct-office-address">{o.address}</p>
+            <p class="ct-office-suburb">{o.suburb}</p>
+            <a
+              href={o.directions}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ct-office-directions"
+            >
+              Get directions →
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact form -->
+  <section class="ct-form-section">
+    <div class="ct-form-inner">
+      <div class="ct-form-header">
+        <p class="ct-section-eyebrow">Send a Message</p>
+        <h2 class="ct-section-h2">Tell us about your requirements</h2>
+        <p class="ct-form-sub">Complete the form below and a senior team member will respond within 1 business day. For urgent enquiries, call <a href="tel:1300272888">1300 272 888</a>.</p>
+      </div>
+      <div class="ct-form-wrap">
+        <ProposalForm subject="Contact Form Submission. CPC Website" variant="contact" submitButtonText="Send Message →" />
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<style is:global>
+  /* Hero */
+  .ct-hero {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem 4rem;
+    min-height: 35vh;
+    display: flex;
+    align-items: center;
+  }
+  .ct-hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ct-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .ct-h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .ct-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  /* Contact bar */
+  .ct-contact-bar {
+    background: #f0fdfa;
+    border-bottom: 1px solid #d1fae5;
+    padding: 2.5rem 1.5rem;
+  }
+  .ct-contact-bar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .ct-contact-bar-inner {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .ct-contact-divider { display: none; }
+  }
+  .ct-contact-item { text-align: center; padding: 0 1.5rem; }
+  .ct-contact-divider {
+    width: 1px;
+    height: 60px;
+    background: #d1fae5;
+  }
+  .ct-contact-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.375rem;
+  }
+  .ct-contact-value {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    text-decoration: none;
+    margin-bottom: 0.375rem;
+    transition: color 0.15s;
+  }
+  .ct-contact-value:hover { color: #14b8a6; }
+  .ct-contact-phone { font-size: 1.5rem; letter-spacing: -0.02em; }
+  .ct-contact-note {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  /* Offices */
+  .ct-offices { padding: 4rem 1.5rem; }
+  .ct-offices-inner { max-width: 1100px; margin: 0 auto; }
+  .ct-section-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.75rem;
+  }
+  .ct-section-h2 {
+    font-size: clamp(1.375rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: #0a0f1a;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .ct-offices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 900px) {
+    .ct-offices-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .ct-offices-grid { grid-template-columns: 1fr; }
+  }
+  .ct-office-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  .ct-office-card--hq {
+    border-color: #14b8a6;
+    background: #f0fdfa;
+  }
+  .ct-office-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.5rem;
+  }
+  .ct-office-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0f1a;
+  }
+  .ct-hq-badge {
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #14b8a6;
+    color: #fff;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+  }
+  .ct-office-address {
+    font-size: 0.875rem;
+    color: #374151;
+    margin-bottom: 0.125rem;
+  }
+  .ct-office-suburb {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+  .ct-office-directions {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #14b8a6;
+    text-decoration: none;
+  }
+  .ct-office-directions:hover { color: #0d9488; }
+
+  /* Form section */
+  .ct-form-section {
+    background: #f8fafc;
+    padding: 4rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  .ct-form-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .ct-form-header { margin-bottom: 2rem; }
+  .ct-form-sub {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.7;
+  }
+  .ct-form-sub a {
+    color: #14b8a6;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ct-form-wrap {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+  }
+  @media (max-width: 560px) {
+    .ct-form-wrap { padding: 1.25rem; }
+  }
+</style>

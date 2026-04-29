@@ -1,0 +1,667 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Header from '../components/global/Header.astro'
+import Footer from '../components/global/Footer.astro'
+import BaseSchema from '../components/schema/BaseSchema.astro'
+import AuthoritySchema from '../components/schema/AuthoritySchema.astro'
+import DualCTA from '../components/global/DualCTA.astro'
+import FAQAccordion from '../components/authority/FAQAccordion.astro'
+
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+interface RelatedAuthority {
+  label: string
+  href: string
+  desc?: string
+  color?: string
+}
+
+interface RelatedArticle {
+  cluster: string
+  clusterColor: string
+  title: string
+  excerpt: string
+  readTime: number
+  href: string
+}
+
+interface Props {
+  title: string
+  description: string
+  eyebrow: string
+  clusterColor: string
+  h1: string
+  subtitle: string
+  heroImage: string
+  tldr: string
+  slug: string
+  serviceType: string
+  areaServed?: string[]
+  faqs?: FAQItem[]
+  updatedDate?: string
+  readTime?: number
+  relatedAuthority?: RelatedAuthority[]
+  relatedArticles?: RelatedArticle[]
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  clusterColor,
+  h1,
+  subtitle,
+  heroImage,
+  tldr,
+  slug,
+  serviceType,
+  areaServed = ['Australia'],
+  faqs = [],
+  updatedDate = 'April 2025',
+  readTime = 8,
+  relatedAuthority = [],
+  relatedArticles = [],
+} = Astro.props
+
+const siteUrl = 'https://cpclean.com.au'
+const pageUrl = `${siteUrl}/authority/${slug}/`
+
+const breadcrumbs = [
+  { name: 'Home',      url: `${siteUrl}/` },
+  { name: 'Authority', url: `${siteUrl}/authority/` },
+  { name: h1,          url: pageUrl },
+]
+---
+
+<BaseLayout {title} {description}>
+  <AuthoritySchema {title} {description} {slug} {serviceType} {areaServed} {faqs} />
+  <BaseSchema {breadcrumbs} />
+  <Header />
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════ HERO ══════════════════════════════════ -->
+    <section
+      class="relative flex items-center overflow-hidden bg-[#0a0f1a]"
+      style={`min-height: max(44vh, 420px); background-image: url('${heroImage}'); background-size: cover; background-position: center 30%;`}
+      aria-label="Page hero"
+    >
+      <!-- Gradient overlay -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to bottom, rgba(10,15,26,0.25) 0%, rgba(10,15,26,0.6) 45%, rgba(10,15,26,0.92) 100%)"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 sm:px-6 pt-24 pb-10 md:pb-12">
+
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-2.5 mb-4">
+          <span
+            class="inline-block w-2 h-2 rounded-full flex-shrink-0"
+            style={`background: ${clusterColor}`}
+            aria-hidden="true"
+          ></span>
+          <span
+            class="text-xs font-bold tracking-widest uppercase"
+            style={`color: ${clusterColor}`}
+          >{eyebrow}</span>
+        </div>
+
+        <!-- H1 -->
+        <h1 class="font-display font-bold text-white text-balance max-w-3xl mb-4
+                   text-3xl sm:text-4xl md:text-5xl leading-tight drop-shadow-lg">
+          {h1}
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg text-white/70 max-w-2xl mb-5 leading-relaxed">
+          {subtitle}
+        </p>
+
+        <!-- Author / date meta -->
+        <p class="text-xs text-white/35 mb-7 tracking-wide">
+          Updated {updatedDate}&ensp;·&ensp;{readTime} min read&ensp;·&ensp;Reviewed by CPC Compliance
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a
+            href="/request-a-proposal/"
+            class="inline-flex items-center px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors shadow-lg"
+          >
+            Get a Proposal →
+          </a>
+          <a
+            href="/due-diligence/"
+            class="inline-flex items-center px-6 py-3 border border-white/40 text-white font-semibold text-sm rounded hover:bg-white/10 transition-colors"
+          >
+            Download Compliance Pack
+          </a>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-1.5 text-xs text-white/30">
+            <li><a href="/" class="hover:text-white/60 transition-colors">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/authority/" class="hover:text-white/60 transition-colors">Authority</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white/50" aria-current="page">{h1}</li>
+          </ol>
+        </nav>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════ CONTENT AREA ════════════════════════════════ -->
+    <div class="bg-white">
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
+        <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-16 xl:gap-20">
+
+          <!-- ─── LEFT TOC SIDEBAR (desktop only) ─────────────────────────── -->
+          <aside class="hidden lg:block" aria-label="Table of contents">
+            <div class="sticky top-24 space-y-8">
+
+              <div>
+                <p class="auth-toc-label">On This Page</p>
+                <nav id="toc" aria-label="Article sections"></nav>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <p class="auth-toc-label">Progress</p>
+                  <span id="progress-pct" class="text-[10px] text-teal font-mono font-bold">0%</span>
+                </div>
+                <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
+                  <div
+                    id="read-progress"
+                    class="h-full bg-teal rounded-full transition-[width] duration-100"
+                    style="width: 0%"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    aria-label="Reading progress"
+                  ></div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1.5">{readTime} min read</p>
+              </div>
+
+              <div>
+                <p class="auth-toc-label">Share</p>
+                <div class="flex items-center gap-2 mt-3">
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="auth-share-btn"
+                    aria-label="Share on LinkedIn"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href={`mailto:?subject=${encodeURIComponent(h1)}&body=${encodeURIComponent('I thought you might find this useful: ' + pageUrl)}`}
+                    class="auth-share-btn"
+                    aria-label="Share via email"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </a>
+                  <button
+                    id="copy-link-btn"
+                    class="auth-share-btn"
+                    data-url={pageUrl}
+                    aria-label="Copy link"
+                    type="button"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+          <!-- ─── MAIN ARTICLE COLUMN ──────────────────────────────────────── -->
+          <div class="min-w-0 max-w-[680px]">
+
+            <!-- Mobile TOC accordion -->
+            <details class="lg:hidden mb-8 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between px-5 py-4 cursor-pointer select-none list-none text-sm font-semibold text-slate-700 hover:text-teal transition-colors">
+                <span>On this page</span>
+                <svg class="w-4 h-4 auth-toc-chevron transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-4 pt-1">
+                <nav id="toc-mobile" aria-label="Article sections (mobile)"></nav>
+              </div>
+            </details>
+
+            <!-- TLDR -->
+            <div class="auth-tldr-block mb-12 lg:mb-14" data-speakable="true">
+              <span class="auth-tldr-eyebrow">TL;DR — What this page covers</span>
+              <p class="auth-tldr-text">{tldr}</p>
+            </div>
+
+            <!-- Body slot -->
+            <article class="authority-body">
+              <slot />
+            </article>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ FAQ ═══════════════════════════════════ -->
+    {faqs.length > 0 && (
+      <section class="bg-[#f8fafc] border-t border-slate-200" aria-label="Frequently asked questions">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 lg:py-14">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Common Questions</p>
+          <h2 class="text-3xl font-bold text-[#0a0f1a] font-display mb-8">Frequently Asked Questions</h2>
+          <FAQAccordion {faqs} />
+        </div>
+      </section>
+    )}
+
+    <!-- ═══════════════════ RELATED AUTHORITY PAGES ═══════════════════════════ -->
+    {relatedAuthority.length > 0 && (
+      <section class="bg-white border-t border-slate-100 py-12 lg:py-16" aria-label="Related authority pages">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">Explore Further</p>
+          <h2 class="text-2xl font-bold text-[#0a0f1a] font-display mb-8">Related Authority Pages</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {relatedAuthority.map(r => (
+              <a
+                href={r.href}
+                class="group relative block bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200"
+              >
+                <div class="h-1" style={`background: ${r.color ?? '#14b8a6'}`} aria-hidden="true"></div>
+                <div class="p-5 pt-6">
+                  <h3 class="text-sm font-bold text-[#0f172a] mb-2 group-hover:text-teal transition-colors leading-snug">
+                    {r.label}
+                  </h3>
+                  {r.desc && (
+                    <p class="text-xs text-[#64748b] leading-relaxed mb-4">{r.desc}</p>
+                  )}
+                  <span class="text-xs text-teal font-semibold group-hover:text-teal-bright transition-colors">
+                    Read more →
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ════════════════════════ RELATED ARTICLES ════════════════════════════ -->
+    {relatedArticles.length > 0 && (
+      <section class="bg-[#0f172a] border-t border-white/5 py-12 lg:py-16" aria-label="Related articles">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">Knowledge Hub</p>
+          <h2 class="text-2xl font-bold text-white font-display mb-8">Related Articles</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {relatedArticles.map(a => (
+              <a
+                href={a.href}
+                class="group block bg-[#0a0f1a] border border-white/8 rounded-xl p-6 hover:border-teal/40 transition-all duration-200"
+              >
+                <div class="flex items-center justify-between mb-4">
+                  <span
+                    class="inline-flex items-center text-xs font-bold tracking-wider px-2.5 py-1 rounded-full"
+                    style={`background: ${a.clusterColor}20; color: ${a.clusterColor}`}
+                  >
+                    {a.cluster}
+                  </span>
+                  <span class="text-xs text-slate-500 font-mono">{a.readTime} min</span>
+                </div>
+                <h3 class="text-sm font-semibold text-white leading-snug mb-3 group-hover:text-teal transition-colors">
+                  {a.title}
+                </h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-5">{a.excerpt}</p>
+                <span class="text-xs text-teal font-semibold group-hover:text-teal-bright transition-colors">
+                  Read article →
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <DualCTA />
+
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<!-- is:global makes ALL rules here apply globally — required for slot content + JS-generated elements -->
+<style is:global>
+
+/* ─── TOC label ─────────────────────────────────────────────────────────── */
+.auth-toc-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.625rem;
+  display: block;
+}
+
+/* ─── Share buttons ─────────────────────────────────────────────────────── */
+.auth-share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+  border: none;
+}
+.auth-share-btn:hover {
+  background: #14b8a6;
+  color: white;
+}
+
+/* ─── Mobile TOC chevron open state ────────────────────────────────────── */
+details[open] .auth-toc-chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── TLDR block ────────────────────────────────────────────────────────── */
+.auth-tldr-block {
+  background: #f0fdfa;
+  border-left: 4px solid #14b8a6;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.375rem 1.75rem;
+}
+.auth-tldr-eyebrow {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #14b8a6;
+  margin-bottom: 0.5rem;
+}
+.auth-tldr-text {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: #334155;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ─── TOC links (dynamically created by JS — must be global) ────────────── */
+.toc-link {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 0.375rem 0 0.375rem 0.875rem;
+  border-left: 2px solid #e2e8f0;
+  transition: color 0.15s, border-color 0.15s, font-weight 0.15s;
+}
+.toc-link:hover {
+  color: #475569;
+  border-left-color: #94a3b8;
+}
+.toc-link.toc-active {
+  color: #14b8a6;
+  border-left-color: #14b8a6;
+  font-weight: 600;
+}
+
+/* Mobile TOC link variant */
+#toc-mobile .toc-link {
+  border-left: none;
+  padding-left: 0;
+  font-size: 0.875rem;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+#toc-mobile .toc-link:hover {
+  color: #14b8a6;
+}
+#toc-mobile .toc-link.toc-active {
+  color: #14b8a6;
+  font-weight: 600;
+}
+
+/* ─── Authority body typography ─────────────────────────────────────────── */
+
+.authority-body {
+  font-size: 1.125rem;
+  line-height: 1.78;
+  color: #0f172a;
+}
+
+/* Standfirst — first <p> before any <h2> in the article */
+.authority-body > p:first-of-type {
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+
+/* Drop cap on standfirst */
+.authority-body > p:first-of-type::first-letter {
+  font-family: 'Inter Display', 'Inter', sans-serif;
+  font-size: 4.5em;
+  font-weight: 700;
+  color: #14b8a6;
+  float: left;
+  line-height: 0.85;
+  padding: 0.1em 0.1em 0 0;
+}
+
+/* H2 — 32px with teal left bar */
+.authority-body h2 {
+  font-family: 'Inter Display', 'Inter', sans-serif !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.2 !important;
+  margin-top: 4rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1rem;
+  border-left: 4px solid #14b8a6;
+  scroll-margin-top: 6rem;
+}
+
+.authority-body h2:first-of-type {
+  margin-top: 2rem !important;
+}
+
+/* H3 — 22px */
+.authority-body h3 {
+  font-family: 'Inter Display', 'Inter', sans-serif !important;
+  font-size: 1.375rem !important;
+  font-weight: 600 !important;
+  color: #0a0f1a !important;
+  line-height: 1.3 !important;
+  margin-top: 2.5rem;
+  margin-bottom: 0.875rem;
+  scroll-margin-top: 6rem;
+}
+
+/* Paragraphs */
+.authority-body p {
+  margin-bottom: 1.25rem;
+}
+
+/* Lists — diamond teal markers */
+.authority-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0 1.5rem;
+}
+.authority-body ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #334155;
+  line-height: 1.68;
+}
+.authority-body ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  background: #14b8a6;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* Inline links */
+.authority-body a {
+  color: #14b8a6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(20,184,166,0.35);
+}
+.authority-body a:hover {
+  color: #0d9488;
+}
+
+/* ─── FAQ section overrides (max-w-4xl context) ─────────────────────────── */
+.faq-list {
+  border-top: 1px solid #e2e8f0;
+}
+.faq-trigger {
+  padding: 1.375rem 0;
+}
+.faq-trigger span:first-child {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a0f1a;
+  line-height: 1.45;
+}
+.faq-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid #cbd5e1;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+.faq-answer.hidden + * {
+  padding-top: 0;
+}
+.faq-answer p {
+  font-size: 0.9375rem;
+  line-height: 1.72;
+  color: #475569;
+  padding-bottom: 1.25rem;
+  margin: 0;
+}
+
+</style>
+
+<script>
+  // ─── TOC: auto-generate from H2s + scrollspy ──────────────────────────────
+  const articleBody = document.querySelector<HTMLElement>('.authority-body')
+  const tocDesktop  = document.getElementById('toc')
+  const tocMobile   = document.getElementById('toc-mobile')
+
+  function slugify(text: string): string {
+    return text.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+  }
+
+  if (articleBody) {
+    const headings = Array.from(articleBody.querySelectorAll<HTMLHeadingElement>('h2'))
+
+    headings.forEach(h => {
+      const slug = slugify(h.textContent?.trim() ?? '')
+      h.id = slug
+
+      const makeLink = (forMobile: boolean): HTMLAnchorElement => {
+        const a = document.createElement('a')
+        a.href = `#${slug}`
+        a.className = 'toc-link'
+        a.dataset.target = slug
+        a.textContent = h.textContent?.trim() ?? ''
+        a.addEventListener('click', e => {
+          e.preventDefault()
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          if (forMobile) {
+            const details = tocMobile?.closest('details')
+            if (details) details.open = false
+          }
+        })
+        return a
+      }
+
+      tocDesktop?.appendChild(makeLink(false))
+      tocMobile?.appendChild(makeLink(true))
+    })
+
+    // Scrollspy via IntersectionObserver
+    const allLinks = () => document.querySelectorAll<HTMLAnchorElement>('.toc-link')
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id
+            allLinks().forEach(l => {
+              l.classList.toggle('toc-active', l.dataset.target === id)
+            })
+          }
+        })
+      },
+      { rootMargin: '-18% 0px -50% 0px' }
+    )
+
+    headings.forEach(h => observer.observe(h))
+  }
+
+  // ─── Reading progress ────────────────────────────────────────────────────
+  const bar      = document.getElementById('read-progress')
+  const pctLabel = document.getElementById('progress-pct')
+
+  if (bar) {
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      const pct   = total > 0 ? Math.min(Math.round((window.scrollY / total) * 100), 100) : 0
+      bar.style.width = `${pct}%`
+      bar.setAttribute('aria-valuenow', String(pct))
+      if (pctLabel) pctLabel.textContent = `${pct}%`
+    }, { passive: true })
+  }
+
+  // ─── Copy link ───────────────────────────────────────────────────────────
+  document.getElementById('copy-link-btn')?.addEventListener('click', async function () {
+    const url = (this as HTMLButtonElement).dataset.url ?? window.location.href
+    try {
+      await navigator.clipboard.writeText(url)
+      this.setAttribute('aria-label', 'Copied!')
+      setTimeout(() => this.setAttribute('aria-label', 'Copy link'), 2000)
+    } catch { /* silent */ }
+  })
+</script>

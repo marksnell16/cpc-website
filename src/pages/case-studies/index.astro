@@ -1,0 +1,178 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const caseStudies = [
+  {
+    cluster: "Government",
+    clusterColor: "#3b82f6",
+    title: "252 Sites Across Queensland. 28 Years of Compliant Government Cleaning",
+    metaLine: "Government · Queensland Statewide · Since 1997",
+    href: "/case-studies/queensland-government-statewide/",
+  },
+  {
+    cluster: "Industrial",
+    clusterColor: "#f59e0b",
+    title: "Live Industrial Environments. Mining, Resources and Heavy Industry Cleaning Capability",
+    metaLine: "Industrial · National · Multi-site portfolio",
+    href: "/case-studies/industrial-resources-cleaning/",
+  },
+  {
+    cluster: "Education",
+    clusterColor: "#f43f5e",
+    title: "NSW Government Schools Panel. Cleaning Across Sydney Metro and Multi-Sector Education Capability",
+    metaLine: "Education · NSW + Multi-Sector · Active Panel Position",
+    href: "/case-studies/education-multi-panel-capability/",
+  },
+  {
+    cluster: "Carbon",
+    clusterColor: "#10b981",
+    title: "100% Carbon Neutral Cleaning. Proprietary Calculation Across Scope 1, 2 and 3",
+    metaLine: "Sustainability · Cross-sector · Applicable to all contracts",
+    href: "/case-studies/carbon-neutral-cleaning-program/",
+  },
+]
+---
+
+<DefaultLayout
+  title="Case Studies: Proof at Scale — CPC"
+  description="Real outcomes from CPC's national portfolio across government, industrial, education and sustainability contracts: compliance evidence, operational scale and sector-specific capability."
+  breadcrumbs={[
+    { name: "Home", url: "https://cpclean.com.au/" },
+    { name: "Case Studies", url: "https://cpclean.com.au/case-studies/" },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="cs-idx-hero">
+    <div class="cs-idx-hero-inner">
+      <p class="cs-idx-eyebrow">Proof at Scale</p>
+      <h1 class="cs-idx-h1">Case Studies</h1>
+      <p class="cs-idx-sub">Real outcomes from CPC's national portfolio across government, industrial, education and sustainability contracts.</p>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="cs-idx-section">
+    <div class="cs-idx-grid">
+      {caseStudies.map(cs => (
+        <a href={cs.href} class="cs-idx-card">
+          <span
+            class="cs-idx-pill"
+            style={`background:${cs.clusterColor}18;color:${cs.clusterColor};border:1px solid ${cs.clusterColor}30`}
+          >
+            {cs.cluster}
+          </span>
+          <h2 class="cs-idx-card-title">{cs.title}</h2>
+          <p class="cs-idx-meta">{cs.metaLine}</p>
+          <span class="cs-idx-read-link">→ Read case study</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<style is:global>
+  /* Hero */
+  .cs-idx-hero {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem 4rem;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+  }
+  .cs-idx-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .cs-idx-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .cs-idx-h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .cs-idx-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Grid section */
+  .cs-idx-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .cs-idx-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 640px) {
+    .cs-idx-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Card */
+  .cs-idx-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .cs-idx-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+  }
+  .cs-idx-pill {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+    width: fit-content;
+  }
+  .cs-idx-card-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    flex: 1;
+  }
+  .cs-idx-meta {
+    font-size: 0.8125rem;
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+  .cs-idx-read-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #00d4aa;
+    margin-top: auto;
+  }
+</style>

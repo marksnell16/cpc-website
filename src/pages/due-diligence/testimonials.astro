@@ -1,0 +1,133 @@
+---
+import DDHubLayout from '../../layouts/DDHubLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const testimonials = [
+  {
+    quote: "CPC's compliance infrastructure is genuinely different from what we've experienced with other providers. The audit documentation is always ready — we've never had to chase.",
+    attribution: 'Facilities Manager, Queensland Government Portfolio',
+  },
+  {
+    quote: "The ability to produce ISO certificate copies, WHS documentation and Modern Slavery statements within hours of request is exactly what procurement requires.",
+    attribution: 'Procurement Officer, Federal Government Agency',
+  },
+  {
+    quote: "We renewed the contract specifically because CPC's reporting made our own compliance obligations easier to manage.",
+    attribution: 'Property Manager, National Education Provider',
+  },
+]
+---
+
+<DDHubLayout
+  title="Client References & Testimonials. CPC Due Diligence Hub"
+  description="CPC client references and testimonials for procurement evaluation. Verified references available for government, education and commercial sectors. Reference policy and contact details."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Due Diligence Hub', url: 'https://cpclean.com.au/due-diligence/' },
+    { name: 'Testimonials', url: 'https://cpclean.com.au/due-diligence/testimonials/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Client References</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          References available for<br class="hidden sm:block" /> every sector we serve.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+          CPC does not publish named testimonials without client approval. Verified references are available directly for formal procurement evaluation — same-sector, same-contract-scale.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="bg-white py-12 lg:py-16 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-slate-600 leading-relaxed text-lg">
+          CPC's reference policy is straightforward: for any contract of 12 months or more, we can provide a direct reference from a nominated contact at that client organisation. References are matched by sector. government references for government tenders, education references for education sector evaluations, and so on. Anonymous attributions below reflect the nature of feedback CPC receives; full verified references are available on request to <a href="mailto:references@cpclean.com.au" class="text-teal font-medium hover:underline">references@cpclean.com.au</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial cards -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl grid gap-6">
+        {testimonials.map(t => (
+          <blockquote class="bg-white border border-slate-200 rounded-xl p-6 lg:p-8 border-l-4 border-l-teal">
+            <p class="text-lg text-slate-700 leading-relaxed italic mb-4">
+              &ldquo;{t.quote}&rdquo;
+            </p>
+            <footer class="text-sm font-semibold text-slate-500">
+             — {t.attribution}
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Reference Policy -->
+  <section class="bg-slate-50 py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Reference Policy</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">How CPC Provides References</h2>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          CPC provides verified references — direct contact with a named person at the client organisation — for the following:
+        </p>
+        <ul class="space-y-3 mb-8">
+          {[
+            'Contracts of 12 months or more duration',
+            'Same-sector references: government references for government tenders, education references for education sector evaluations, and so on',
+            'References matched by contract scale — comparable headcount, site count and service complexity',
+            'References from the same state or territory where relevant',
+          ].map(item => (
+            <li class="flex items-start gap-3">
+              <span class="text-teal font-bold mt-0.5 flex-none">✓</span>
+              <span class="text-slate-600 leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          To arrange a reference check, email <a href="mailto:references@cpclean.com.au" class="text-teal font-medium hover:underline">references@cpclean.com.au</a> with the sector, approximate contract scale and your preferred timing. CPC will confirm a reference contact within 2 business days.
+        </p>
+        <div class="bg-teal/10 border border-teal/30 rounded-xl p-6">
+          <p class="text-sm font-bold text-teal uppercase tracking-widest mb-2">Contact for References</p>
+          <p class="text-navy font-semibold mb-2">Direct reference arrangements for procurement evaluation</p>
+          <p class="text-slate-700 text-sm leading-relaxed">
+            Email: <a href="mailto:references@cpclean.com.au" class="font-bold text-teal hover:underline">references@cpclean.com.au</a><br />
+            Please include the sector, contract scale and required timing. We confirm a reference contact within 2 business days.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies bridge -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Verified Outcomes</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Case Studies</h2>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          For documented, verifiable outcomes from specific contracts — including government portfolio management, industrial site cleaning, education sector delivery and the carbon neutral program — CPC's case studies provide the detail that reference checks cannot convey at scale.
+        </p>
+        <a
+          href="/due-diligence/case-studies/"
+          class="inline-flex items-center px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors"
+        >
+          View Case Studies →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DDHubLayout>

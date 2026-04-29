@@ -1,0 +1,586 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const states = [
+  {
+    name: 'Queensland',
+    abbr: 'QLD',
+    office: 'Brisbane HQ + Townsville office',
+    color: '#3b82f6',
+    regions: [
+      { name: 'South East QLD', areas: 'Brisbane Metro, Ipswich, Logan, Redcliffe, Moreton Bay' },
+      { name: 'Gold & Sunshine Coasts', areas: 'Gold Coast, Sunshine Coast, Noosa, Maroochydore, Gympie' },
+      { name: 'Wide Bay', areas: 'Bundaberg, Hervey Bay, Maryborough, Kingaroy, Nanango' },
+      { name: 'Darling Downs', areas: 'Toowoomba, Dalby, Warwick, Stanthorpe, Roma' },
+      { name: 'Central QLD', areas: 'Rockhampton, Gladstone, Yeppoon, Emerald' },
+      { name: 'North QLD', areas: 'Townsville, Bowen, Cairns, Atherton Tablelands, Innisfail' },
+      { name: 'Far North QLD', areas: 'Port Douglas, Mossman, Daintree, Weipa' },
+      { name: 'Far West QLD', areas: 'Mount Isa, Longreach, Cloncurry, Normanton' },
+      { name: 'Remote QLD', areas: 'Thursday Island, Bamaga, Lockhart River, Aurukun, Mornington Island, Cherbourg' },
+    ],
+  },
+  {
+    name: 'New South Wales',
+    abbr: 'NSW',
+    office: 'Sydney office',
+    color: '#f59e0b',
+    regions: [
+      { name: 'Sydney Metro', areas: 'CBD, Mascot, Olympic Park, Inner West, North Shore, Western Sydney' },
+      { name: 'Hunter Valley', areas: 'Newcastle, Rutherford, Minto, Cardiff, Beresfield' },
+      { name: 'Central Coast', areas: 'Gosford, Charmhaven, Charlestown, Hornsby' },
+      { name: 'Illawarra', areas: 'Wollongong, North Wollongong' },
+      { name: 'Mid North Coast', areas: 'Port Macquarie, Coffs Harbour, Grafton, Ballina' },
+      { name: 'Southern NSW', areas: 'Albury, Moss Vale, Nowra' },
+      { name: 'ACT', areas: 'Canberra, Fyshwick, Canberra Airport' },
+    ],
+  },
+  {
+    name: 'Victoria',
+    abbr: 'VIC',
+    office: 'Melbourne office',
+    color: '#8b5cf6',
+    regions: [
+      { name: 'Melbourne Metro', areas: 'CBD, Docklands, Tullamarine, Tarneit, Forest Hill' },
+    ],
+  },
+  {
+    name: 'Western Australia',
+    abbr: 'WA',
+    office: 'Perth office',
+    color: '#10b981',
+    regions: [
+      { name: 'Perth Metro', areas: 'CBD, Fremantle, Perth Airport, Kewdale' },
+    ],
+  },
+  {
+    name: 'South Australia',
+    abbr: 'SA',
+    office: 'Serviced from Melbourne office',
+    color: '#f43f5e',
+    regions: [
+      { name: 'Adelaide', areas: 'Adelaide CBD, Adelaide Airport' },
+    ],
+  },
+  {
+    name: 'Tasmania',
+    abbr: 'TAS',
+    office: 'Serviced from Melbourne office',
+    color: '#64748b',
+    regions: [
+      { name: 'Hobart', areas: 'Hobart CBD, Hobart Airport' },
+      { name: 'Launceston', areas: 'Launceston Airport' },
+    ],
+  },
+]
+
+const sectors = [
+  { icon: '🏛', label: 'Government & Defence' },
+  { icon: '⚡', label: 'Industrial & Power' },
+  { icon: '🎓', label: 'Education & TAFE' },
+  { icon: '🏢', label: 'Commercial Office' },
+  { icon: '🚗', label: 'Automotive & Fleet' },
+  { icon: '🏥', label: 'Health & Community Services' },
+  { icon: '⛏', label: 'Mining & Resources' },
+  { icon: '🏪', label: 'Retail & Shopping Centres' },
+]
+---
+
+<DefaultLayout
+  title="Service Areas. National Cleaning Coverage Across Australia. CPC"
+  description="CPC operates 1,000+ sites daily across Queensland, New South Wales, Victoria, Western Australia, South Australia and Tasmania. Five offices. One compliance standard."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Locations', url: 'https://cpclean.com.au/locations/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="loc-hero">
+    <div class="loc-hero-inner">
+      <p class="loc-eyebrow">Service Areas</p>
+      <h1 class="loc-h1">National operations.<br />One compliance standard.</h1>
+      <p class="loc-sub">Five offices across Australia. 1,000+ sites serviced daily. The same ISO-certified, carbon neutral cleaning program delivered in every state and territory we operate.</p>
+      <div class="loc-hero-stats">
+        {[
+          { value: '5', label: 'Offices' },
+          { value: '1,000+', label: 'Sites Daily' },
+          { value: '6', label: 'States + ACT' },
+          { value: '30+', label: 'Years National' },
+        ].map(s => (
+          <div class="loc-stat">
+            <span class="loc-stat-value">{s.value}</span>
+            <span class="loc-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="loc-map-section">
+    <div class="loc-map-header">
+      <p class="loc-eyebrow" style="color:#00d4aa">Site Footprint</p>
+      <h2 class="loc-map-h2">1,000+ sites across Australia</h2>
+      <p class="loc-map-sub">Government buildings, defence facilities, industrial sites, education campuses and commercial offices. Click any marker to see the region.</p>
+    </div>
+    <div id="cpc-map" style="height:520px;width:100%;"></div>
+  </section>
+
+  <!-- Coverage by state -->
+  <section class="loc-coverage">
+    <div class="loc-coverage-inner">
+      <p class="loc-section-eyebrow">Coverage by State</p>
+      <h2 class="loc-section-h2">Where CPC operates</h2>
+
+      <div class="loc-states">
+        {states.map(s => (
+          <div class="loc-state-card">
+            <div class="loc-state-header" style={`border-left: 3px solid ${s.color}`}>
+              <div class="loc-state-title-row">
+                <h3 class="loc-state-name">{s.name}</h3>
+                <span class="loc-state-abbr" style={`background:${s.color}18;color:${s.color}`}>{s.abbr}</span>
+              </div>
+              <p class="loc-state-office">{s.office}</p>
+            </div>
+            <ul class="loc-regions">
+              {s.regions.map(r => (
+                <li class="loc-region">
+                  <span class="loc-region-name">{r.name}</span>
+                  <span class="loc-region-areas">{r.areas}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors served nationally -->
+  <section class="loc-sectors">
+    <div class="loc-sectors-inner">
+      <p class="loc-section-eyebrow">Sectors Serviced Nationally</p>
+      <h2 class="loc-section-h2">The same standards, wherever you operate</h2>
+      <p class="loc-sectors-sub">Every site CPC services. regardless of state or sector. operates under the same triple ISO-certified management system, the same carbon neutral program and the same workforce compliance framework.</p>
+      <div class="loc-sectors-grid">
+        {sectors.map(s => (
+          <div class="loc-sector-pill">
+            <span>{s.icon}</span>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+      <div class="loc-offices-cta">
+        <p class="loc-offices-note">Five offices. One national number.</p>
+        <div class="loc-offices-actions">
+          <a href="tel:1300272888" class="loc-btn-primary">1300 272 888</a>
+          <a href="/contact/#offices" class="loc-btn-secondary">View all office addresses →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<script is:inline>
+(function () {
+  function initMap() {
+    if (typeof L === 'undefined' || !document.getElementById('cpc-map')) return
+
+    const map = L.map('cpc-map', {
+      center: [-25.5, 134.5],
+      zoom: 4,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    })
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map)
+
+    // [lat, lng, label, approx site count]
+    const locations = [
+      // Queensland — Brisbane Metro
+      [-27.47, 153.03, 'Brisbane Metro', 55],
+      [-27.62, 152.76, 'Ipswich / Logan', 18],
+      [-27.07, 152.95, 'Caboolture / Morayfield', 12],
+      [-27.22, 153.03, 'North Lakes / Redcliffe', 10],
+      // Queensland — Sunshine Coast
+      [-26.65, 153.06, 'Sunshine Coast / Maroochydore', 28],
+      [-26.39, 152.99, 'Noosa', 4],
+      [-26.19, 152.67, 'Gympie', 6],
+      // Queensland — Wide Bay
+      [-25.54, 152.70, 'Maryborough', 3],
+      [-25.29, 152.84, 'Hervey Bay', 3],
+      [-24.87, 152.35, 'Bundaberg', 3],
+      // Queensland — Darling Downs
+      [-27.56, 151.95, 'Toowoomba', 8],
+      [-27.18, 151.27, 'Dalby', 4],
+      [-28.22, 152.03, 'Warwick / Stanthorpe', 6],
+      [-26.53, 151.83, 'Kingaroy', 5],
+      [-26.19, 148.79, 'Roma', 3],
+      // Queensland — Central QLD
+      [-23.38, 150.52, 'Rockhampton', 22],
+      [-23.85, 151.27, 'Gladstone', 14],
+      [-23.13, 150.73, 'Yeppoon / Emu Park', 14],
+      // Queensland — Far West
+      [-20.73, 139.50, 'Mount Isa', 20],
+      [-23.43, 144.25, 'Longreach', 2],
+      [-17.68, 141.08, 'Normanton', 5],
+      [-18.28, 143.55, 'Georgetown', 2],
+      // Queensland — North QLD
+      [-19.26, 146.82, 'Townsville', 6],
+      [-20.02, 148.23, 'Bowen', 2],
+      [-16.92, 145.78, 'Cairns', 26],
+      [-17.27, 145.48, 'Atherton Tablelands', 10],
+      [-16.48, 145.47, 'Port Douglas / Mossman', 6],
+      [-17.52, 146.03, 'Innisfail', 4],
+      [-12.62, 141.87, 'Weipa', 3],
+      // Queensland — Remote
+      [-10.58, 142.22, 'Thursday Island', 3],
+      [-10.88, 142.42, 'Bamaga', 2],
+      [-12.80, 143.35, 'Lockhart River', 3],
+      [-13.35, 141.72, 'Aurukun', 2],
+      [-16.65, 139.17, 'Mornington Island', 3],
+      [-26.28, 151.93, 'Cherbourg', 3],
+      // NSW
+      [-33.87, 151.21, 'Sydney Metro', 16],
+      [-32.79, 151.84, 'Newcastle / Hunter Valley', 8],
+      [-34.43, 150.89, 'Wollongong', 3],
+      [-30.30, 153.11, 'Coffs Harbour', 3],
+      [-31.43, 152.91, 'Port Macquarie', 2],
+      [-29.68, 152.93, 'Grafton / Ballina', 3],
+      [-36.08, 146.92, 'Albury', 3],
+      [-34.55, 150.38, 'Moss Vale', 3],
+      [-34.88, 150.60, 'Nowra', 2],
+      // ACT
+      [-35.28, 149.13, 'Canberra / ACT', 4],
+      // Victoria
+      [-37.81, 144.96, 'Melbourne Metro', 7],
+      // Western Australia
+      [-31.95, 115.86, 'Perth Metro', 6],
+      // South Australia
+      [-34.93, 138.60, 'Adelaide', 3],
+      // Tasmania
+      [-42.88, 147.33, 'Hobart', 2],
+      [-41.55, 147.21, 'Launceston', 1],
+    ]
+
+    const teal = '#00d4aa'
+    const navy = '#0a0f1a'
+
+    locations.forEach(([lat, lng, label, count]) => {
+      const radius = Math.max(6, Math.min(22, Math.sqrt(count) * 3.2))
+      const circle = L.circleMarker([lat, lng], {
+        radius,
+        fillColor: teal,
+        color: navy,
+        weight: 1.5,
+        opacity: 0.9,
+        fillOpacity: 0.75,
+      }).addTo(map)
+
+      circle.bindPopup(
+        `<strong style="color:${navy};font-size:0.875rem">${label}</strong><br>` +
+        `<span style="color:#64748b;font-size:0.75rem">~${count}+ sites serviced</span>`,
+        { closeButton: false, maxWidth: 180 }
+      )
+    })
+  }
+
+  const script = document.createElement('script')
+  script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'
+  script.onload = initMap
+  document.head.appendChild(script)
+})()
+</script>
+
+<style is:global>
+  /* Hero */
+  .loc-hero {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem 4rem;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+  }
+  .loc-hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .loc-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .loc-h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .loc-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto 2.5rem;
+  }
+  .loc-hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .loc-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.75rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .loc-stat:last-child { border-right: none; }
+  .loc-stat-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #00d4aa;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .loc-stat-label {
+    font-size: 0.6875rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  /* Map section */
+  .loc-map-section {
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .loc-map-header {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 2rem;
+    text-align: center;
+  }
+  .loc-map-h2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: #0a0f1a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .loc-map-sub {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.7;
+  }
+  #cpc-map {
+    border-top: 1px solid #e5e7eb;
+  }
+  /* Leaflet popup style override */
+  .leaflet-popup-content-wrapper {
+    border-radius: 0.5rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12) !important;
+  }
+
+  /* Coverage section */
+  .loc-coverage {
+    padding: 5rem 1.5rem;
+    background: #fff;
+  }
+  .loc-coverage-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .loc-section-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 0.75rem;
+  }
+  .loc-section-h2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: #0a0f1a;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+  }
+  .loc-states {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 1024px) {
+    .loc-states { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .loc-states { grid-template-columns: 1fr; }
+  }
+  .loc-state-card {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  .loc-state-header {
+    padding: 1.25rem 1.25rem 1rem;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding-left: 1rem;
+    margin-left: 0;
+  }
+  .loc-state-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .loc-state-name {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0a0f1a;
+  }
+  .loc-state-abbr {
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+  }
+  .loc-state-office {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+  .loc-regions {
+    padding: 0.875rem 1.25rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .loc-region {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  .loc-region-name {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .loc-region-areas {
+    font-size: 0.75rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  /* Sectors */
+  .loc-sectors {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .loc-sectors-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .loc-sectors .loc-section-eyebrow { color: #00d4aa; }
+  .loc-sectors .loc-section-h2 { color: #fff; margin-bottom: 1rem; }
+  .loc-sectors-sub {
+    color: #64748b;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+  }
+  .loc-sectors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-bottom: 3rem;
+  }
+  .loc-sector-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+  .loc-offices-cta {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 2rem;
+  }
+  .loc-offices-note {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+  .loc-offices-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .loc-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.75rem;
+    background: #00d4aa;
+    color: #0a0f1a;
+    font-weight: 700;
+    font-size: 1.0625rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: background 0.15s;
+  }
+  .loc-btn-primary:hover { background: #00f0c4; }
+  .loc-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .loc-btn-secondary:hover {
+    border-color: rgba(0,212,170,0.4);
+    background: rgba(255,255,255,0.05);
+  }
+</style>

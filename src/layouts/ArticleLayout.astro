@@ -1,0 +1,674 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import Header from '../components/global/Header.astro'
+import Footer from '../components/global/Footer.astro'
+import BaseSchema from '../components/schema/BaseSchema.astro'
+import ArticleSchema from '../components/schema/ArticleSchema.astro'
+import FAQAccordion from '../components/authority/FAQAccordion.astro'
+
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+interface RelatedAuthority {
+  label: string
+  href: string
+  desc?: string
+  color?: string
+}
+
+interface RelatedArticle {
+  cluster: string
+  clusterColor: string
+  title: string
+  excerpt: string
+  readTime: number
+  href: string
+}
+
+interface Props {
+  title: string
+  description: string
+  cluster: string
+  clusterColor: string
+  h1: string
+  subtitle: string
+  heroImage: string
+  tldr: string
+  slug: string
+  primaryKeyword: string
+  publishDate: string
+  dateModified: string
+  readTime?: number
+  keyTakeaways?: string[]
+  faqs?: FAQItem[]
+  relatedAuthority?: RelatedAuthority
+  relatedArticles?: RelatedArticle[]
+}
+
+const {
+  title,
+  description,
+  cluster,
+  clusterColor,
+  h1,
+  subtitle,
+  heroImage,
+  tldr,
+  slug,
+  primaryKeyword,
+  publishDate,
+  dateModified,
+  readTime = 7,
+  keyTakeaways = [],
+  faqs = [],
+  relatedAuthority,
+  relatedArticles = [],
+} = Astro.props
+
+const siteUrl = 'https://cpclean.com.au'
+const pageUrl = `${siteUrl}/knowledge-hub/${slug}/`
+
+const breadcrumbs = [
+  { name: 'Home',          url: `${siteUrl}/` },
+  { name: 'Knowledge Hub', url: `${siteUrl}/knowledge-hub/` },
+  { name: cluster,         url: `${siteUrl}/knowledge-hub/` },
+  { name: h1,              url: pageUrl },
+]
+---
+
+<BaseLayout {title} {description}>
+  <ArticleSchema
+    {title}
+    {description}
+    publishDate={new Date(publishDate)}
+    lastUpdated={new Date(dateModified)}
+    {slug}
+    {cluster}
+    {readTime}
+    {primaryKeyword}
+  />
+  <BaseSchema {breadcrumbs} />
+  <Header />
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════ HERO ══════════════════════════════════ -->
+    <section
+      class="relative flex items-center overflow-hidden bg-[#0a0f1a]"
+      style={`min-height: max(35vh, 320px); background-image: url('${heroImage}'); background-size: cover; background-position: center 35%;`}
+      aria-label="Article hero"
+    >
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to bottom, rgba(10,15,26,0.3) 0%, rgba(10,15,26,0.65) 45%, rgba(10,15,26,0.94) 100%)"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 sm:px-6 pt-24 pb-8 md:pb-10">
+
+        <!-- Cluster eyebrow -->
+        <div class="flex items-center gap-2.5 mb-3">
+          <span
+            class="inline-block w-2 h-2 rounded-full flex-shrink-0"
+            style={`background: ${clusterColor}`}
+            aria-hidden="true"
+          ></span>
+          <span
+            class="text-xs font-bold tracking-widest uppercase"
+            style={`color: ${clusterColor}`}
+          >{cluster}</span>
+        </div>
+
+        <!-- H1 -->
+        <h1 class="font-display font-bold text-white text-balance max-w-3xl mb-3
+                   text-2xl sm:text-3xl md:text-4xl leading-tight drop-shadow-lg">
+          {h1}
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-sm sm:text-base text-white/65 max-w-2xl mb-4 leading-relaxed">
+          {subtitle}
+        </p>
+
+        <!-- Meta line -->
+        <p class="text-xs text-white/35 mb-6 tracking-wide">
+          Updated {dateModified}&ensp;·&ensp;{readTime} min read&ensp;·&ensp;By CPC Editorial
+        </p>
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-1.5 text-xs text-white/30">
+            <li><a href="/" class="hover:text-white/60 transition-colors">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/knowledge-hub/" class="hover:text-white/60 transition-colors">Knowledge Hub</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white/50" style={`color: ${clusterColor}80`}>{cluster}</li>
+            <li aria-hidden="true">/</li>
+            <li class="text-white/50" aria-current="page">{h1}</li>
+          </ol>
+        </nav>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════ CONTENT AREA ════════════════════════════════ -->
+    <div class="bg-white">
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
+        <div class="lg:grid lg:grid-cols-[240px_1fr] lg:gap-16 xl:gap-20">
+
+          <!-- ─── LEFT TOC SIDEBAR ─────────────────────────────────────────── -->
+          <aside class="hidden lg:block" aria-label="Table of contents">
+            <div class="sticky top-24 space-y-8">
+
+              <div>
+                <p class="auth-toc-label">On This Page</p>
+                <nav id="toc" aria-label="Article sections"></nav>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <p class="auth-toc-label">Progress</p>
+                  <span id="progress-pct" class="text-[10px] text-teal font-mono font-bold">0%</span>
+                </div>
+                <div class="h-1 bg-slate-100 rounded-full overflow-hidden">
+                  <div
+                    id="read-progress"
+                    class="h-full bg-teal rounded-full transition-[width] duration-100"
+                    style="width: 0%"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    aria-label="Reading progress"
+                  ></div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1.5">{readTime} min read</p>
+              </div>
+
+              <div>
+                <p class="auth-toc-label">Share</p>
+                <div class="flex items-center gap-2 mt-3">
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="auth-share-btn"
+                    aria-label="Share on LinkedIn"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href={`mailto:?subject=${encodeURIComponent(h1)}&body=${encodeURIComponent('I thought you might find this useful: ' + pageUrl)}`}
+                    class="auth-share-btn"
+                    aria-label="Share via email"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </a>
+                  <button
+                    id="copy-link-btn"
+                    class="auth-share-btn"
+                    data-url={pageUrl}
+                    aria-label="Copy link"
+                    type="button"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+          <!-- ─── MAIN ARTICLE COLUMN ──────────────────────────────────────── -->
+          <div class="min-w-0 max-w-[680px]">
+
+            <!-- Mobile TOC accordion -->
+            <details class="lg:hidden mb-8 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between px-5 py-4 cursor-pointer select-none list-none text-sm font-semibold text-slate-700 hover:text-teal transition-colors">
+                <span>On this page</span>
+                <svg class="w-4 h-4 auth-toc-chevron transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-5 pb-4 pt-1">
+                <nav id="toc-mobile" aria-label="Article sections (mobile)"></nav>
+              </div>
+            </details>
+
+            <!-- TLDR block -->
+            <div class="auth-tldr-block mb-12 lg:mb-14" data-speakable="true">
+              <span class="auth-tldr-eyebrow">TL;DR — What this article covers</span>
+              <p class="auth-tldr-text">{tldr}</p>
+            </div>
+
+            <!-- Body slot -->
+            <article class="authority-body">
+              <slot />
+            </article>
+
+            <!-- Key Takeaways -->
+            {keyTakeaways.length > 0 && (
+              <div class="article-takeaways mt-12 mb-8" data-speakable="true">
+                <p class="takeaways-eyebrow">Key Takeaways</p>
+                <ul>
+                  {keyTakeaways.map(t => <li>{t}</li>)}
+                </ul>
+              </div>
+            )}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════ FAQ ═══════════════════════════════════ -->
+    {faqs.length > 0 && (
+      <section class="bg-[#f8fafc] border-t border-slate-200" aria-label="Frequently asked questions">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 lg:py-14">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Common Questions</p>
+          <h2 class="text-3xl font-bold text-[#0a0f1a] font-display mb-8">Frequently Asked Questions</h2>
+          <FAQAccordion {faqs} />
+        </div>
+      </section>
+    )}
+
+    <!-- ═══════════════════ RELATED CONTENT ══════════════════════════════════ -->
+    <section class="bg-white border-t border-slate-100 py-12 lg:py-16" aria-label="Related content">
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+        {relatedAuthority && (
+          <div class="mb-10">
+            <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">Go Deeper</p>
+            <h2 class="text-xl font-bold text-[#0a0f1a] font-display mb-5">Related Authority Page</h2>
+            <a
+              href={relatedAuthority.href}
+              class="group inline-flex flex-col sm:flex-row sm:items-center gap-4 bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200 max-w-xl"
+            >
+              <div class="h-1 sm:h-auto sm:w-1 sm:self-stretch" style={`background: ${relatedAuthority.color ?? '#14b8a6'}`} aria-hidden="true"></div>
+              <div class="p-5 sm:py-5 sm:pr-6">
+                <p class="text-xs font-bold tracking-widest uppercase mb-1" style={`color: ${relatedAuthority.color ?? '#14b8a6'}`}>Authority Page</p>
+                <h3 class="text-sm font-bold text-[#0f172a] mb-1 group-hover:text-teal transition-colors">{relatedAuthority.label}</h3>
+                {relatedAuthority.desc && <p class="text-xs text-slate-500 leading-relaxed">{relatedAuthority.desc}</p>}
+                <span class="text-xs text-teal font-semibold mt-2 inline-block group-hover:text-teal-bright transition-colors">Read more →</span>
+              </div>
+            </a>
+          </div>
+        )}
+
+        {relatedArticles.length > 0 && (
+          <div>
+            <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">More Reading</p>
+            <h2 class="text-xl font-bold text-[#0a0f1a] font-display mb-5">More from This Cluster</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {relatedArticles.map(a => (
+                <a
+                  href={a.href}
+                  class="group block bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200"
+                >
+                  <div class="h-1" style={`background: ${a.clusterColor}`} aria-hidden="true"></div>
+                  <div class="p-5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style={`color: ${a.clusterColor}`}>{a.cluster} · {a.readTime} min</p>
+                    <h3 class="text-sm font-bold text-[#0f172a] mb-2 group-hover:text-teal transition-colors leading-snug">{a.title}</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">{a.excerpt}</p>
+                    <span class="text-xs text-teal font-semibold mt-3 inline-block group-hover:text-teal-bright transition-colors">Read →</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Small single CTA -->
+        <div class="pt-6 border-t border-slate-100">
+          <p class="text-sm text-slate-600 mb-3">Ready to discuss your facility's cleaning requirements?</p>
+          <a
+            href="/request-a-proposal/"
+            class="inline-flex items-center px-5 py-2.5 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors shadow"
+          >
+            Get a Proposal →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+
+/* ─── TOC label ─────────────────────────────────────────────────────────── */
+.auth-toc-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.625rem;
+  display: block;
+}
+
+/* ─── Share buttons ─────────────────────────────────────────────────────── */
+.auth-share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+  border: none;
+}
+.auth-share-btn:hover {
+  background: #14b8a6;
+  color: white;
+}
+
+/* ─── Mobile TOC chevron ───────────────────────────────────────────────── */
+details[open] .auth-toc-chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── TLDR block ────────────────────────────────────────────────────────── */
+.auth-tldr-block {
+  background: #f0fdfa;
+  border-left: 4px solid #14b8a6;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.375rem 1.75rem;
+}
+.auth-tldr-eyebrow {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #14b8a6;
+  margin-bottom: 0.5rem;
+}
+.auth-tldr-text {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: #334155;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ─── TOC links ─────────────────────────────────────────────────────────── */
+.toc-link {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 0.375rem 0 0.375rem 0.875rem;
+  border-left: 2px solid #e2e8f0;
+  transition: color 0.15s, border-color 0.15s, font-weight 0.15s;
+}
+.toc-link:hover {
+  color: #475569;
+  border-left-color: #94a3b8;
+}
+.toc-link.toc-active {
+  color: #14b8a6;
+  border-left-color: #14b8a6;
+  font-weight: 600;
+}
+#toc-mobile .toc-link {
+  border-left: none;
+  padding-left: 0;
+  font-size: 0.875rem;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+#toc-mobile .toc-link:hover,
+#toc-mobile .toc-link.toc-active {
+  color: #14b8a6;
+}
+#toc-mobile .toc-link.toc-active {
+  font-weight: 600;
+}
+
+/* ─── Authority body typography ─────────────────────────────────────────── */
+.authority-body {
+  font-size: 1.125rem;
+  line-height: 1.78;
+  color: #0f172a;
+}
+.authority-body > p:first-of-type {
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+.authority-body > p:first-of-type::first-letter {
+  font-family: 'Inter Display', 'Inter', sans-serif;
+  font-size: 4.5em;
+  font-weight: 700;
+  color: #14b8a6;
+  float: left;
+  line-height: 0.85;
+  padding: 0.1em 0.1em 0 0;
+}
+.authority-body h2 {
+  font-family: 'Inter Display', 'Inter', sans-serif !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.2 !important;
+  margin-top: 4rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1rem;
+  border-left: 4px solid #14b8a6;
+  scroll-margin-top: 6rem;
+}
+.authority-body h2:first-of-type {
+  margin-top: 2rem !important;
+}
+.authority-body h3 {
+  font-family: 'Inter Display', 'Inter', sans-serif !important;
+  font-size: 1.375rem !important;
+  font-weight: 600 !important;
+  color: #0a0f1a !important;
+  line-height: 1.3 !important;
+  margin-top: 2.5rem;
+  margin-bottom: 0.875rem;
+  scroll-margin-top: 6rem;
+}
+.authority-body p {
+  margin-bottom: 1.25rem;
+}
+.authority-body ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0 1.5rem;
+}
+.authority-body ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #334155;
+  line-height: 1.68;
+}
+.authority-body ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  background: #14b8a6;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+.authority-body a {
+  color: #14b8a6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(20,184,166,0.35);
+}
+.authority-body a:hover {
+  color: #0d9488;
+}
+
+/* ─── Key Takeaways block ───────────────────────────────────────────────── */
+.article-takeaways {
+  background: #f0fdfa;
+  border-left: 4px solid #14b8a6;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.5rem 1.75rem;
+}
+.takeaways-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #14b8a6;
+  margin-bottom: 0.875rem;
+  display: block;
+}
+.article-takeaways ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.article-takeaways ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.625rem;
+  font-size: 0.9375rem;
+  color: #334155;
+  line-height: 1.65;
+}
+.article-takeaways ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 7px;
+  height: 7px;
+  background: #14b8a6;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* ─── FAQ section ───────────────────────────────────────────────────────── */
+.faq-list {
+  border-top: 1px solid #e2e8f0;
+}
+.faq-trigger {
+  padding: 1.375rem 0;
+}
+.faq-trigger span:first-child {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a0f1a;
+  line-height: 1.45;
+}
+.faq-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid #cbd5e1;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+.faq-answer p {
+  font-size: 0.9375rem;
+  line-height: 1.72;
+  color: #475569;
+  padding-bottom: 1.25rem;
+  margin: 0;
+}
+
+</style>
+
+<script>
+  // ─── TOC: auto-generate from H2s + scrollspy ──────────────────────────────
+  const articleBody = document.querySelector<HTMLElement>('.authority-body')
+  const tocDesktop  = document.getElementById('toc')
+  const tocMobile   = document.getElementById('toc-mobile')
+
+  function slugify(text: string): string {
+    return text.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+  }
+
+  if (articleBody) {
+    const headings = Array.from(articleBody.querySelectorAll<HTMLHeadingElement>('h2'))
+
+    headings.forEach(h => {
+      const slug = slugify(h.textContent?.trim() ?? '')
+      h.id = slug
+
+      const makeLink = () => {
+        const a = document.createElement('a')
+        a.href = `#${slug}`
+        a.textContent = h.textContent?.trim() ?? ''
+        a.className = 'toc-link'
+        return a
+      }
+      tocDesktop?.appendChild(makeLink())
+      tocMobile?.appendChild(makeLink())
+    })
+
+    // Scrollspy
+    const allLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link')
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            allLinks.forEach(l => l.classList.remove('toc-active'))
+            const active = document.querySelectorAll<HTMLAnchorElement>(
+              `.toc-link[href="#${e.target.id}"]`
+            )
+            active.forEach(l => l.classList.add('toc-active'))
+          }
+        })
+      },
+      { rootMargin: '-20% 0px -70% 0px' }
+    )
+    headings.forEach(h => observer.observe(h))
+
+    // Progress bar
+    const bar = document.getElementById('read-progress')
+    const pct = document.getElementById('progress-pct')
+    const updateProgress = () => {
+      const { top, height } = articleBody.getBoundingClientRect()
+      const scrolled = Math.max(0, -top)
+      const total = Math.max(1, height - window.innerHeight)
+      const p = Math.min(100, Math.round((scrolled / total) * 100))
+      if (bar) { bar.style.width = `${p}%`; bar.setAttribute('aria-valuenow', String(p)) }
+      if (pct)  { pct.textContent = `${p}%` }
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    updateProgress()
+  }
+
+  // ─── Copy link button ─────────────────────────────────────────────────────
+  document.getElementById('copy-link-btn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('copy-link-btn') as HTMLButtonElement
+    const url = btn?.dataset.url ?? window.location.href
+    try {
+      await navigator.clipboard.writeText(url)
+      btn.style.background = '#14b8a6'
+      btn.style.color = 'white'
+      setTimeout(() => { btn.style.background = ''; btn.style.color = '' }, 1500)
+    } catch { /* fallback: ignore */ }
+  })
+</script>

@@ -1,0 +1,63 @@
+---
+interface Props {
+  heading: string
+  color?: string
+}
+
+const { heading, color = '#14b8a6' } = Astro.props
+---
+
+<aside class="callout-box" aria-label={heading}>
+  <p class="callout-box-heading" style={`color: ${color}`}>{heading}</p>
+  <slot />
+</aside>
+
+<style>
+  .callout-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-top: 3px solid #14b8a6;
+    border-radius: 0.75rem;
+    padding: 1.5rem 2rem;
+    margin: 3rem 0;
+  }
+
+  .callout-box-heading {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Body text inside callout is smaller than article prose */
+  .callout-box :global(p) {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: #334155;
+    margin-bottom: 0.625rem;
+  }
+
+  .callout-box :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .callout-box :global(ul li) {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9375rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .callout-box :global(ul li::before) {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #14b8a6;
+    font-weight: 700;
+  }
+</style>

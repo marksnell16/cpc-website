@@ -1,0 +1,121 @@
+---
+---
+
+<section
+  class="relative min-h-[55vh] flex items-center bg-[#0a0f1a] overflow-hidden"
+  aria-label="Hero"
+>
+
+  <!-- Video background (hidden on mobile, replaced by poster) -->
+  <video
+    id="hero-video"
+    class="absolute inset-0 w-full h-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/videos/hero-poster.jpg"
+    aria-hidden="true"
+  >
+    <source src="/videos/hero-video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Poster fallback — shown on mobile instead of autoplay video -->
+  <div
+    id="hero-poster"
+    class="absolute inset-0 hidden bg-cover bg-center bg-no-repeat"
+    style="background-image: url('/videos/hero-poster.jpg')"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Gradient overlay: transparent at top, dark at bottom for legibility -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: linear-gradient(to bottom, rgba(10,15,26,0.08) 0%, rgba(10,15,26,0.25) 40%, rgba(10,15,26,0.60) 100%)"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Hero content — vertically centered, left-aligned -->
+  <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 sm:px-6">
+
+    <h1 class="font-display font-bold text-white leading-tight mb-5 drop-shadow-lg max-w-4xl
+               text-5xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl">
+      Most providers clean buildings.<br /> CPC helps you run smarter assets.
+    </h1>
+
+    <p class="text-base sm:text-lg text-white/80 max-w-2xl mb-10 leading-relaxed drop-shadow">
+      Real-time compliance visibility, ESG reporting, waste intelligence and carbon data. Backed by 30 years of national operations, triple ISO certification and carbon neutral certification across every site we service.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <a
+        href="/request-a-proposal/"
+        class="inline-flex items-center px-7 py-3.5 bg-teal text-navy font-semibold text-base rounded hover:bg-teal-bright transition-colors shadow-lg"
+      >
+        Get a Proposal →
+      </a>
+      <a
+        href="/due-diligence/"
+        class="inline-flex items-center px-7 py-3.5 border-2 border-white/70 text-white font-semibold text-base rounded hover:bg-white/10 hover:border-white transition-colors shadow-lg"
+      >
+        Due Diligence Hub
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile: play button overlay when video is paused -->
+  <button
+    id="hero-play-btn"
+    class="hidden absolute bottom-28 right-6 z-20 items-center gap-2 text-white/60 text-xs hover:text-white/90 transition-colors"
+    aria-label="Play background video"
+  >
+    <span class="flex items-center justify-center w-8 h-8 rounded-full border border-white/30">
+      <svg class="w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <polygon points="5,3 19,12 5,21"/>
+      </svg>
+    </span>
+    Play video
+  </button>
+
+</section>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    #hero-video { display: none; }
+    #hero-poster { display: block !important; }
+  }
+</style>
+
+<script>
+  const video = document.getElementById('hero-video') as HTMLVideoElement | null
+  const poster = document.getElementById('hero-poster')
+  const playBtn = document.getElementById('hero-play-btn')
+
+  // Reduced motion: skip autoplay, show static poster
+  if (video && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.pause()
+    video.removeAttribute('autoplay')
+    poster?.classList.remove('hidden')
+  }
+
+  // On mobile viewports: pause autoplay, show static poster + play button
+  else if (video && window.matchMedia('(max-width: 767px)').matches) {
+    video.pause()
+    video.removeAttribute('autoplay')
+    poster?.classList.remove('hidden')
+    if (playBtn) {
+      playBtn.classList.remove('hidden')
+      playBtn.classList.add('flex')
+    }
+
+    playBtn?.addEventListener('click', () => {
+      poster?.classList.add('hidden')
+      if (playBtn) {
+        playBtn.classList.add('hidden')
+        playBtn.classList.remove('flex')
+      }
+      video.play()
+    })
+  }
+</script>

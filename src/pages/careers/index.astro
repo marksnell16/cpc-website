@@ -1,0 +1,399 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const benefits = [
+  {
+    title: 'Direct employment: not an agency',
+    text: 'You work for CPC, not through a labour hire firm. That means real entitlements, job security and a team that actually knows your name.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>`,
+  },
+  {
+    title: 'CPC Academy: your training pathway',
+    text: 'Our in-house training program takes you from day one through to certified professional, and on to leadership if that\'s where you want to go.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>`,
+  },
+  {
+    title: 'Stable, consistent work',
+    text: 'Government and institutional contracts mean predictable shifts, not last-minute casual calls. Build your week around work you can count on.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>`,
+  },
+  {
+    title: 'Recognition that means something',
+    text: 'Monthly and quarterly awards, newsletter shoutouts, and real cash rewards for team members who go above and beyond. Your work gets noticed.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0"/></svg>`,
+  },
+  {
+    title: 'A team that reflects Australia',
+    text: '58% female. 10% Indigenous. Team members who speak more than a dozen languages. We\'ve built a team where everyone is genuinely welcome.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>`,
+  },
+  {
+    title: 'A real path forward',
+    text: 'Many of our supervisors and area managers started exactly where you are. We promote from within, and your next step is available from day one.',
+    icon: `<svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg>`,
+  },
+]
+
+const rewards = [
+  {
+    title: 'Cleaner of the Month',
+    detail: 'Two team members recognised each month for consistency, reliability and client feedback, each awarded a $50 gift card.',
+    icon: `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>`,
+  },
+  {
+    title: 'Cleaner of the Quarter',
+    detail: 'Our standout performer across the quarter is recognised and awarded a $50 gift card for exceptional contribution.',
+    icon: `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0"/></svg>`,
+  },
+  {
+    title: 'Academy Reward Draw',
+    detail: 'Every team member who completes a CPC Academy module enters a random $25 gift card draw. Keep learning, keep winning.',
+    icon: `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>`,
+  },
+  {
+    title: 'Monthly Shoutouts',
+    detail: 'Named recognition in the CPC team newsletter for team members who go above and beyond: client praise, covering shifts, inspection results.',
+    icon: `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>`,
+  },
+  {
+    title: 'Refer a Friend: $100',
+    detail: 'Know someone who\'d be a great fit? Refer them and if they stay 4+ weeks, you receive a $100 voucher as a thank-you.',
+    icon: `<svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>`,
+  },
+]
+
+const academyStats = [
+  { pct: '55%', label: 'Taking on extra tasks, supporting area managers and getting involved in site inspections' },
+  { pct: '27%', label: 'Assisting with stock, compliance tasks and building confidence in communication' },
+  { pct: '18%', label: 'Stepping into higher responsibility roles and preparing for supervisor pathways' },
+]
+
+const pathway = [
+  { step: 'Cleaner', sub: 'Your starting point' },
+  { step: 'CPC Academy', sub: 'Skills & certification' },
+  { step: 'Leading Hand', sub: 'More responsibility' },
+  { step: 'Site Supervisor', sub: 'Run your own site' },
+  { step: 'Area Manager', sub: 'Lead multiple teams' },
+]
+---
+
+<DefaultLayout
+  title="Careers at CPC: Build a Career in Cleaning"
+  description="CPC employs 500+ direct team members across five states. We invest in training, reward performance, and promote from within. Discover the CPC Academy and what your career could look like."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Careers', url: 'https://cpclean.com.au/careers/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-20 lg:py-28">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-4">Careers at CPC</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          A career that<br class="hidden sm:block" /> grows with you.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mb-4">
+          CPC employs 500+ direct team members across five states. We invest in your training, recognise your work every month, and promote from within, because today's cleaner is tomorrow's team leader.
+        </p>
+        <p class="text-sm text-slate-400 leading-relaxed max-w-2xl mb-8">
+          This is not casual work through an agency. This is a real job with a real team behind you.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#apply" class="inline-flex items-center px-6 py-3 bg-teal text-[#0a0f1a] font-bold text-sm rounded-lg hover:bg-teal-bright transition-colors">
+            Apply Now →
+          </a>
+          <a href="#academy" class="inline-flex items-center px-6 py-3 border border-white/20 text-white font-semibold text-sm rounded-lg hover:border-teal/60 hover:text-teal transition-colors">
+            About CPC Academy
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why CPC -->
+  <section class="bg-white py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Why CPC</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight">What makes CPC different as an employer</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {benefits.map(b => (
+          <div class="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-teal rounded-t-xl"></div>
+            <div class="text-teal mb-4 mt-1" set:html={b.icon} />
+            <h3 class="text-base font-bold text-navy mb-2">{b.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{b.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CPC Academy -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24" id="academy">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+      <div class="max-w-3xl mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">CPC Academy</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+          We don't just hire cleaners.<br class="hidden sm:block" /> We develop professionals.
+        </h2>
+        <p class="text-slate-300 leading-relaxed">
+          CPC Academy is our in-house training and development program. From your first day on site through to leadership roles, there's a structured pathway to grow, at your own pace, on your own terms. Every module you complete builds real skills, real confidence, and real opportunities within CPC.
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid sm:grid-cols-3 gap-6 mb-12">
+        {academyStats.map(s => (
+          <div class="bg-white/5 border border-white/10 rounded-xl p-6">
+            <p class="text-4xl font-black text-teal mb-3">{s.pct}</p>
+            <p class="text-sm text-slate-300 leading-relaxed">of Academy-trained staff are {s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Pathway strip -->
+      <div class="bg-white/5 border border-white/10 rounded-xl p-6 lg:p-8">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-6">Your Career Pathway</p>
+        <div class="flex flex-wrap items-center gap-2">
+          {pathway.map((p, i) => (
+            <>
+              <div class="flex flex-col items-center text-center min-w-[80px]">
+                <div class={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold mb-2 ${i === 0 ? 'bg-teal text-[#0a0f1a]' : 'bg-white/10 text-white'}`}>
+                  {i + 1}
+                </div>
+                <p class="text-xs font-bold text-white leading-tight">{p.step}</p>
+                <p class="text-xs text-slate-400 mt-0.5">{p.sub}</p>
+              </div>
+              {i < pathway.length - 1 && (
+                <div class="text-slate-600 text-lg font-bold flex-shrink-0">→</div>
+              )}
+            </>
+          ))}
+        </div>
+        <p class="text-xs text-slate-400 mt-6 border-t border-white/10 pt-4">
+          Every step is achievable. Many of CPC's current supervisors and area managers began as cleaners and progressed through exactly this pathway.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Career Spotlight — Choden -->
+  <section class="bg-white py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Career Spotlight</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight mb-6">
+            From cleaner to<br class="hidden sm:block" /> Area Supervisor in 3 years.
+          </h2>
+          <p class="text-slate-600 leading-relaxed mb-4">
+            When Choden Choden joined CPC, she started exactly where many of our team members start — working on site as a cleaner. Through hard work, reliability and a willingness to learn, she progressed through every level of the business.
+          </p>
+          <p class="text-slate-600 leading-relaxed mb-6">
+            Today, Choden oversees multiple sites across Brisbane as our Area Supervisor, working closely with teams to maintain the high standards our clients expect.
+          </p>
+
+          <!-- Career path -->
+          <div class="flex items-center gap-2 flex-wrap mb-8">
+            {['Cleaner', 'Leading Hand', 'Site Supervisor', 'Area Supervisor'].map((role, i, arr) => (
+              <>
+                <span class={`text-xs font-bold px-3 py-1.5 rounded-full ${i === arr.length - 1 ? 'bg-teal text-[#0a0f1a]' : 'bg-slate-100 text-slate-600'}`}>
+                  {role}
+                </span>
+                {i < arr.length - 1 && <span class="text-slate-400 text-xs">→</span>}
+              </>
+            ))}
+          </div>
+
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Choden's advice:</p>
+          <ul class="space-y-2">
+            {[
+              'Take pride in your work',
+              'Be reliable and support your team',
+              'Complete CPC Academy training',
+              'Put your hand up when opportunities arise',
+            ].map(tip => (
+              <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                <div class="mt-0.5 w-4 h-4 rounded-full bg-teal/10 border border-teal/30 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-2.5 h-2.5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                {tip}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Pull quote -->
+        <div class="lg:pt-12">
+          <div class="rounded-2xl overflow-hidden border border-slate-200 mb-6">
+            <img
+              src="/images/choden-choden.jpg"
+              alt="Choden Choden, Brisbane Area Supervisor at CPC"
+              class="w-full object-cover object-top"
+              style="max-height: 280px;"
+              loading="lazy"
+            />
+          </div>
+          <blockquote class="relative bg-slate-50 border border-slate-200 rounded-2xl p-8 lg:p-10">
+            <div class="absolute top-6 left-8 text-teal/20 text-8xl font-serif leading-none select-none" aria-hidden="true">"</div>
+            <p class="relative text-lg text-navy font-medium leading-relaxed mb-6">
+              When I started as a cleaner, I focused on doing my job well and learning as much as I could. CPC gave me opportunities and support, and I was always encouraged to step up.
+            </p>
+            <footer class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center text-teal font-bold text-sm flex-shrink-0">
+                CC
+              </div>
+              <div>
+                <p class="text-sm font-bold text-navy">Choden Choden</p>
+                <p class="text-xs text-slate-500">Brisbane Area Supervisor, joined CPC as a Cleaner</p>
+              </div>
+            </footer>
+          </blockquote>
+
+          <div class="mt-6 bg-teal/5 border border-teal/20 rounded-xl p-5">
+            <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">At CPC</p>
+            <p class="text-sm text-slate-700 leading-relaxed font-medium">
+              Today's cleaner can truly become tomorrow's leader. Choden's journey is not an exception — it's what we're building the company to enable.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition & Rewards -->
+  <section class="bg-slate-50 py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Recognition & Rewards</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight mb-3">Your work gets noticed.</h2>
+        <p class="text-slate-500 max-w-xl text-sm leading-relaxed">
+          We have structured programs to recognise and reward the people who show up, step up and deliver — every month, every quarter, every module.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {rewards.map(r => (
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <div class="text-teal mb-3" set:html={r.icon} />
+            <h3 class="text-sm font-bold text-navy mb-2">{r.title}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">{r.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Multilingual welcome / team diversity -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Our Team</p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+            500+ people.<br class="hidden sm:block" /> One team.
+          </h2>
+          <p class="text-slate-300 leading-relaxed mb-8">
+            Our workforce spans five states and speaks more than a dozen languages. 58% of our team are women. 10% identify as Indigenous. We actively build an inclusive team, and we mean it.
+          </p>
+          <dl class="grid grid-cols-2 gap-4">
+            {[
+              { value: '500+', label: 'Direct employees' },
+              { value: '1,000+', label: 'Sites serviced daily' },
+              { value: '58%', label: 'Female workforce' },
+              { value: '10%', label: 'Indigenous participation' },
+              { value: '5', label: 'States operating' },
+              { value: '30+', label: 'Years in business' },
+            ].map(s => (
+              <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-3">
+                <dt class="text-2xl font-black text-teal leading-none">{s.value}</dt>
+                <dd class="text-xs text-slate-400 mt-1">{s.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <!-- Multilingual welcome -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 lg:p-8">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-5">Welcome to the team</p>
+          <div class="space-y-3">
+            {[
+              { lang: 'English',    text: 'Welcome to the team!' },
+              { lang: 'Spanish',    text: '¡Bienvenidos al equipo!' },
+              { lang: 'Portuguese', text: 'Bem-vindos à equipe!' },
+              { lang: 'Vietnamese', text: 'Chào mừng đến với đội ngũ!' },
+              { lang: 'Hindi',      text: 'टीम में आपका स्वागत है!' },
+              { lang: 'Filipino',   text: 'Maligayang pagdating sa koponan!' },
+              { lang: 'Mandarin',   text: '欢迎加入团队！' },
+              { lang: 'French',     text: 'Bienvenue dans l\'équipe!' },
+            ].map(w => (
+              <div class="flex items-baseline gap-3">
+                <span class="text-xs text-slate-500 w-20 flex-shrink-0">{w.lang}</span>
+                <span class="text-sm text-white font-medium">{w.text}</span>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-slate-500 mt-5 pt-4 border-t border-white/10">
+            Wherever you're from, whatever language you speak at home — you belong here.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Apply -->
+  <section class="bg-white py-16 lg:py-24" id="apply">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Apply</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight mb-4">
+          Ready to join the team?
+        </h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          We're always looking for great people, whether you're brand new to cleaning or an experienced professional looking to step into something more. You don't need years of experience to apply. We hire for reliability and attitude, and we train everything else.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-8">
+          Send your name, the state you're in, the type of work you're looking for, and any certifications or clearances you hold to our HR team. We'll take it from there.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 items-start">
+          <a
+            href="mailto:hr@cpclean.com.au"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-teal text-[#0a0f1a] font-bold text-sm rounded-lg hover:bg-teal-bright transition-colors"
+          >
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+            </svg>
+            hr@cpclean.com.au
+          </a>
+          <div class="text-sm text-slate-400 pt-2">
+            We reply to all applications. No application goes unread.
+          </div>
+        </div>
+
+        <!-- Relocation note -->
+        <div class="mt-10 bg-slate-50 border border-slate-200 rounded-xl p-5">
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">Relocation Opportunities</p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            CPC is currently growing in Brisbane, Sydney, Cairns and South NSW, with full-time opportunities available in Townsville for team members open to relocation. Relocation can be a great way to step into a new role and accelerate your career. Mention your interest in your email.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>

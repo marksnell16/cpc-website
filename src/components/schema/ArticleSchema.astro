@@ -1,0 +1,71 @@
+---
+interface Props {
+  title: string
+  description: string
+  publishDate: Date
+  lastUpdated?: Date
+  slug: string
+  cluster: string
+  readTime: number
+  primaryKeyword: string
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  lastUpdated,
+  slug,
+  cluster,
+  readTime,
+  primaryKeyword,
+} = Astro.props
+
+const siteUrl = 'https://cpclean.com.au'
+const url = `${siteUrl}/knowledge-hub/${slug}/`
+const imageUrl = `${siteUrl}/images/og-articles/${slug}.jpg` // ⚠️ PLACEHOLDER: add real OG images
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "keywords": primaryKeyword,
+  "url": url,
+  "datePublished": publishDate.toISOString().split('T')[0],
+  "dateModified": (lastUpdated ?? publishDate).toISOString().split('T')[0],
+  "author": {
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": "Commercial Property Cleaning"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": "Commercial Property Cleaning",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/images/logo/cpc-logo-white.svg`
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": imageUrl,
+    "width": 1200,
+    "height": 630
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url
+  },
+  "articleSection": cluster,
+  "timeRequired": `PT${readTime}M`,
+  "inLanguage": "en-AU",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".tldr-block"]
+  }
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

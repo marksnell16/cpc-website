@@ -1,0 +1,23 @@
+---
+interface Props {
+  summary: string
+  keyPoints?: string[]
+}
+
+const { summary, keyPoints = [] } = Astro.props
+---
+
+<aside class="tldr-block not-prose bg-navy/5 border-l-4 border-teal rounded-r-lg p-6 my-8" aria-label="Quick Answer">
+  <p class="text-xs font-bold tracking-widest uppercase text-teal mb-2">TL;DR — Quick Answer</p>
+  <p class="text-slate-800 font-medium leading-relaxed">{summary}</p>
+  {keyPoints.length > 0 && (
+    <ul class="mt-4 space-y-1">
+      {keyPoints.map(point => (
+        <li class="flex items-start gap-2 text-sm text-slate-700">
+          <span class="text-teal font-bold mt-0.5 shrink-0">✓</span>
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</aside>

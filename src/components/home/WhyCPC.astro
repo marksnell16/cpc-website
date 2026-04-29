@@ -1,0 +1,72 @@
+---
+const differentiators = [
+  {
+    label: 'Triple ISO Certified',
+    body: 'ISO 9001, 14001 and 45001: all three standards, audited annually by JAS-ANZ accredited bodies. One of very few commercial cleaning providers in Australia to hold all three simultaneously.',
+    icon: '◈',
+  },
+  {
+    label: 'Carbon Neutral Certified',
+    body: 'Carbon neutral certified through carbonneutral.com.au. Scope 1, 2 and 3 emissions measured, offset and renewed annually for every site CPC services. Not a pledge. A verified fact.',
+    icon: '◈',
+  },
+  {
+    label: '30 Years in Regulated Environments',
+    body: 'Founded 1995. Continuous, unbroken operation across government, defence, industrial and education sectors. Longevity in regulated environments is not common. We have the history.',
+    icon: '◈',
+  },
+  {
+    label: 'Modern Slavery Act Compliant',
+    body: 'Annual reporting obligation met and documented. Supply chain ethics audited. A mandatory requirement for government and large-corporate procurement. We have the paperwork ready.',
+    icon: '◈',
+  },
+]
+---
+
+<section class="bg-white py-20 lg:py-28 border-t border-slate-200" aria-label="Why CPC">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+      <!-- Left: statement -->
+      <div class="lg:sticky lg:top-24">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-4">Why CPC</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy leading-tight mb-6">
+          Compliance isn't a feature.<br />
+          It's the foundation.
+        </h2>
+        <p class="text-slate-500 leading-relaxed mb-8">
+          Procurement officers in regulated sectors aren't buying cleaning. They're buying certainty.
+          Certainty that the provider is audited, insured, ethical and capable of operating within their
+          compliance framework without adding risk.
+        </p>
+        <a
+          href="/due-diligence/"
+          class="inline-flex items-center px-6 py-3 bg-teal text-navy font-semibold text-sm rounded hover:bg-teal-bright transition-colors"
+        >
+          View our credentials →
+        </a>
+      </div>
+
+      <!-- Right: differentiator cards -->
+      <div class="space-y-4">
+        {differentiators.map(d => (
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-teal/10 border border-teal/20 flex items-center justify-center mt-0.5">
+                <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-navy mb-2">{d.label}</h3>
+                <p class="text-sm text-slate-500 leading-relaxed">{d.body}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>

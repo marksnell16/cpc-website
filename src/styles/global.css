@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@theme {
+  /* Navy — dark hero backgrounds, header, footer */
+  --color-navy:        #0a0f1a;
+  --color-navy-800:    #111827;
+  --color-navy-700:    #1e293b;
+
+  /* Teal — PRIMARY accent throughout */
+  --color-teal:        #14b8a6;
+  --color-teal-bright: #2dd4bf;
+  --color-teal-dark:   #0d9488;
+
+  /* Gold — TERTIARY only, used sparingly for key differentiator callouts */
+  --color-gold:        #f59e0b;
+
+  /* Blue — cluster C1, link colour */
+  --color-blue:        #3b82f6;
+
+  /* Text */
+  --color-text-primary: #374151;
+  --color-text-muted:   #94a3b8;
+  --color-text-light:   #e2e8f0;
+
+  /* Cluster colours — used via data-cluster CSS vars */
+  --color-cluster-government:  #3b82f6;
+  --color-cluster-industrial:  #f59e0b;
+  --color-cluster-education:   #f43f5e;
+  --color-cluster-carbon:      #10b981;
+  --color-cluster-procurement: #8b5cf6;
+  --color-cluster-technology:  #ec4899;
+
+  /* Typography — single Inter family */
+  --font-display: 'Inter Display', 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background: #ffffff;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.15;
+  }
+
+  h3, h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.3;
+  }
+
+  /* Teal grid overlay — used on hero sections */
+  .teal-grid-overlay {
+    background-image:
+      linear-gradient(rgba(20, 184, 166, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20, 184, 166, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Teal accent left border — used on H2s in content pages */
+  .teal-border-left {
+    border-left: 3px solid var(--color-teal);
+    padding-left: 0.75rem;
+  }
+
+  /* Cluster colour utilities — set --cluster-color on parent */
+  .cluster-border-top  { border-top:  3px solid var(--cluster-color, var(--color-teal)); }
+  .cluster-bg-light    { background:  var(--cluster-light, #f0fdf4); }
+  .cluster-text        { color:       var(--cluster-color, var(--color-teal)); }
+
+  /* Header scroll state — toggled by JS, defined here so Tailwind doesn't tree-shake */
+  .header-scrolled {
+    background-color: #0f172a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}

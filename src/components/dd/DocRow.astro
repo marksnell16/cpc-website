@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string
+  description: string
+  type: 'Policy' | 'Certificate' | 'Statement' | 'Report'
+  available?: boolean
+}
+
+const { title, description, type, available = true } = Astro.props
+
+const typeColors: Record<string, string> = {
+  Policy:      'bg-teal/10 text-teal border border-teal/20',
+  Certificate: 'bg-blue-50 text-blue-700 border border-blue-200',
+  Statement:   'bg-purple-50 text-purple-700 border border-purple-200',
+  Report:      'bg-amber-50 text-amber-700 border border-amber-200',
+}
+
+const availabilityLabel = available ? 'Available on request' : 'Published annually'
+const availabilityClass = available
+  ? 'text-slate-500'
+  : 'text-teal font-medium'
+---
+
+<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+  <td class="py-4 px-4 w-28 align-top">
+    <span class={`inline-block text-xs font-bold tracking-wide uppercase px-2 py-0.5 rounded ${typeColors[type] ?? 'bg-slate-100 text-slate-600'}`}>
+      {type}
+    </span>
+  </td>
+  <td class="py-4 px-4 align-top">
+    <p class="text-sm font-semibold text-navy mb-0.5">{title}</p>
+    <p class="text-sm text-slate-500 leading-relaxed">{description}</p>
+  </td>
+  <td class="py-4 px-4 text-right align-top whitespace-nowrap">
+    <span class={`text-xs ${availabilityClass}`}>{availabilityLabel}</span>
+  </td>
+</tr>

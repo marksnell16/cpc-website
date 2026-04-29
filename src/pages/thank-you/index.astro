@@ -1,0 +1,171 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+---
+
+<DefaultLayout
+  title="Thank You. Request Received. CPC"
+  description="Your proposal request has been received. A senior CPC team member will be in touch within 1 business day."
+  noindex={true}
+>
+
+  <!-- Hero -->
+  <section class="ty-hero">
+    <div class="ty-hero-inner">
+      <p class="ty-eyebrow">Request Received</p>
+      <h1 class="ty-h1">Thank you. we'll be in touch within 1 business day.</h1>
+      <p class="ty-sub">A senior CPC team member will review your enquiry and contact you to discuss your sites, sector, and procurement framework.</p>
+    </div>
+  </section>
+
+  <!-- Next steps -->
+  <section class="ty-next">
+    <div class="ty-next-inner">
+      <p class="ty-next-eyebrow">While You Wait</p>
+      <h2 class="ty-next-h2">Useful next steps</h2>
+      <div class="ty-cards">
+
+        <a href="/authority/iso-cleaning-provider/" class="ty-card">
+          <div class="ty-card-icon" aria-hidden="true">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+            </svg>
+          </div>
+          <h3 class="ty-card-title">Read about our compliance approach</h3>
+          <p class="ty-card-text">ISO 9001, 14001 and 45001 certification. what our management systems mean for your procurement due diligence.</p>
+          <span class="ty-card-link">Read more →</span>
+        </a>
+
+        <a href="/case-studies/" class="ty-card">
+          <div class="ty-card-icon" aria-hidden="true">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="ty-card-title">Browse our case studies</h3>
+          <p class="ty-card-text">Real outcomes from government, industrial, education and sustainability contracts across the national portfolio.</p>
+          <span class="ty-card-link">View case studies →</span>
+        </a>
+
+        <a href="/knowledge-hub/" class="ty-card">
+          <div class="ty-card-icon" aria-hidden="true">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="ty-card-title">Visit the Knowledge Hub</h3>
+          <p class="ty-card-text">30 articles on cleaning compliance, procurement evaluation, safety management and sector-specific requirements.</p>
+          <span class="ty-card-link">Explore articles →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<style is:global>
+  .ty-hero {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem 4rem;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+  }
+  .ty-hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ty-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .ty-h1 {
+    font-size: clamp(1.625rem, 3.5vw, 2.5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .ty-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  .ty-next {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .ty-next-inner { }
+  .ty-next-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.75rem;
+  }
+  .ty-next-h2 {
+    font-size: clamp(1.375rem, 2.5vw, 1.875rem);
+    font-weight: 800;
+    color: #0a0f1a;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .ty-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    .ty-cards { grid-template-columns: 1fr; }
+  }
+  .ty-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .ty-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .ty-card-icon {
+    margin-bottom: 1rem;
+  }
+  .ty-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    margin-bottom: 0.625rem;
+    line-height: 1.35;
+  }
+  .ty-card-text {
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .ty-card-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #14b8a6;
+    margin-top: auto;
+  }
+</style>

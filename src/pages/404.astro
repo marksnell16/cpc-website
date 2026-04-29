@@ -1,0 +1,70 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro'
+
+const links = [
+  { label: 'Home',              href: '/' },
+  { label: 'Knowledge Hub',     href: '/knowledge-hub/' },
+  { label: 'Due Diligence Hub', href: '/due-diligence/' },
+  { label: 'Case Studies',      href: '/case-studies/' },
+  { label: 'Get a Proposal',    href: '/request-a-proposal/' },
+  { label: 'Contact',           href: '/contact/' },
+]
+---
+
+<DefaultLayout
+  title="Page Not Found — CPC"
+  description="The page you're looking for doesn't exist. Find what you need from the links below."
+  noindex={true}
+>
+
+  <section class="min-h-[80vh] bg-[#0a0f1a] flex items-center">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-24 w-full">
+
+      <div class="max-w-2xl">
+
+        <p class="text-teal font-bold text-xs tracking-widest uppercase mb-6">404</p>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
+          This page doesn't exist.
+        </h1>
+
+        <p class="text-slate-400 text-lg leading-relaxed mb-12">
+          The URL may have changed, or the page was removed. Use the links below to find what you need.
+        </p>
+
+        <ul class="grid sm:grid-cols-2 gap-3 mb-12">
+          {links.map(l => (
+            <li>
+              <a
+                href={l.href}
+                class="flex items-center justify-between px-5 py-3.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-semibold hover:bg-white/10 hover:border-teal/30 hover:text-teal transition-all duration-150"
+              >
+                {l.label}
+                <svg class="w-4 h-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/"
+            class="inline-flex items-center px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors"
+          >
+            ← Back to home
+          </a>
+          <a
+            href="/contact/"
+            class="inline-flex items-center px-6 py-3 border border-white/20 text-white font-semibold text-sm rounded hover:bg-white/10 transition-colors"
+          >
+            Contact us
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</DefaultLayout>

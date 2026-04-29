@@ -1,0 +1,88 @@
+---
+const stats = [
+  { value: '500+',  label: 'Direct Employees',    sub: '58% female · 10% Indigenous' },
+  { value: '1000+', label: 'Sites Serviced Daily', sub: 'QLD · NSW · VIC · WA · SA' },
+  { value: '97%+',  label: 'Audit Pass Rate',      sub: 'Across all inspections' },
+  { value: '30+',   label: 'Years Operating',      sub: 'Founded 1995' },
+]
+
+const certs = [
+  { label: 'ISO 9001',    sub: 'Quality Mgmt',       iso: '9001',  isoColor: '#dc2626' },
+  { label: 'ISO 14001',   sub: 'Environmental',       iso: '14001', isoColor: '#16a34a' },
+  { label: 'ISO 45001',   sub: 'Safety Mgmt',         iso: '45001', isoColor: '#d97706' },
+  { label: 'JAS-ANZ',     sub: 'Accredited body',     img: '/images/logos/jas-anz.png' },
+  { label: '',            sub: '',                    img: '/images/logos/carbonneutral-dark.png', imgClass: 'flex-shrink-0 h-6 w-auto max-w-[110px] object-contain' },
+  { label: 'Social Procurement', sub: 'Indigenous Partners' },
+  { label: 'Modern Slavery',     sub: 'Act Compliant' },
+]
+---
+
+<div
+  class="bg-white border-t border-slate-200 shadow-sm md:min-h-[35vh] flex flex-col justify-center"
+  aria-label="Authority credentials"
+>
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-8 md:py-0 w-full">
+
+    <!-- Stats row -->
+    <dl class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-100">
+      {stats.map(s => (
+        <div class="bg-white px-6 py-5 text-center">
+          <dt class="text-4xl md:text-5xl font-bold text-teal leading-none">{s.value}</dt>
+          <dd class="mt-2 text-sm font-semibold text-navy">{s.label}</dd>
+          {s.sub && <dd class="mt-0.5 text-xs text-slate-400">{s.sub}</dd>}
+        </div>
+      ))}
+    </dl>
+
+    <!-- Divider -->
+    <div class="border-t border-slate-200 my-4"></div>
+
+    <!-- Cert badges row -->
+    <ul class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 divide-x divide-slate-200 border-x border-slate-200" role="list">
+      {certs.map(c => (
+        <li class="flex items-center justify-center gap-2 px-2.5 py-4 min-h-[60px]">
+
+          {c.iso ? (
+            <!-- ISO coloured badge icon -->
+            <div
+              class="flex-shrink-0 w-8 h-8 rounded flex flex-col items-center justify-center leading-none"
+              style={`background: ${c.isoColor}`}
+              aria-hidden="true"
+            >
+              <span class="text-white font-black text-[8px] tracking-tight">ISO</span>
+              <span class="text-white font-black text-[7px] tracking-tight">{c.iso}</span>
+            </div>
+          ) : c.img ? (
+            <!-- Logo image badge -->
+            <img src={c.img} alt="" class={c.imgClass ?? 'flex-shrink-0 w-8 h-8 object-contain'} aria-hidden="true" />
+          ) : (
+            <!-- Default teal tick -->
+            <div class="flex-shrink-0 w-5 h-5 rounded-full border border-teal/50 bg-teal/10 flex items-center justify-center">
+              <svg class="w-2.5 h-2.5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+          )}
+
+          {(c.label || c.sub) && (
+            <div class="min-w-0">
+              {c.label && <p class="text-xs font-bold text-slate-800 leading-tight">{c.label}</p>}
+              {c.sub && <p class={`text-xs text-slate-400 leading-tight${c.label ? ' mt-0.5' : ''}`}>{c.sub}</p>}
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- Scroll cue -->
+    <div class="flex flex-col items-center pt-4 pb-6 gap-2">
+      <div class="w-full h-px bg-slate-200"></div>
+      <a href="#main-content-below" aria-label="Scroll down" class="mt-1 text-slate-400 hover:text-teal transition-colors animate-bounce">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,183 @@
+---
+import DDHubLayout from '../../layouts/DDHubLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+---
+
+<DDHubLayout
+  title="Social Procurement: Modern Slavery, Indigenous Employment & Diversity — CPC Due Diligence Hub"
+  description="CPC's social procurement documentation: Modern Slavery Act compliance, 10% Indigenous workforce participation, 58% female workforce, and Commonwealth IPP compliance."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Due Diligence Hub', url: 'https://cpclean.com.au/due-diligence/' },
+    { name: 'Social Procurement', url: 'https://cpclean.com.au/due-diligence/social-procurement/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Social Procurement</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          Measurable social value.<br class="hidden sm:block" /> Documented and verified.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+          CPC's social procurement credentials are built into the business model, not assembled for tender submissions. Each metric below reflects how the organisation operates year-round.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="bg-navy-800 py-10 lg:py-12">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <p class="text-3xl font-black text-teal mb-1">10%</p>
+          <p class="text-sm text-slate-300 font-medium leading-snug">Indigenous workforce participation</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-black text-teal mb-1">58%</p>
+          <p class="text-sm text-slate-300 font-medium leading-snug">Female workforce</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-black text-teal mb-1">Annual</p>
+          <p class="text-sm text-slate-300 font-medium leading-snug">Modern Slavery Act reporting</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-black text-teal mb-1">IPP</p>
+          <p class="text-sm text-slate-300 font-medium leading-snug">Commonwealth compliant</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Slavery -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Compliance</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Modern Slavery Act Compliance</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          CPC is a reporting entity under the <em>Modern Slavery Act 2018</em> (Cth) and publishes an annual Modern Slavery Statement in accordance with the Act's seven mandatory criteria. The statement covers CPC's operations and supply chain, identifies modern slavery risks, and documents the actions taken to assess and address those risks.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          Supply chain mapping is conducted annually to identify tier-one and tier-two suppliers and assess the risk of modern slavery practices in each category. Supplier risk assessments use a combination of sector risk benchmarks, geographic risk factors and due diligence questionnaires for higher-risk suppliers.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          The Modern Slavery Statement is published annually and registered on the Australian Border Force Modern Slavery Register. Copies are available to procurement teams on request — contact <a href="mailto:compliance@cpclean.com.au" class="text-teal font-medium hover:underline">compliance@cpclean.com.au</a>.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          {[
+            { label: 'Supply chain mapping', detail: 'Annual review of tier-1 and tier-2 suppliers across all spend categories' },
+            { label: 'Risk assessment', detail: 'Sector and geographic risk scoring applied to all supplier categories' },
+            { label: 'Published statement', detail: 'Registered on the ABF Modern Slavery Register annually' },
+          ].map(item => (
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-100">
+              <p class="text-sm font-bold text-navy mb-1">{item.label}</p>
+              <p class="text-sm text-slate-600 leading-relaxed">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Indigenous Employment -->
+  <section class="bg-slate-50 py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Indigenous Engagement</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Indigenous Employment and Procurement</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          CPC maintains a 10% Indigenous workforce participation rate across direct employment — a figure that reflects a sustained commitment to Indigenous employment pathways rather than a headline target. The Indigenous Pathways Program provides structured entry-level employment, on-the-job training, and career progression support for Indigenous Australians across CPC's operational regions.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          In addition to direct employment, CPC directs a portion of its supply chain spend to Indigenous-owned businesses. Indigenous business spend is tracked and reported as part of CPC's annual social procurement reporting cycle, with targets and actuals provided to clients who have contractual Indigenous procurement obligations.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl border border-slate-200 p-6">
+            <p class="text-3xl font-black text-teal mb-2">10%</p>
+            <p class="text-sm font-bold text-navy mb-1">Indigenous Workforce Participation</p>
+            <p class="text-sm text-slate-600 leading-relaxed">Direct employment across all operational regions. Verified annually. Available as a reportable metric for government contracts with social procurement KPIs.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-6">
+            <p class="text-3xl font-black text-teal mb-2">IPP</p>
+            <p class="text-sm font-bold text-navy mb-1">Supply Chain Indigenous Business Spend</p>
+            <p class="text-sm text-slate-600 leading-relaxed">Procurement spend directed to Indigenous-owned suppliers tracked and reported. Supports clients in meeting their own Indigenous procurement policy obligations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workforce Diversity -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Diversity</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Workforce Diversity</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          58% of CPC's workforce of 274 staff — 159 people — are women. This reflects both the demographics of the cleaning industry and CPC's deliberate approach to inclusive recruitment and career development. Women hold supervisory and management positions across operations, contracts management and corporate functions.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          CPC's workforce includes people from over 40 cultural backgrounds. Recruitment processes are designed to be accessible to people for whom English is a second language, with safety training materials available in multiple languages across high-density cultural communities in each operational region.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { value: '58%', label: 'Female workforce' },
+            { value: '159', label: 'Women employed' },
+            { value: '40+', label: 'Cultural backgrounds' },
+            { value: '274', label: 'Total direct staff' },
+          ].map(stat => (
+            <div class="bg-slate-50 rounded-xl p-4 text-center border border-slate-100">
+              <p class="text-2xl font-black text-teal mb-1">{stat.value}</p>
+              <p class="text-xs text-slate-500 font-medium leading-snug">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Indigenous Procurement Policy -->
+  <section class="bg-slate-50 py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Commonwealth Compliance</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Indigenous Procurement Policy (Commonwealth)</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          The Commonwealth Indigenous Procurement Policy (IPP) requires Commonwealth entities to meet mandatory set-asides, targets for contracts in remote areas, and reporting obligations on Indigenous business spend. For suppliers providing cleaning services to Commonwealth entities, demonstrating alignment with the IPP is a standard evaluation criterion.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          CPC meets the requirements of the Commonwealth IPP through its Indigenous workforce participation program, Indigenous supply chain spend, and the reporting infrastructure to provide clients with the data they need for their own IPP reporting obligations. For contracts with specific IPP conditions, CPC can provide a tailored Indigenous Procurement Plan as part of the contract commencement process.
+        </p>
+        <p class="text-slate-600 leading-relaxed">
+          Procurement teams working on Commonwealth tenders with IPP requirements can contact <a href="mailto:compliance@cpclean.com.au" class="text-teal font-medium hover:underline">compliance@cpclean.com.au</a> for specific documentation, data and a draft Indigenous Procurement Plan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Enterprise Partnerships -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Supply Chain</p>
+        <h2 class="text-2xl font-bold text-navy mb-4">Social Enterprise Partnerships</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          CPC maintains active partnerships with social enterprises as part of its supply chain diversity program. Social enterprise procurement is tracked as a category within the annual social procurement reporting cycle, with spend attributed and available as a reportable metric for clients with social enterprise obligations in their contracts.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          For clients with specific social enterprise requirements — including state government contracts with mandated social enterprise spend targets — CPC can provide a social enterprise supply chain statement and supporting documentation as part of the contract administration process.
+        </p>
+        <p class="text-slate-600 leading-relaxed">
+          Full social procurement reporting — covering Indigenous employment, supply chain diversity, social enterprise spend and Modern Slavery compliance — is available to procurement teams as a single packaged document. Contact <a href="mailto:compliance@cpclean.com.au" class="text-teal font-medium hover:underline">compliance@cpclean.com.au</a> to request the Social Procurement Report.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DDHubLayout>

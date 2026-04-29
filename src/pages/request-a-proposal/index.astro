@@ -1,0 +1,496 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import ProposalForm from '../../components/forms/ProposalForm.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+---
+
+<DefaultLayout
+  title="Request a Proposal. Compliance-Driven Cleaning Programs. CPC"
+  description="Request a commercial cleaning proposal from CPC. tailored to your sector, sites and compliance obligations. Government, industrial, education and corporate enquiries welcome."
+  breadcrumbs={[
+    { name: "Home", url: "https://cpclean.com.au/" },
+    { name: "Request a Proposal", url: "https://cpclean.com.au/request-a-proposal/" },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="rfp-hero">
+    <div class="rfp-hero-inner">
+      <p class="rfp-eyebrow">Request a Proposal</p>
+      <h1 class="rfp-h1">Tell us about your sites and sector</h1>
+      <p class="rfp-sub">We'll design a compliance-driven cleaning program around your obligations. not a generic quote.</p>
+    </div>
+  </section>
+
+  <!-- Main content: form + sidebar -->
+  <section class="rfp-main">
+    <div class="rfp-main-inner">
+
+      <!-- Form column -->
+      <div class="rfp-form-col">
+        <div class="rfp-form-wrap">
+          <h2 class="rfp-form-heading">Your requirements</h2>
+          <ProposalForm subject="New Proposal Request. CPC Website" variant="full" submitButtonText="Submit Detailed Request →" />
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="rfp-sidebar">
+
+        <!-- What happens next -->
+        <div class="rfp-sidebar-card">
+          <p class="rfp-sidebar-eyebrow">What happens next</p>
+          <ol class="rfp-steps">
+            <li class="rfp-step">
+              <span class="rfp-step-n">1</span>
+              <span class="rfp-step-text">Your enquiry reaches our procurement team within the hour</span>
+            </li>
+            <li class="rfp-step">
+              <span class="rfp-step-n">2</span>
+              <span class="rfp-step-text">A senior team member calls you within 1 business day</span>
+            </li>
+            <li class="rfp-step">
+              <span class="rfp-step-n">3</span>
+              <span class="rfp-step-text">We discuss scope, sector requirements and compliance obligations</span>
+            </li>
+            <li class="rfp-step">
+              <span class="rfp-step-n">4</span>
+              <span class="rfp-step-text">You receive a tailored proposal addressing your specific procurement framework</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="rfp-trust-signals">
+          <p class="rfp-trust-eyebrow">Why CPC</p>
+          <ul class="rfp-badges">
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              ISO 9001 / 14001 / 45001 certified
+            </li>
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              Carbon Neutral certified
+            </li>
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              Modern Slavery Statement published annually
+            </li>
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              30+ years compliant operations
+            </li>
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              250+ government sites. QBuild Panel since 1997
+            </li>
+            <li class="rfp-badge">
+              <svg class="rfp-badge-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#14b8a6" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              Australian-owned and operated
+            </li>
+          </ul>
+          <div class="rfp-direct-contact">
+            <p class="rfp-direct-label">Prefer to call?</p>
+            <a href="tel:1300272888" class="rfp-direct-phone">1300 272 888</a>
+            <p class="rfp-direct-hours">8am – 6pm AEST, Monday – Friday</p>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- Why CPC for Regulated Procurement -->
+  <section class="rfp-why">
+    <div class="rfp-why-inner">
+      <p class="rfp-section-eyebrow">Sector Capability</p>
+      <h2 class="rfp-section-h2">Why CPC for regulated procurement</h2>
+      <div class="rfp-why-grid">
+
+        <a href="/authority/government-defence-cleaning/" class="rfp-why-card">
+          <p class="rfp-why-tag">Government &amp; Defence</p>
+          <h3 class="rfp-why-title">30+ years of government panel experience</h3>
+          <p class="rfp-why-text">QBuild Panel since 1997. Security clearance management. Reporting obligations. Metro, regional and remote coverage. The compliance infrastructure that government procurement requires.</p>
+          <span class="rfp-why-link">Read more →</span>
+        </a>
+
+        <a href="/authority/industrial-power-station-cleaning/" class="rfp-why-card">
+          <p class="rfp-why-tag">Industrial &amp; Resources</p>
+          <h3 class="rfp-why-title">WHS-controlled high-risk environments</h3>
+          <p class="rfp-why-text">Mining equipment maintenance facilities, power generation infrastructure, hazardous industrial environments. Permit-to-work integration. 24/7 mobilisation. ISO 45001 certified.</p>
+          <span class="rfp-why-link">Read more →</span>
+        </a>
+
+        <a href="/authority/carbon-neutral-cleaning/" class="rfp-why-card">
+          <p class="rfp-why-tag">Carbon Neutral &amp; ESG</p>
+          <h3 class="rfp-why-title">Scope 1, 2 and 3. site-level reporting</h3>
+          <p class="rfp-why-text">Proprietary CPC Carbon Neutral Calculator. 100% verified offset across every contract. Site-level emissions reporting for ESG and sustainability disclosure. Applicable to any contract type.</p>
+          <span class="rfp-why-link">Read more →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Related links -->
+  <section class="rfp-related">
+    <div class="rfp-related-inner">
+      <p class="rfp-section-eyebrow">More Resources</p>
+      <h2 class="rfp-section-h2">Before you submit. useful reading</h2>
+      <div class="rfp-related-cards">
+
+        <a href="/due-diligence/" class="rfp-related-card">
+          <p class="rfp-related-tag">Due Diligence</p>
+          <h3 class="rfp-related-title">Due Diligence Hub</h3>
+          <p class="rfp-related-text">All compliance credentials in one place. ISO certificates, Modern Slavery statement, WHS documentation. No request required.</p>
+          <span class="rfp-related-link">Access hub →</span>
+        </a>
+
+        <a href="/case-studies/" class="rfp-related-card">
+          <p class="rfp-related-tag">Evidence</p>
+          <h3 class="rfp-related-title">Case Studies</h3>
+          <p class="rfp-related-text">Government, industrial, education and carbon neutral. real outcomes from the national portfolio as proof of delivery capability.</p>
+          <span class="rfp-related-link">View case studies →</span>
+        </a>
+
+        <a href="/knowledge-hub/" class="rfp-related-card">
+          <p class="rfp-related-tag">Intelligence</p>
+          <h3 class="rfp-related-title">Knowledge Hub</h3>
+          <p class="rfp-related-text">30 articles on procurement evaluation, compliance standards, sector-specific requirements and technology. written for facility managers and procurement professionals.</p>
+          <span class="rfp-related-link">Browse articles →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<style is:global>
+  /* Hero */
+  .rfp-hero {
+    background: #0a0f1a;
+    padding: 4.5rem 1.5rem 3.5rem;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+  }
+  .rfp-hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .rfp-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .rfp-h1 {
+    font-size: clamp(1.625rem, 3.5vw, 2.5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .rfp-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  /* Main layout */
+  .rfp-main {
+    padding: 3rem 1.5rem 4rem;
+    background: #f8fafc;
+  }
+  .rfp-main-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .rfp-main-inner {
+      grid-template-columns: 1fr;
+    }
+    /* On mobile: sidebar appears above form */
+    .rfp-sidebar { order: -1; }
+  }
+
+  /* Form */
+  .rfp-form-wrap {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+  }
+  @media (max-width: 560px) {
+    .rfp-form-wrap { padding: 1.25rem; }
+  }
+  .rfp-form-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Sidebar */
+  .rfp-sidebar-card {
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .rfp-sidebar-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 1rem;
+  }
+  .rfp-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  .rfp-step {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .rfp-step-n {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #14b8a6;
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .rfp-step-text {
+    font-size: 0.875rem;
+    color: #334155;
+    line-height: 1.6;
+  }
+
+  /* Trust signals */
+  .rfp-trust-signals {
+    background: #f8fafc;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  .rfp-trust-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 1rem;
+  }
+  .rfp-badges {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .rfp-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #334155;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .rfp-badge-check { flex-shrink: 0; }
+  .rfp-direct-contact {
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+  .rfp-direct-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 0.25rem;
+  }
+  .rfp-direct-phone {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #14b8a6;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+  .rfp-direct-phone:hover { color: #0d9488; }
+  .rfp-direct-hours {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  /* Why CPC */
+  .rfp-why {
+    padding: 4rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+  }
+  .rfp-why-inner { max-width: 1100px; margin: 0 auto; }
+  .rfp-section-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.75rem;
+  }
+  .rfp-section-h2 {
+    font-size: clamp(1.375rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: #0a0f1a;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .rfp-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 768px) {
+    .rfp-why-grid { grid-template-columns: 1fr; }
+  }
+  .rfp-why-card {
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .rfp-why-card:hover {
+    border-color: #14b8a6;
+    box-shadow: 0 4px 16px rgba(20,184,166,0.1);
+  }
+  .rfp-why-tag {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.625rem;
+  }
+  .rfp-why-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    margin-bottom: 0.625rem;
+    line-height: 1.35;
+  }
+  .rfp-why-text {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .rfp-why-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #14b8a6;
+    margin-top: auto;
+  }
+
+  /* Related */
+  .rfp-related {
+    padding: 4rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #e5e7eb;
+  }
+  .rfp-related-inner { max-width: 1100px; margin: 0 auto; }
+  .rfp-related-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 768px) {
+    .rfp-related-cards { grid-template-columns: 1fr; }
+  }
+  .rfp-related-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  }
+  .rfp-related-card:hover {
+    border-color: #14b8a6;
+    box-shadow: 0 4px 16px rgba(20,184,166,0.08);
+    transform: translateY(-2px);
+  }
+  .rfp-related-tag {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 0.5rem;
+  }
+  .rfp-related-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+  }
+  .rfp-related-text {
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .rfp-related-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #14b8a6;
+    margin-top: auto;
+  }
+</style>

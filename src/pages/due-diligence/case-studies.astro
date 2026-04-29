@@ -1,0 +1,169 @@
+---
+import DDHubLayout from '../../layouts/DDHubLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const caseStudies = [
+  {
+    cluster: 'Government',
+    clusterColor: '#3b82f6',
+    title: '252 Sites Across Queensland. 28 Years of Compliant Government Cleaning',
+    metaLine: 'Government · Queensland Statewide · Since 1997',
+    href: '/case-studies/queensland-government-statewide/',
+    summary: 'CPC has held the Queensland Government statewide cleaning contract since 1997. spanning 252 sites across department offices, courthouses, transport facilities and public-facing agencies. The contract operates under formal KPI reporting, annual internal audits and third-party audit access. Procurement teams can access the full audit record, KPI performance history and the documented transition management plan from the original mobilisation.',
+    outcomes: [
+      '252 sites under continuous management since 1997',
+      'Zero contract lapses or regulatory findings in 28 years',
+      'ISO 9001, 14001 and 45001 compliant throughout',
+      'Full audit trail and KPI history available on request',
+    ],
+  },
+  {
+    cluster: 'Industrial',
+    clusterColor: '#f59e0b',
+    title: 'Live Industrial Environments. Mining, Resources and Heavy Industry Cleaning Capability',
+    metaLine: 'Industrial · National · Multi-site portfolio',
+    href: '/case-studies/industrial-resources-cleaning/',
+    summary: 'CPC\'s industrial cleaning portfolio covers mining operations, resources processing facilities and heavy industrial sites across Queensland, Western Australia and the Northern Territory. Industrial cleaning in live environments requires site-specific risk assessments, FIFO workforce capability, hazardous materials handling competency and integration with site safety management systems. This case study documents CPC\'s approach to each of these requirements.',
+    outcomes: [
+      'Active portfolio across QLD, WA and NT industrial sites',
+      'FIFO workforce capability with security-cleared staff',
+      'Site-specific WHS plans and induction processes for every site',
+      'Hazardous materials handling documented and auditable',
+    ],
+  },
+  {
+    cluster: 'Education',
+    clusterColor: '#f43f5e',
+    title: 'NSW Government Schools Panel. Cleaning Across Sydney Metro and Multi-Sector Education Capability',
+    metaLine: 'Education · NSW + Multi-Sector · Active Panel Position',
+    href: '/case-studies/education-multi-panel-capability/',
+    summary: 'CPC holds an active panel position for the NSW Government Schools cleaning panel. providing cleaning services to primary, secondary and specialist schools across Sydney Metro and surrounding regions. Education cleaning requires Working With Children screening for all staff, documented chemical safety procedures for environments shared with students, and reporting frameworks that satisfy both the Department of Education\'s requirements and CPC\'s own ISO obligations.',
+    outcomes: [
+      'Active NSW Government panel position',
+      '100% of staff with current Working With Children checks',
+      'Sector-specific chemical safety procedures for student environments',
+      'Dual reporting framework satisfying client and ISO requirements',
+    ],
+  },
+  {
+    cluster: 'Carbon',
+    clusterColor: '#10b981',
+    title: '100% Carbon Neutral Cleaning. Proprietary Calculation Across Scope 1, 2 and 3',
+    metaLine: 'Sustainability · Cross-sector · Applicable to all contracts',
+    href: '/case-studies/carbon-neutral-cleaning-program/',
+    summary: 'CPC developed a proprietary carbon emissions calculation methodology for commercial cleaning operations. covering Scope 1 direct emissions from vehicles and chemical manufacturing, Scope 2 purchased electricity, and Scope 3 value chain emissions from supply chain and waste. The methodology is independently verified under the carbonneutral.com.au program. Any CPC contract can be designated as carbon neutral, with a verified carbon neutral certificate issued for that specific contract.',
+    outcomes: [
+      'Carbon Neutral Certified certification held',
+      'Scope 1, 2 and 3 emissions independently verified',
+      'Carbon neutral status available for any CPC contract',
+      'Annual verification and renewal under carbon neutral program',
+    ],
+  },
+]
+---
+
+<DDHubLayout
+  title="Case Studies. Verified Outcomes from the National Portfolio. CPC Due Diligence Hub"
+  description="Four detailed case studies from CPC's national portfolio: Queensland Government 252-site contract, industrial mining cleaning, NSW Schools panel and carbon neutral program."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'Due Diligence Hub', url: 'https://cpclean.com.au/due-diligence/' },
+    { name: 'Case Studies', url: 'https://cpclean.com.au/due-diligence/case-studies/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Case Studies</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          Verified outcomes from<br class="hidden sm:block" /> the national portfolio.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
+          Four detailed case studies. government, industrial, education and carbon neutral. with documented outcomes, audit evidence and references available for each.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="bg-white py-12 lg:py-14 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-slate-600 leading-relaxed text-lg">
+          Each case study below represents an active contract or program from CPC's national portfolio with verifiable outcomes. For procurement teams requiring evidence of performance at scale. rather than capability claims. these case studies document what CPC has delivered, how it was managed, and what the audit record shows.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case study cards -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl space-y-8">
+        {caseStudies.map(cs => (
+          <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <!-- Cluster pill + meta -->
+            <div class="px-6 pt-6 pb-0 flex items-center justify-between flex-wrap gap-3">
+              <span
+                class="inline-block text-xs font-bold tracking-wide uppercase px-2.5 py-1 rounded-full"
+                style={`background:${cs.clusterColor}18; color:${cs.clusterColor}; border: 1px solid ${cs.clusterColor}30;`}
+              >
+                {cs.cluster}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">{cs.metaLine}</span>
+            </div>
+
+            <div class="p-6">
+              <h2 class="text-xl font-bold text-navy mb-3 leading-snug">{cs.title}</h2>
+              <p class="text-slate-600 leading-relaxed mb-5">{cs.summary}</p>
+
+              <!-- Outcomes list -->
+              <div class="bg-slate-50 rounded-lg p-4 mb-5 border border-slate-100">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Key outcomes</p>
+                <ul class="space-y-2">
+                  {cs.outcomes.map(outcome => (
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                      <span class="text-teal font-bold flex-none mt-0.5">✓</span>
+                      {outcome}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a
+                href={cs.href}
+                class="inline-flex items-center text-sm font-bold text-teal hover:underline"
+              >
+                View full case study →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Link to full case studies collection -->
+  <section class="bg-slate-50 py-12 lg:py-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 rounded-xl border border-slate-200 bg-white p-6 lg:p-8">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-1">Full Collection</p>
+          <h3 class="text-xl font-bold text-navy mb-1">Case Studies. Proof at Scale</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">The full case study collection, including additional sector-specific detail and supporting documentation.</p>
+        </div>
+        <a
+          href="/case-studies/"
+          class="flex-none inline-flex items-center px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors"
+        >
+          View all case studies →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DDHubLayout>

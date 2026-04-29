@@ -1,0 +1,327 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const timeline = [
+  {
+    year: '1995',
+    event: 'Founded in Queensland as a regional commercial cleaning operation.',
+  },
+  {
+    year: '1997',
+    event: 'Appointed to the QBuild Panel, beginning a continuous government relationship that remains our reference point for sector credibility.',
+  },
+  {
+    year: '2000s',
+    event: 'Expanded to Sydney, Melbourne and Perth as government procurement frameworks matured and ISO compliance became enforceable.',
+  },
+  {
+    year: '2010s',
+    event: 'Added Townsville office to support industrial and resources sector contracts across North Queensland and remote Australia. Achieved triple ISO certification across the full portfolio.',
+  },
+  {
+    year: '2018',
+    event: 'Published first Modern Slavery Statement under the Modern Slavery Act. Carbon Neutral certification achieved across Scope 1, 2 and 3 emissions.',
+  },
+  {
+    year: 'Today',
+    event: 'Five offices. National portfolio. 30+ years of management systems built under real compliance conditions, not assembled ahead of an audit.',
+    current: true,
+  },
+]
+
+const stats = [
+  { value: '30+', label: 'Years operating', sub: 'Founded 1995' },
+  { value: '5', label: 'State offices', sub: 'Brisbane · Sydney · Melbourne · Perth · Townsville' },
+  { value: '3×', label: 'ISO certified', sub: '9001 · 14001 · 45001' },
+  { value: '1997', label: 'QBuild Panel', sub: 'Continuous since' },
+]
+
+const certs = [
+  {
+    name: 'ISO 9001:2015',
+    label: 'Quality Management',
+    desc: 'Documented processes, measurable objectives, internal audit and management review. Certified by a JAS-ANZ accredited body and maintained continuously, not assembled at tender time.',
+    href: '/authority/iso-cleaning-provider/',
+    isoColor: '#dc2626',
+  },
+  {
+    name: 'ISO 14001:2015',
+    label: 'Environmental Management',
+    desc: 'Chemical management, waste reduction, carbon measurement and environmental risk control. Applies across all contract types and site classifications.',
+    href: '/authority/iso-cleaning-provider/',
+    isoColor: '#16a34a',
+  },
+  {
+    name: 'ISO 45001:2018',
+    label: 'Work Health & Safety',
+    desc: 'Hazard identification, risk control and safety performance across all site types, including high-risk industrial, remote and security-sensitive environments.',
+    href: '/authority/iso-cleaning-provider/',
+    isoColor: '#d97706',
+  },
+  {
+    name: 'Carbon Neutral',
+    label: 'carbon neutral Certified',
+    desc: '100% carbon neutral across Scope 1, 2 and 3 emissions. Annually certified via the CPC Carbon Neutral Calculator with verified offsets applied across the entire portfolio.',
+    href: '/authority/carbon-neutral-cleaning/',
+  },
+  {
+    name: 'Modern Slavery',
+    label: 'Annual Statement',
+    desc: 'Annual statement published under the Modern Slavery Act 2018. Covers supply chain due diligence, payroll compliance and workforce vetting across both direct employment and the contractor network.',
+    href: '/authority/modern-slavery-ethical-cleaning/',
+  },
+  {
+    name: 'Social Procurement',
+    label: 'Indigenous Partnerships',
+    desc: 'Indigenous employment targets, social enterprise supplier relationships and compliance with Commonwealth and state social procurement frameworks.',
+    href: '/due-diligence/social-procurement/',
+  },
+]
+---
+
+<DefaultLayout
+  title="About CPC: 30+ Years of Compliance-First Cleaning Across Australia"
+  description="Commercial Property Cleaning (CPC). Australian-owned, operating nationally since 1995. ISO 9001, 14001 and 45001 certified. Carbon Neutral. Modern Slavery compliant. QBuild Panel since 1997."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://cpclean.com.au/' },
+    { name: 'About', url: 'https://cpclean.com.au/about/' },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="bg-[#0a0f1a] py-20 lg:py-28">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-4">30+ Years · National Operations · Australian-Owned</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          Compliance-first cleaning, built for the environments that can't afford shortcuts.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mb-8">
+          Commercial Property Cleaning operates nationally across government, industrial, education, and carbon-sensitive environments — sectors where documented management systems are a baseline requirement, not a selling point.
+        </p>
+        <a href="/request-a-proposal/" class="inline-flex items-center px-6 py-3 bg-teal text-[#0a0f1a] font-bold text-sm rounded-lg hover:bg-teal-bright transition-colors">
+          Request a Proposal →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="bg-white border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <dl class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-slate-100">
+        {stats.map(s => (
+          <div class="px-6 py-8 text-center">
+            <dt class="text-4xl font-black text-teal leading-none">{s.value}</dt>
+            <dd class="mt-2 text-sm font-semibold text-navy">{s.label}</dd>
+            <dd class="mt-0.5 text-xs text-slate-400">{s.sub}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- Who We Are -->
+  <section class="bg-white py-16 lg:py-20 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Who We Are</p>
+        <div class="space-y-5 text-[1.0625rem] text-slate-700 leading-relaxed">
+          <p>
+            Commercial Property Cleaning (CPC) is an Australian-owned commercial cleaning company with over 30 years of national operations. We deliver cleaning services across government, industrial, education, corporate and carbon-sensitive environments — sectors where compliance, accountability and documented management systems are non-negotiable.
+          </p>
+          <p>
+            Our approach is compliance-first. ISO 9001, ISO 14001 and ISO 45001 provide the certified framework within which every contract operates. Carbon Neutral certification applies across our entire portfolio. A Modern Slavery Statement is published annually. These are not marketing credentials — they are operational systems that govern how the work is done.
+          </p>
+          <p>
+            From our Brisbane headquarters and four state offices, we coordinate cleaning programs across metropolitan, regional and remote Australia, including environments most cleaning providers have never operated in.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story — Timeline -->
+  <section class="bg-slate-50 py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Our Story</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight">How CPC grew into a national compliance provider</h2>
+      </div>
+
+      <div class="max-w-3xl">
+        <div class="relative">
+          <!-- Vertical line -->
+          <div class="absolute left-[4.5rem] top-3 bottom-3 w-px bg-slate-200 hidden sm:block" aria-hidden="true"></div>
+
+          <div class="space-y-0">
+            {timeline.map((entry, i) => (
+              <div class="relative flex gap-6 sm:gap-10 pb-10 last:pb-0">
+                <!-- Year marker -->
+                <div class="flex-shrink-0 w-16 sm:w-20 text-right pt-0.5">
+                  <span class={`text-sm font-black leading-none ${entry.current ? 'text-teal' : 'text-slate-400'}`}>
+                    {entry.year}
+                  </span>
+                </div>
+
+                <!-- Dot -->
+                <div class="relative flex-shrink-0 hidden sm:flex items-start justify-center w-2 pt-1.5">
+                  <div class={`w-2.5 h-2.5 rounded-full border-2 ${entry.current ? 'border-teal bg-teal' : 'border-slate-300 bg-white'}`}></div>
+                </div>
+
+                <!-- Content -->
+                <div class={`flex-1 pb-2 ${entry.current ? 'bg-teal/5 border border-teal/20 rounded-xl p-4 -mt-1' : ''}`}>
+                  <p class={`text-sm leading-relaxed ${entry.current ? 'text-navy font-medium' : 'text-slate-600'}`}>
+                    {entry.event}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Operate -->
+  <section class="bg-white py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">How We Operate</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight">Our model</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-6">
+
+        <div class="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-teal rounded-t-xl"></div>
+          <div class="text-teal mb-4 mt-1">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-navy mb-2">Documented Systems</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">ISO 9001, 14001 and 45001 certified management systems — documented, audited and maintained across the full portfolio. When a client requests compliance evidence, it exists because the system operates, not because the request prompted assembly of documentation.</p>
+        </div>
+
+        <div class="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-teal rounded-t-xl"></div>
+          <div class="text-teal mb-4 mt-1">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-navy mb-2">Vetted Workforce</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">Directly employed core staff combined with a vetted contractor network. All workforce members — employed or contracted — are screened, inducted and managed under the same credential and performance framework. The compliance obligation doesn't stop at direct employment.</p>
+        </div>
+
+        <div class="relative bg-white border border-slate-200 rounded-xl p-6 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-teal rounded-t-xl"></div>
+          <div class="text-teal mb-4 mt-1">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-navy mb-2">National Reach</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">Five offices coordinating delivery across metropolitan, regional and remote Australia. Geographic scale is not aspirational — it is demonstrated through 30+ years of active portfolio management across all coverage types, including environments that require security clearances and remote logistics.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Standards & Certifications -->
+  <section class="bg-slate-50 py-16 lg:py-24 border-b border-slate-100">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-12">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Standards</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight">Certifications and compliance frameworks</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {certs.map(c => (
+          <a href={c.href} class="group flex flex-col bg-white border border-slate-200 rounded-xl p-6 hover:border-teal/40 hover:shadow-md transition-all duration-200">
+            <div class="flex items-center gap-3 mb-3">
+              {c.isoColor ? (
+                <div class="flex-shrink-0 w-10 h-10 rounded flex flex-col items-center justify-center leading-none" style={`background:${c.isoColor}`}>
+                  <span class="text-white font-black text-[8px] tracking-tight">ISO</span>
+                  <span class="text-white font-black text-[8px] tracking-tight">{c.name.replace('ISO ','').replace(':2015','').replace(':2018','')}</span>
+                </div>
+              ) : (
+                <div class="flex-shrink-0 w-10 h-10 rounded bg-teal/10 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+              )}
+              <div>
+                <p class="text-sm font-bold text-navy leading-tight">{c.name}</p>
+                <p class="text-xs text-slate-400">{c.label}</p>
+              </div>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed flex-1 mb-4">{c.desc}</p>
+            <span class="text-xs font-bold text-teal group-hover:underline mt-auto">Read more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="bg-white py-16 lg:py-24 border-b border-slate-100" id="team">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="mb-10">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Leadership</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-navy leading-tight">Management team</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {[1,2,3].map(() => (
+          <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+            <div class="h-48 bg-slate-200 flex items-center justify-center">
+              <svg class="w-12 h-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+              </svg>
+            </div>
+            <div class="p-5">
+              <div class="h-4 w-32 bg-slate-200 rounded mb-2"></div>
+              <div class="h-3 w-24 bg-teal/20 rounded mb-3"></div>
+              <div class="space-y-1.5">
+                <div class="h-3 w-full bg-slate-100 rounded"></div>
+                <div class="h-3 w-4/5 bg-slate-100 rounded"></div>
+              </div>
+              <p class="text-xs text-slate-400 mt-3 italic">Photo and bio to be added</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Procurement Confidence -->
+  <section class="bg-[#0a0f1a] py-16 lg:py-24">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Procurement Confidence</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight mb-6">Built to withstand formal evaluation.</h2>
+        <div class="space-y-5 text-slate-300 leading-relaxed text-[1.0625rem] mb-10">
+          <p>
+            CPC is designed for the scrutiny that regulated sector procurement applies. Every compliance credential is maintained continuously. Every management system is audited annually by a JAS-ANZ accredited certification body. Every piece of evidence a procurement team needs — ISO certificates, WHS documentation, Modern Slavery statement, environmental records — is available through the Due Diligence Hub without requiring a formal request.
+          </p>
+          <p>
+            Transparency is a compliance strength, not a commercial risk. Procurement teams evaluating CPC have access to the same documentation our certification bodies and government clients see. That is the standard we operate to.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/due-diligence/" class="inline-flex items-center px-6 py-3 bg-teal text-[#0a0f1a] font-bold text-sm rounded-lg hover:bg-teal-bright transition-colors">
+            Access the Due Diligence Hub →
+          </a>
+          <a href="mailto:sales@cpclean.com.au" class="inline-flex items-center px-6 py-3 border border-white/20 text-white font-semibold text-sm rounded-lg hover:border-teal/60 hover:text-teal transition-colors">
+            sales@cpclean.com.au — response within 1 business day
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "cluster": {
+      "type": "string",
+      "enum": [
+        "government",
+        "industrial",
+        "education",
+        "carbon",
+        "procurement",
+        "technology"
+      ]
+    },
+    "articleCode": {
+      "type": "string"
+    },
+    "authorityPage": {
+      "type": "string"
+    },
+    "authorityPageUrl": {
+      "type": "string"
+    },
+    "primaryKeyword": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "publishDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "readTime": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "relatedArticles": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relatedAuthority": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "cluster",
+    "articleCode",
+    "authorityPage",
+    "authorityPageUrl",
+    "primaryKeyword",
+    "metaDescription",
+    "publishDate",
+    "readTime"
+  ]
+}

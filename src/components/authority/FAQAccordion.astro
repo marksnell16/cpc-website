@@ -1,0 +1,59 @@
+---
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+interface Props {
+  faqs: FAQItem[]
+}
+
+const { faqs } = Astro.props
+---
+
+<dl class="faq-list divide-y divide-slate-200">
+  {faqs.map((faq, i) => (
+    <div class="faq-item py-5">
+      <dt>
+        <button
+          class="faq-trigger flex items-center justify-between w-full text-left gap-4"
+          aria-expanded="false"
+          aria-controls={`faq-answer-${i}`}
+          id={`faq-trigger-${i}`}
+        >
+          <span class="text-base font-semibold text-[#0a0f1a] leading-snug">{faq.question}</span>
+          <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-slate-300 text-slate-400 faq-icon transition-transform duration-200">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </span>
+        </button>
+      </dt>
+      <dd
+        id={`faq-answer-${i}`}
+        role="region"
+        aria-labelledby={`faq-trigger-${i}`}
+        class="faq-answer hidden pt-3"
+      >
+        <p class="text-sm text-slate-600 leading-relaxed">{faq.answer}</p>
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>('.faq-trigger')
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const answerId = trigger.getAttribute('aria-controls')
+      const answer = answerId ? document.getElementById(answerId) : null
+      const icon = trigger.querySelector('.faq-icon')
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true'
+
+      trigger.setAttribute('aria-expanded', String(!isOpen))
+      answer?.classList.toggle('hidden', isOpen)
+      icon?.classList.toggle('rotate-180', !isOpen)
+    })
+  })
+</script>

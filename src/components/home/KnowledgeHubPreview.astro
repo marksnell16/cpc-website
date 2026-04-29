@@ -1,0 +1,80 @@
+---
+const articles = [
+  {
+    code: 'G1',
+    cluster: 'Government',
+    clusterColor: '#3b82f6',
+    title: 'How Government Cleaning Differs from Office Cleaning',
+    excerpt: 'Government facilities carry compliance obligations that standard commercial cleaning contracts do not address: procurement frameworks, security clearances, WHS Act duties and audit trails.',
+    readTime: 8,
+    href: '/knowledge-hub/government-vs-office-cleaning/',
+  },
+  {
+    code: 'P3',
+    cluster: 'Procurement',
+    clusterColor: '#8b5cf6',
+    title: 'The Difference Between Cheap and Compliant Cleaning',
+    excerpt: 'Low-price cleaning tenders hide downstream costs: failed audits, uninsured incidents, Modern Slavery Act exposure. What compliant procurement actually looks like on paper.',
+    readTime: 7,
+    href: '/knowledge-hub/cheap-vs-compliant-cleaning/',
+  },
+  {
+    code: 'CA1',
+    cluster: 'Carbon Neutral',
+    clusterColor: '#10b981',
+    title: 'What Is Carbon Neutral Cleaning?',
+    excerpt: 'A plain-language explanation of what carbon neutral cleaning means, what carbon neutral certification requires, and how to distinguish verified programs from marketing claims.',
+    readTime: 6,
+    href: '/knowledge-hub/what-is-carbon-neutral-cleaning/',
+  },
+]
+---
+
+<section class="bg-white py-20 lg:py-28 border-t border-slate-200" aria-label="Knowledge Hub">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Intelligence for Procurement Officers</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy leading-tight">Knowledge Hub</h2>
+        <p class="text-slate-500 mt-3 max-w-lg text-sm leading-relaxed">
+          30 articles across 6 clusters, written for facility managers and procurement teams, not general audiences.
+        </p>
+      </div>
+      <a href="/knowledge-hub/" class="text-sm font-semibold text-teal hover:text-teal-bright transition-colors flex-shrink-0">
+        All 30 articles →
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {articles.map(a => (
+        <a
+          href={a.href}
+          class="group block bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-teal/40 transition-all duration-200"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <span
+              class="inline-flex items-center text-xs font-bold tracking-wider px-2.5 py-1 rounded-full"
+              style={`background: ${a.clusterColor}18; color: ${a.clusterColor}`}
+            >
+              {a.cluster}
+            </span>
+            <span class="text-xs text-slate-400 font-mono">{a.readTime} min</span>
+          </div>
+
+          <h3 class="text-sm font-semibold text-navy leading-snug mb-3 group-hover:text-teal transition-colors">
+            {a.title}
+          </h3>
+          <p class="text-xs text-slate-500 leading-relaxed mb-5">
+            {a.excerpt}
+          </p>
+
+          <span class="text-xs text-teal font-semibold group-hover:text-teal-bright transition-colors">
+            Read article →
+          </span>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>

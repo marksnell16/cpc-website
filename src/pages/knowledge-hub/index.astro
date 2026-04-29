@@ -1,0 +1,350 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DualCTA from '../../components/global/DualCTA.astro'
+
+const articles = [
+  // Government cluster
+  { cluster: "Government", clusterColor: "#3b82f6", title: "How Government Cleaning Differs from Office Cleaning", excerpt: "Compliance requirements, reporting obligations, workforce credentials and the accountability frameworks that separate government from commercial cleaning.", href: "/knowledge-hub/government-vs-office-cleaning/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "What Standards Apply in Government Cleaning Contracts?", excerpt: "ISO management systems, WHS legislation, modern slavery obligations and social procurement requirements. the layered standards framework for government cleaning.", href: "/knowledge-hub/standards-government-cleaning/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "Cleaning as a Compliance Function", excerpt: "Why cleaning in regulated environments is a compliance obligation with legal consequences, not just a maintenance service.", href: "/knowledge-hub/cleaning-as-compliance-function/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "Red Flags in Cleaning Tenders", excerpt: "Pricing anomalies, missing documentation and vague management descriptions. the signals that indicate compliance gaps before contract award.", href: "/knowledge-hub/red-flags-cleaning-tenders/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "The Government Cleaning Procurement Process", excerpt: "Pre-qualification, panel frameworks, evaluation methodology and contract management. how government cleaning procurement works in practice.", href: "/knowledge-hub/government-cleaning-procurement-process/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "Security Clearances in Government Cleaning", excerpt: "Baseline security checks, facility security clearances and ongoing credential management in Australian government facility cleaning.", href: "/knowledge-hub/security-clearances-cleaning/" },
+  { cluster: "Government", clusterColor: "#3b82f6", title: "KPIs for Government Cleaning Contracts", excerpt: "Audit score thresholds, defect response times, attendance compliance and reporting KPIs. what enforceable performance measurement looks like.", href: "/knowledge-hub/cleaning-kpis-government-contracts/" },
+  // Industrial cluster
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Cleaning Power Stations and Energy Infrastructure", excerpt: "Permit-to-work compliance, coal dust management and outage coordination. what power station cleaning requires from a provider.", href: "/knowledge-hub/cleaning-power-stations/" },
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Manufacturing Plant Cleaning. Compliance and Safety Requirements", excerpt: "Site-specific risk management, chemical handling protocols and production schedule integration in manufacturing cleaning.", href: "/knowledge-hub/manufacturing-cleaning-compliance/" },
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Cleaning for Mining and Resources Operations", excerpt: "FIFO camp management, silica dust protocols and remote site logistics in mining sector cleaning.", href: "/knowledge-hub/mining-resources-cleaning/" },
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Food Production Facility Cleaning Standards", excerpt: "HACCP alignment, allergen management and regulatory compliance. the cleaning standards that govern food manufacturing environments.", href: "/knowledge-hub/food-production-cleaning-standards/" },
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Warehouse and Distribution Centre Cleaning", excerpt: "High-volume floor maintenance, forklift traffic management and pest prevention in warehouse and DC environments.", href: "/knowledge-hub/warehouse-distribution-cleaning/" },
+  { cluster: "Industrial", clusterColor: "#f59e0b", title: "Cleaning in Hazardous Industrial Environments", excerpt: "Respiratory hazards, working at heights, confined space entry and heat stress. managing safety in high-risk industrial cleaning.", href: "/knowledge-hub/hazardous-environment-cleaning/" },
+  // Education cluster
+  { cluster: "Education", clusterColor: "#f43f5e", title: "Working with Children Checks in School Cleaning", excerpt: "WWCC requirements, credential management and what happens when a check expires mid-contract.", href: "/knowledge-hub/wwcc-cleaning-schools-tafe/" },
+  { cluster: "Education", clusterColor: "#f43f5e", title: "Term-Aligned Cleaning Schedules for Schools", excerpt: "How school term structures, holiday periods and event cleaning requirements should shape education facility cleaning programs.", href: "/knowledge-hub/term-aligned-cleaning-schedules/" },
+  { cluster: "Education", clusterColor: "#f43f5e", title: "TAFE vs School Cleaning Requirements", excerpt: "How cleaning requirements differ between vocational education campuses and primary and secondary schools.", href: "/knowledge-hub/tafe-vs-school-cleaning-requirements/" },
+  { cluster: "Education", clusterColor: "#f43f5e", title: "Student Safety and Cleaning Protocols in Schools", excerpt: "Cleaning product selection, access management and infection control protocols in active school environments.", href: "/knowledge-hub/student-safety-cleaning-protocols/" },
+  // Carbon cluster
+  { cluster: "Carbon", clusterColor: "#10b981", title: "What Is Carbon Neutral Cleaning?", excerpt: "Measuring emissions, reducing them at source and offsetting the remainder. the three components of a credible carbon neutral claim.", href: "/knowledge-hub/what-is-carbon-neutral-cleaning/" },
+  { cluster: "Carbon", clusterColor: "#10b981", title: "carbon neutral Certification for Cleaning Contractors", excerpt: "What carbon neutral certification requires, how the audit process works, and why it is the benchmark for carbon neutral claims.", href: "/knowledge-hub/climate-active-certification-cleaning/" },
+  { cluster: "Carbon", clusterColor: "#10b981", title: "Scope 1, 2 and 3 Emissions in Cleaning Operations", excerpt: "Vehicle fleet, electricity use and supply chain. how greenhouse gas emissions are categorised and measured in a cleaning business.", href: "/knowledge-hub/scope-emissions-cleaning-reporting/" },
+  { cluster: "Carbon", clusterColor: "#10b981", title: "Sustainable Cleaning Supply Chain", excerpt: "Product selection, supplier assessment and Scope 3 emission management. building a cleaning supply chain aligned to carbon reduction.", href: "/knowledge-hub/sustainable-cleaning-supply-chain/" },
+  // Procurement cluster
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "Cheap vs Compliant Cleaning. The True Cost of Lowest Bid", excerpt: "The compliance gap that is invisible on the day and costly at audit. what lowest-bid cleaning actually omits.", href: "/knowledge-hub/cheap-vs-compliant-cleaning/" },
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "Modern Slavery Compliance in Commercial Cleaning", excerpt: "Workforce vetting, award payroll systems and supply chain due diligence. what genuine modern slavery compliance requires.", href: "/knowledge-hub/modern-slavery-compliance-cleaning/" },
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "Social Procurement and Indigenous Engagement in Cleaning Contracts", excerpt: "Indigenous employment targets, social enterprise supplier relationships and First Nations procurement policies in cleaning.", href: "/knowledge-hub/social-procurement-cleaning/" },
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "Why ISO Certification Matters for Cleaning Providers", excerpt: "What ISO 9001, 14001 and 45001 certification requires, what it costs and what a procurement team can verify from a certificate.", href: "/knowledge-hub/iso-certification-cleaning-providers/" },
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "How to Evaluate a Cleaning Contract Tender Submission", excerpt: "The evaluation methodology that identifies compliance gaps, pricing anomalies and management capability before contract award.", href: "/knowledge-hub/cleaning-contract-tender-evaluation/" },
+  { cluster: "Procurement", clusterColor: "#8b5cf6", title: "National Cleaning Contracts vs Regional Providers", excerpt: "Genuine national coverage versus a head-office-coordinated subcontractor network. the questions that reveal the difference.", href: "/knowledge-hub/national-cleaning-contracts-vs-regional/" },
+  // Technology cluster
+  { cluster: "Technology", clusterColor: "#ec4899", title: "AI in Commercial Cleaning. What's Real and What's Hype", excerpt: "Scheduling optimisation, quality analytics and contract management AI. current operational applications versus speculative claims.", href: "/knowledge-hub/ai-commercial-cleaning/" },
+  { cluster: "Technology", clusterColor: "#ec4899", title: "Cleaning Robotics and Automation in Large Facilities", excerpt: "Where autonomous cleaning systems are deployed now, what they replace and what they require from the human workforce alongside them.", href: "/knowledge-hub/cleaning-robotics-automation/" },
+  { cluster: "Technology", clusterColor: "#ec4899", title: "IoT and Real-Time Monitoring in Cleaning Operations", excerpt: "Occupancy sensors, consumable monitors and attendance systems. how IoT data changes cleaning scheduling and performance evidence.", href: "/knowledge-hub/iot-monitoring-cleaning-operations/" },
+]
+
+const clusters = ["All", "Government", "Industrial", "Education", "Carbon", "Procurement", "Technology"]
+const clusterColors: Record<string, string> = {
+  Government: "#3b82f6",
+  Industrial: "#f59e0b",
+  Education: "#f43f5e",
+  Carbon: "#10b981",
+  Procurement: "#8b5cf6",
+  Technology: "#ec4899",
+}
+---
+
+<DefaultLayout
+  title="Knowledge Hub. Insights for Procurement and Compliance Teams. CPC"
+  description="30 articles across Government, Industrial, Education, Carbon, Procurement and Technology clusters. intelligence for facility managers, procurement teams and compliance officers."
+  breadcrumbs={[
+    { name: "Home", url: "https://cpclean.com.au/" },
+    { name: "Knowledge Hub", url: "https://cpclean.com.au/knowledge-hub/" },
+  ]}
+>
+
+  <!-- Hero -->
+  <section class="kh-hero">
+    <div class="kh-hero-inner">
+      <p class="kh-eyebrow">KNOWLEDGE HUB</p>
+      <h1 class="kh-h1">Insights for Procurement and Compliance Teams</h1>
+      <p class="kh-sub">Sector-specific guidance on cleaning compliance, procurement evaluation, safety management and emerging technology. written for facility managers and procurement professionals operating in regulated environments.</p>
+    </div>
+  </section>
+
+  <!-- Filter bar -->
+  <div class="kh-filter-wrap" id="filter-bar">
+    <div class="kh-filter-inner">
+      <!-- Row 1: cluster buttons -->
+      <div class="kh-cluster-row">
+        {clusters.map(c => (
+          <button
+            class={`kh-filter-btn${c === "All" ? " active" : ""}`}
+            data-cluster={c}
+            style={c !== "All" ? `--btn-color:${clusterColors[c]}` : ""}
+            onclick="setCluster(this)"
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+      <!-- Row 2: search -->
+      <div class="kh-search-wrap">
+        <svg class="kh-search-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          id="kh-search"
+          type="search"
+          placeholder="Search 30 articles — try 'ISO', 'carbon' or 'procurement'…"
+          class="kh-search-input"
+          aria-label="Search articles"
+          oninput="applyFilters()"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Article grid -->
+  <section class="kh-grid-section">
+    <div class="kh-grid" id="article-grid">
+      {articles.map(a => (
+        <a
+          href={a.href}
+          class="kh-card"
+          data-cluster={a.cluster}
+        >
+          <span
+            class="kh-cluster-pill"
+            style={`background:${a.clusterColor}18;color:${a.clusterColor};border:1px solid ${a.clusterColor}30`}
+          >
+            {a.cluster}
+          </span>
+          <h2 class="kh-card-title">{a.title}</h2>
+          <p class="kh-card-excerpt">{a.excerpt}</p>
+          <span class="kh-read-link">→ Read article</span>
+        </a>
+      ))}
+    </div>
+    <p class="kh-no-results" id="no-results" style="display:none">No articles in this cluster.</p>
+  </section>
+
+  <DualCTA />
+
+</DefaultLayout>
+
+<style is:global>
+  /* Hero */
+  .kh-hero {
+    background: #0a0f1a;
+    padding: 5rem 1.5rem 4rem;
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+  }
+  .kh-hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .kh-eyebrow {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #00d4aa;
+    margin-bottom: 1rem;
+  }
+  .kh-h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .kh-sub {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Filter bar */
+  .kh-filter-wrap {
+    position: sticky;
+    top: 65px;
+    z-index: 40;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.875rem 1.5rem 1rem;
+  }
+  .kh-filter-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .kh-cluster-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .kh-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .kh-search-icon {
+    position: absolute;
+    left: 0.875rem;
+    color: #9ca3af;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+  .kh-search-input {
+    width: 100%;
+    padding: 0.625rem 1rem 0.625rem 2.5rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid #e5e7eb;
+    background: #f9fafb;
+    color: #374151;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .kh-search-input::placeholder { color: #9ca3af; }
+  .kh-search-input:focus {
+    border-color: #00d4aa;
+    box-shadow: 0 0 0 3px rgba(0,212,170,0.12);
+    background: #fff;
+  }
+  .kh-search-input::-webkit-search-cancel-button { cursor: pointer; }
+  .kh-filter-btn {
+    padding: 0.375rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
+    color: #374151;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .kh-filter-btn:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+  }
+  .kh-filter-btn.active {
+    background: var(--btn-color, #0a0f1a);
+    border-color: var(--btn-color, #0a0f1a);
+    color: #fff;
+  }
+
+  /* Grid section */
+  .kh-grid-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .kh-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) {
+    .kh-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .kh-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Card */
+  .kh-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .kh-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+  }
+  .kh-cluster-pill {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    margin-bottom: 0.875rem;
+    width: fit-content;
+  }
+  .kh-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0f1a;
+    line-height: 1.35;
+    margin-bottom: 0.625rem;
+  }
+  .kh-card-excerpt {
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+  .kh-read-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #00d4aa;
+    text-decoration: none;
+    margin-top: auto;
+  }
+
+  /* No results */
+  .kh-no-results {
+    text-align: center;
+    color: #6b7280;
+    padding: 3rem 0;
+    font-size: 1rem;
+  }
+</style>
+
+<script is:inline>
+  let _cluster = 'All'
+
+  function setCluster(btn) {
+    _cluster = btn.dataset.cluster
+    document.querySelectorAll('.kh-filter-btn').forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    applyFilters()
+  }
+
+  function applyFilters() {
+    const query = (document.getElementById('kh-search').value || '').toLowerCase().trim()
+    const cards = document.querySelectorAll('.kh-card')
+    let visible = 0
+    cards.forEach(card => {
+      const clusterMatch = _cluster === 'All' || card.dataset.cluster === _cluster
+      const text = (card.querySelector('.kh-card-title')?.textContent + ' ' + card.querySelector('.kh-card-excerpt')?.textContent).toLowerCase()
+      const searchMatch = !query || text.includes(query)
+      const show = clusterMatch && searchMatch
+      card.style.display = show ? '' : 'none'
+      if (show) visible++
+    })
+    document.getElementById('no-results').style.display = visible === 0 ? '' : 'none'
+  }
+
+  // keep backward compat if anything still calls filterArticles
+  function filterArticles(btn) { setCluster(btn) }
+</script>
