@@ -8,11 +8,11 @@ export default defineConfig({
   site: 'https://cpclean.com.au',
   output: 'static',
   redirects: {
-    '/authority/': '/knowledge-hub/',
+    '/authority/': '/about/',
     '/authority/carbon-neutral-sustainable-cleaning/': '/authority/carbon-neutral-cleaning/',
-    '/knowledge-hub/eco-cleaning-products-effective/': '/knowledge-hub/sustainable-cleaning-supply-chain/',
-    '/knowledge-hub/measure-cleaning-emissions/': '/knowledge-hub/scope-emissions-cleaning-reporting/',
-    '/knowledge-hub/what-iso-compliant-cleaning-means/': '/knowledge-hub/iso-certification-cleaning-providers/'
+    '/knowledge-hub/eco-cleaning-products-effective/': '/knowledge-hub/',
+    '/knowledge-hub/measure-cleaning-emissions/': '/knowledge-hub/',
+    '/knowledge-hub/what-iso-compliant-cleaning-means/': '/knowledge-hub/'
   },
   vite: {
     plugins: [tailwindcss()]

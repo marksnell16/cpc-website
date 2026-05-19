@@ -31,8 +31,8 @@ const isContact = variant === 'contact'
   <input type="hidden" name="redirect" value="/thank-you/" />
   <!-- Honeypot anti-spam -->
   <input type="checkbox" name="botcheck" class="pf-honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" />
-  <!-- Cloudflare Turnstile token (populated after CAPTCHA passes) -->
-  <input type="hidden" name="cf-turnstile-response" id="captcha-token" />
+  <!-- Cloudflare Turnstile token (client-side gate only, not verified by Web3Forms) -->
+  <input type="hidden" name="captcha_token" id="captcha-token" />
 
   {!isContact && (
     <p class="pf-intro-note">
