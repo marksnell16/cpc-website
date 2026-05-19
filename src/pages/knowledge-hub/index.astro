@@ -94,7 +94,7 @@ const clusterColors: Record<string, string> = {
         <input
           id="kh-search"
           type="search"
-          placeholder="Search 30 articles — try 'ISO', 'carbon' or 'procurement'…"
+          placeholder="Search 30 articles. Try 'ISO', 'carbon' or 'procurement'…"
           class="kh-search-input"
           aria-label="Search articles"
           oninput="applyFilters()"
@@ -347,4 +347,16 @@ const clusterColors: Record<string, string> = {
 
   // keep backward compat if anything still calls filterArticles
   function filterArticles(btn) { setCluster(btn) }
+
+  // Hash-based auto-filter: /knowledge-hub/#government activates the Government cluster
+  function applyHashFilter() {
+    const hash = window.location.hash.replace('#', '')
+    if (!hash) return
+    const label = hash.charAt(0).toUpperCase() + hash.slice(1)
+    const btn = document.querySelector(`.kh-filter-btn[data-cluster="${label}"]`)
+    if (btn) setCluster(btn)
+  }
+
+  applyHashFilter()
+  window.addEventListener('hashchange', applyHashFilter)
 </script>

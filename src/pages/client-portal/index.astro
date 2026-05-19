@@ -1,0 +1,251 @@
+---
+import DefaultLayout from '../../layouts/DefaultLayout.astro'
+---
+
+<DefaultLayout
+  title="Client Portal. CPC Command Centre"
+  description="Access the CPC Command Centre. Real-time audit scores, performance data, carbon neutral reporting, compliance documents and an AI-powered performance assistant, available to all CPC contract clients."
+  noindex={true}
+>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <section class="bg-[#0a0f1a]">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 pt-16 pb-0">
+      <div class="max-w-3xl pt-12 pb-8">
+
+        <div class="flex items-center gap-2.5 mb-5">
+          <span class="text-xs font-bold tracking-widest uppercase text-teal">Client Portal</span>
+          <span class="text-xs text-slate-600 font-mono">· Authorised clients only</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-white leading-tight mb-5">
+          CPC Command Centre
+        </h1>
+
+        <p class="text-lg text-slate-400 leading-relaxed mb-8 max-w-2xl">
+          Your secure performance and compliance dashboard. Audit scores, carbon reporting, compliance documents, invoicing and an AI assistant that knows your contract, included on every CPC engagement from day one.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-12">
+          <a
+            href="https://dashboard.cpcgroupglobal.com/dashboard-live/client"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors shadow-lg"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            Log in to Command Centre
+          </a>
+          <a
+            href="/contact/"
+            class="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white font-semibold text-sm rounded hover:bg-white/10 transition-colors"
+          >
+            Request Portal Access
+          </a>
+        </div>
+      </div>
+
+      <!-- ── DASHBOARD PREVIEW MOCKUP ───────────────────────────────────── -->
+      <div class="rounded-t-2xl overflow-hidden border border-white/10 border-b-0 shadow-2xl" aria-hidden="true">
+
+        <!-- Top bar -->
+        <div class="bg-[#1e293b] px-5 py-3 flex items-center justify-between border-b border-white/10">
+          <div class="flex items-center gap-3">
+            <span class="text-sm font-black text-white">CPC<span class="text-teal">.</span></span>
+            <span class="text-xs text-slate-400">Command Centre</span>
+          </div>
+          <div class="text-xs text-slate-500">Sarah Jones &nbsp;·&nbsp; Dept of Infrastructure &nbsp;<span class="text-teal cursor-pointer">Sign Out</span></div>
+        </div>
+
+        <!-- Nav tabs -->
+        <div class="bg-[#0f172a] px-5 py-2.5 flex items-center gap-2 border-b border-white/8 overflow-x-auto">
+          {[
+            { label: 'Dashboard',      icon: '📊', active: true  },
+            { label: 'Performance',    icon: '✅', active: false },
+            { label: 'Carbon Neutral', icon: '🌿', active: false },
+            { label: 'Reports',        icon: '📄', active: false },
+            { label: 'Invoicing',      icon: '💰', active: false },
+            { label: 'Compliance',     icon: '🛡️', active: false },
+            { label: 'AI Assistant',   icon: '🤖', active: false },
+          ].map(tab => (
+            <div class={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap ${tab.active ? 'bg-blue-600 text-white' : 'text-slate-400 bg-slate-800/60'}`}>
+              <span>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- KPI cards -->
+        <div class="bg-[#0a0f1a] px-5 py-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { value: '94.2',  label: 'Audit Score',   color: 'text-white'       },
+            { value: '14',    label: 'Active Sites',   color: 'text-white'       },
+            { value: '3',     label: 'Open Defects',  color: 'text-amber-400'   },
+            { value: '100%',  label: 'Carbon Offset', color: 'text-emerald-400' },
+          ].map(kpi => (
+            <div class="bg-[#1e293b] rounded-lg px-4 py-3 text-center border border-white/5">
+              <div class={`text-2xl font-black mb-0.5 ${kpi.color}`}>{kpi.value}</div>
+              <div class="text-xs text-slate-500">{kpi.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Fake chart row -->
+        <div class="bg-[#0a0f1a] px-5 pb-6 grid sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2 bg-[#1e293b] rounded-lg p-4 border border-white/5">
+            <div class="text-xs text-slate-500 mb-3">12-month audit score trend</div>
+            <div class="flex items-end gap-1 h-12">
+              {[82,85,87,84,89,90,88,91,93,92,94,94].map((h, i) => (
+                <div class="flex-1 rounded-sm bg-teal/40" style={`height: ${h}%`}></div>
+              ))}
+            </div>
+          </div>
+          <div class="bg-[#1e293b] rounded-lg p-4 border border-white/5">
+            <div class="text-xs text-slate-500 mb-3">Sites by status</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-400"></div><div class="text-xs text-slate-300 flex-1">Passing</div><div class="text-xs font-bold text-white">11</div></div>
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-amber-400"></div><div class="text-xs text-slate-300 flex-1">Needs Attention</div><div class="text-xs font-bold text-white">3</div></div>
+              <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-teal"></div><div class="text-xs text-slate-300 flex-1">Carbon Neutral</div><div class="text-xs font-bold text-white">14/14</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#0a0f1a] px-5 pb-3">
+          <p class="text-xs text-slate-600 text-center">Live preview of the Command Centre dashboard</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7 MODULES ─────────────────────────────────────────────────────────── -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+
+      <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">What's Inside</p>
+      <h2 class="text-3xl font-bold text-[#0a0f1a] mb-3">Seven modules. One portal.</h2>
+      <p class="text-slate-500 text-lg mb-12 max-w-2xl">Every module is included on every CPC contract from day one. No add-ons, no configuration fees, no waiting for reports to be manually compiled.</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">📊</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Dashboard</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Live KPI headline cards showing audit score, active site count, open defects and carbon offset status. 12-month audit score trend, monthly defects chart and full portfolio snapshot with score bars and status badges.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">✅</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Performance</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">All sites listed with audit scores and pass/fail status. Filter by All, Needs Attention or Passing. Active defects register with priority flags, raise date and SLA status. Defect resolution tracking and monthly performance trend per site.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">🌿</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Carbon Neutral</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Monthly emissions versus offsets chart. Scope 1, 2 and 3 breakdown with progress bars. Verified offset registry showing project names, registry IDs, volumes and vintage years. Carbon neutral status badge and downloadable client-level emissions report.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">📄</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Reports</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Full report library covering performance, audit, sustainability, compliance and annual reports. Each with period, generation date and PDF download. Custom report request panel with type and date range selection.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">💰</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Invoicing</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Monthly contract value, YTD invoiced, outstanding balance and next invoice date. Full invoice history with paid and due status. Contract details panel covering number, period, sites, account manager contact and payment terms.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-6">
+          <div class="text-2xl mb-3" aria-hidden="true">🛡️</div>
+          <h3 class="font-bold text-[#0f172a] mb-2">Compliance</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">All certification documents with expiry tracking and download links. Social procurement metrics including Indigenous supplier percentage and local employment rate. Modern Slavery statement with policy summary and annual register reference.</p>
+        </div>
+
+      </div>
+
+      <!-- AI Assistant — full-width callout -->
+      <div class="mt-5 bg-[#0f172a] rounded-xl p-6 sm:p-8 border border-white/10">
+        <div class="sm:flex sm:items-start sm:gap-8">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl" aria-hidden="true">🤖</span>
+              <span class="text-xs font-bold tracking-widest uppercase text-blue-400">AI Powered</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">AI Performance Assistant</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">A live AI assistant powered by Claude with your contract-specific data pre-loaded. The assistant knows your site list, audit scores, open defects, carbon status, invoice details and contract specifics, and answers questions in plain language, instantly.</p>
+            <div class="flex flex-wrap gap-2">
+              {[
+                '"What is my current audit score?"',
+                '"Am I carbon neutral?"',
+                '"Which sites need attention?"',
+                '"When is my next invoice?"',
+              ].map(q => (
+                <span class="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-slate-400">{q}</span>
+              ))}
+            </div>
+          </div>
+          <div class="mt-6 sm:mt-0 sm:flex-shrink-0">
+            <a
+              href="https://dashboard.cpcgroupglobal.com/dashboard-live/client"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold text-sm rounded hover:bg-blue-500 transition-colors"
+            >
+              Open AI Assistant
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── LOGIN + REQUEST ACCESS ────────────────────────────────────────────── -->
+  <section class="bg-[#0f172a] border-t border-white/5 py-16">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-start">
+
+        <!-- Existing clients -->
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Existing Clients</p>
+          <h2 class="text-2xl font-bold text-white mb-4">Log in to your portal</h2>
+          <p class="text-slate-400 mb-3 leading-relaxed">Your login credentials were provided by your CPC account manager at contract commencement.</p>
+          <p class="text-slate-400 mb-8 leading-relaxed">If you have misplaced your credentials, email <a href="mailto:contact@cpclean.com.au" class="text-teal hover:text-teal-bright transition-colors">contact@cpclean.com.au</a> and we will reset your access within one business day.</p>
+          <a
+            href="https://dashboard.cpcgroupglobal.com/dashboard-live/client"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-teal text-navy font-bold text-sm rounded hover:bg-teal-bright transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            Log in to Command Centre
+          </a>
+        </div>
+
+        <!-- Prospects -->
+        <div class="mt-12 lg:mt-0 lg:border-l lg:border-white/10 lg:pl-16">
+          <p class="text-xs font-bold tracking-widest uppercase text-slate-500 mb-3">Not Yet a Client</p>
+          <h2 class="text-2xl font-bold text-white mb-4">Request portal access</h2>
+          <p class="text-slate-400 mb-8 leading-relaxed">Portal access is included with every CPC contract. To see a live demonstration of the Command Centre for your procurement or facilities team, or to discuss a contract for your portfolio, contact us below.</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/request-a-proposal/" class="inline-flex justify-center items-center px-6 py-3 border border-white/30 text-white font-semibold text-sm rounded hover:bg-white/10 transition-colors">
+              Request a Proposal
+            </a>
+            <a href="/contact/" class="inline-flex justify-center items-center px-6 py-3 border border-white/10 text-slate-400 font-semibold text-sm rounded hover:bg-white/5 hover:text-white transition-colors">
+              Book a Demonstration
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</DefaultLayout>

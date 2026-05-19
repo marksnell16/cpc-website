@@ -94,7 +94,7 @@ const orgSchema = {
       "@type": "LocalBusiness",
       "@id": `${siteUrl}/#localbusiness-brisbane`,
       "parentOrganization": { "@id": `${siteUrl}/#organization` },
-      "name": "Commercial Property Cleaning — Brisbane (HQ)",
+      "name": "Commercial Property Cleaning: Brisbane (HQ)",
       "telephone": "+611300272888",
       "openingHours": "Mo-Fr 08:00-18:00",
       "address": {
@@ -120,7 +120,7 @@ const orgSchema = {
       "@type": "LocalBusiness",
       "@id": `${siteUrl}/#localbusiness-sydney`,
       "parentOrganization": { "@id": `${siteUrl}/#organization` },
-      "name": "Commercial Property Cleaning — Sydney",
+      "name": "Commercial Property Cleaning: Sydney",
       "telephone": "+611300272888",
       "openingHours": "Mo-Fr 08:00-18:00",
       "address": {
@@ -147,7 +147,7 @@ const orgSchema = {
       "@type": "LocalBusiness",
       "@id": `${siteUrl}/#localbusiness-melbourne`,
       "parentOrganization": { "@id": `${siteUrl}/#organization` },
-      "name": "Commercial Property Cleaning — Melbourne",
+      "name": "Commercial Property Cleaning: Melbourne",
       "telephone": "+611300272888",
       "openingHours": "Mo-Fr 08:00-18:00",
       "address": {
@@ -173,7 +173,7 @@ const orgSchema = {
       "@type": "LocalBusiness",
       "@id": `${siteUrl}/#localbusiness-perth`,
       "parentOrganization": { "@id": `${siteUrl}/#organization` },
-      "name": "Commercial Property Cleaning — Perth",
+      "name": "Commercial Property Cleaning: Perth",
       "telephone": "+611300272888",
       "openingHours": "Mo-Fr 08:00-18:00",
       "address": {
@@ -199,7 +199,7 @@ const orgSchema = {
       "@type": "LocalBusiness",
       "@id": `${siteUrl}/#localbusiness-townsville`,
       "parentOrganization": { "@id": `${siteUrl}/#organization` },
-      "name": "Commercial Property Cleaning — Townsville",
+      "name": "Commercial Property Cleaning: Townsville",
       "telephone": "+611300272888",
       "openingHours": "Mo-Fr 08:00-18:00",
       "address": {
@@ -227,6 +227,20 @@ const orgSchema = {
       "url": siteUrl,
       "name": "Commercial Property Cleaning",
       "publisher": { "@id": `${siteUrl}/#organization` }
+    },
+
+    // WebPage with speakable (homepage hero)
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/#webpage`,
+      "url": siteUrl,
+      "name": "Commercial Property Cleaning: ISO-Certified, Carbon Neutral Cleaning Australia",
+      "isPartOf": { "@id": `${siteUrl}/#website` },
+      "about": { "@id": `${siteUrl}/#organization` },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "[aria-label='Hero'] p", ".authority-strip-stats"]
+      }
     },
 
     // BreadcrumbList

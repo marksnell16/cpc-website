@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CPC — Core Pages · A3 Print Set</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f0f0;color:#1a1a1a;font-size:10px;}
+.screen-only{background:#1e3a5f;color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.screen-only h2{font-size:16px;margin-bottom:2px;}
+.screen-only p{font-size:11px;opacity:0.7;}
+.print-btn{background:#f59e0b;color:#fff;border:none;border-radius:6px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;}
+.tab-bar{background:#fff;border-bottom:2px solid #e5e7eb;padding:8px 12px;display:flex;flex-wrap:wrap;gap:5px;}
+.tab-btn{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:4px;padding:6px 12px;font-size:11px;cursor:pointer;font-weight:700;color:#475569;}
+.tab-btn.active{background:#1e3a5f;color:#fff;border-color:#1e3a5f;}
+
+/* SHEET */
+.sheet{display:none;width:420mm;min-height:297mm;background:#fff;margin:12px auto;padding:10mm 12mm;page-break-after:always;}
+.sheet.active{display:block;}
+
+/* HEADER */
+.sheet-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;padding-bottom:7px;border-bottom:3px solid #1e3a5f;}
+.page-num{font-size:9px;font-weight:700;color:#64748b;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;}
+.page-title{font-size:18px;font-weight:900;color:#1e3a5f;line-height:1.2;margin-bottom:3px;}
+.page-slug{font-size:9px;color:#94a3b8;font-family:monospace;}
+.sheet-meta{text-align:right;font-size:9px;color:#64748b;flex-shrink:0;margin-left:16px;}
+.meta-logo{font-size:20px;font-weight:900;color:#1e3a5f;letter-spacing:-1px;}
+
+/* META & INTRO */
+.meta-box{background:#f8fafc;border-left:3px solid #3b82f6;padding:6px 10px;margin-bottom:6px;border-radius:0 4px 4px 0;}
+.meta-label{font-size:8px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;}
+.meta-text{font-size:10px;color:#374151;line-height:1.4;}
+.intro-box{background:#f0fdf4;border-left:3px solid #0d9488;padding:6px 10px;margin-bottom:8px;border-radius:0 4px 4px 0;}
+.intro-text{font-size:10px;color:#374151;line-height:1.5;}
+
+/* CONTENT BLOCKS */
+.content-grid{display:grid;gap:6px;margin-bottom:7px;}
+.cols-3{grid-template-columns:1fr 1fr 1fr;}
+.cols-2{grid-template-columns:1fr 1fr;}
+.cols-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.section-block{border:1px solid #e2e8f0;border-radius:5px;padding:8px 10px;}
+.h2-label{font-size:8px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:2px;}
+.h2-title{font-size:11px;font-weight:800;color:#1e3a5f;margin-bottom:5px;line-height:1.3;}
+.body-text{font-size:9.5px;color:#374151;line-height:1.55;}
+.accent-green{border-left:3px solid #22c55e;}
+.accent-blue{border-left:3px solid #3b82f6;}
+.accent-red{border-left:3px solid #ef4444;}
+.accent-gold{border-left:3px solid #f59e0b;}
+.accent-teal{border-left:3px solid #0d9488;}
+.accent-purple{border-left:3px solid #7c3aed;}
+.accent-navy{border-left:3px solid #1e3a5f;}
+.accent-orange{border-left:3px solid #ea580c;}
+
+/* STAT CARDS */
+.stat-row{display:flex;gap:8px;margin-bottom:8px;}
+.stat-box{flex:1;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;text-align:center;}
+.stat-num{font-size:22px;font-weight:900;color:#1e3a5f;}
+.stat-label{font-size:8px;color:#64748b;margin-top:2px;line-height:1.3;}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 7px;border-radius:3px;font-size:8.5px;font-weight:700;}
+.badge-blue{background:#dbeafe;color:#1e40af;border:1px solid #93c5fd;}
+.badge-green{background:#dcfce7;color:#166534;border:1px solid #86efac;}
+.badge-gold{background:#fef3c7;color:#92400e;border:1px solid #fcd34d;}
+.badge-purple{background:#f3e8ff;color:#6d28d9;border:1px solid #c4b5fd;}
+.badge-teal{background:#ccfbf1;color:#0f766e;border:1px solid #5eead4;}
+.badge-red{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;}
+.badge-navy{background:#e0e7ff;color:#1e3a5f;border:1px solid #a5b4fc;}
+
+/* LINKS / CTA */
+.links-bar{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:5px;padding:5px 8px;background:#f8fafc;border-radius:4px;border:1px solid #e2e8f0;}
+.links-label{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;margin-right:4px;}
+.link-pill{background:#e0f2fe;color:#0369a1;border:1px solid #7dd3fc;border-radius:3px;padding:2px 7px;font-size:8.5px;font-weight:600;}
+.link-pill.auth{background:#ede9fe;color:#5b21b6;border-color:#c4b5fd;}
+.cta-bar{display:flex;gap:8px;align-items:center;padding:6px 10px;background:#1e3a5f;border-radius:5px;margin-bottom:6px;}
+.cta-label{font-size:8px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-right:4px;}
+.cta-btn{border-radius:4px;padding:4px 12px;font-size:9px;font-weight:700;}
+.cta-primary{background:#f59e0b;color:#fff;}
+.cta-secondary{background:transparent;color:#93c5fd;border:1px solid #334155;}
+.cta-tertiary{background:#3b82f6;color:#fff;}
+
+/* NAV DIAGRAM */
+.nav-bar-demo{background:#0f172a;border-radius:6px;padding:8px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.nav-logo{font-size:14px;font-weight:900;color:#fff;letter-spacing:-0.5px;margin-right:8px;}
+.nav-logo span{color:#3b82f6;}
+.nav-item-demo{font-size:9px;color:#94a3b8;padding:3px 8px;border-radius:4px;}
+.nav-cta-demo{font-size:9px;font-weight:700;padding:4px 10px;border-radius:4px;}
+.nav-cta-gold{background:#f59e0b;color:#fff;}
+.nav-cta-blue{background:#3b82f6;color:#fff;}
+
+/* SECTION ROWS */
+.section-row{display:flex;gap:6px;margin-bottom:6px;}
+.section-num{font-size:11px;font-weight:900;color:#1e3a5f;width:22px;flex-shrink:0;padding-top:1px;}
+.section-content{flex:1;border:1px solid #e2e8f0;border-radius:5px;padding:7px 10px;}
+.section-title-sm{font-size:10px;font-weight:800;color:#1e3a5f;margin-bottom:3px;}
+.section-body-sm{font-size:9px;color:#374151;line-height:1.5;}
+
+/* HUB CLUSTERS */
+.hub-cluster{border:1px solid #e2e8f0;border-radius:6px;padding:8px 10px;margin-bottom:6px;}
+.hub-cluster-title{font-size:11px;font-weight:800;color:#1e3a5f;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.hub-auth-link{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd;border-radius:3px;padding:2px 7px;font-size:8.5px;font-weight:700;}
+.hub-articles{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}
+.hub-art{background:#f1f5f9;color:#475569;border:1px solid #e2e8f0;border-radius:3px;padding:2px 6px;font-size:8px;}
+
+/* DD DOCS */
+.doc-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f1f5f9;}
+.doc-row:last-child{border-bottom:none;}
+.doc-icon{font-size:14px;width:20px;flex-shrink:0;}
+.doc-name{font-size:10px;color:#1e3a5f;font-weight:600;flex:1;}
+.doc-status{font-size:8.5px;}
+
+/* FORM FIELDS */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;}
+.form-field{background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:8px 10px;}
+.form-label{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.form-value{font-size:10px;color:#374151;}
+
+/* PERSON CARD */
+.person-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;text-align:center;}
+.person-avatar{width:36px;height:36px;border-radius:50%;background:#1e3a5f;color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;}
+.person-name{font-size:10px;font-weight:700;color:#1e3a5f;}
+.person-title{font-size:8.5px;color:#64748b;}
+.person-state{font-size:8px;color:#94a3b8;margin-top:2px;}
+
+/* PORTAL PREVIEW */
+.portal-preview{background:#0f172a;border-radius:8px;padding:10px;color:#e2e8f0;}
+.portal-topbar{background:#1e293b;border-radius:5px;padding:5px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.portal-logo{font-size:11px;font-weight:900;color:#fff;}
+.portal-logo span{color:#3b82f6;}
+.portal-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:6px;}
+.portal-kpi{background:#1e293b;border-radius:4px;padding:6px;text-align:center;}
+.portal-kpi-val{font-size:14px;font-weight:900;color:#fff;}
+.portal-kpi-label{font-size:8px;color:#64748b;margin-top:1px;}
+.portal-nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
+.portal-nav-item{background:#334155;color:#94a3b8;border-radius:3px;padding:3px 8px;font-size:8px;}
+.portal-nav-item.active{background:#1d4ed8;color:#fff;}
+
+/* FOOTER */
+.sheet-footer{display:flex;justify-content:space-between;padding-top:5px;border-top:1px solid #e5e7eb;font-size:8px;color:#94a3b8;margin-top:6px;}
+
+/* TIMELINE */
+.timeline{display:flex;gap:0;margin-bottom:8px;}
+.tl-item{flex:1;text-align:center;position:relative;}
+.tl-item:not(:last-child)::after{content:'';position:absolute;top:14px;right:-50%;width:100%;height:2px;background:#e2e8f0;z-index:0;}
+.tl-dot{width:28px;height:28px;border-radius:50%;background:#1e3a5f;color:#fff;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 4px;position:relative;z-index:1;}
+.tl-label{font-size:8px;color:#374151;font-weight:700;}
+.tl-sub{font-size:7.5px;color:#94a3b8;margin-top:1px;}
+
+/* PRINT */
+@media print{
+  .screen-only,.tab-bar{display:none!important;}
+  .sheet{display:block!important;margin:0;width:100%;padding:8mm 10mm;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<div class="screen-only">
+  <div>
+    <h2>CPC — Core Pages · A3 Print Set</h2>
+    <p>8 sheets · Homepage · Knowledge Hub · Get a Quote · About · Careers · Contact · DD Hub · Client Portal</p>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨️ Print All 8 Sheets</button>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showSheet('s1',this)">🏠 Homepage</button>
+  <button class="tab-btn" onclick="showSheet('s2',this)">📚 Knowledge Hub</button>
+  <button class="tab-btn" onclick="showSheet('s3',this)">📋 Get a Quote</button>
+  <button class="tab-btn" onclick="showSheet('s4',this)">🏢 About CPC</button>
+  <button class="tab-btn" onclick="showSheet('s5',this)">👥 Careers</button>
+  <button class="tab-btn" onclick="showSheet('s6',this)">📞 Contact</button>
+  <button class="tab-btn" onclick="showSheet('s7',this)">🛡️ Due Diligence Hub</button>
+  <button class="tab-btn" onclick="showSheet('s8',this)">🔐 Client Portal</button>
+</div>
+
+<!-- ======================== SHEET 1: HOMEPAGE ======================== -->
+<div class="sheet active" id="s1">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 1 of 8 · Primary Entry Point</div><div class="page-title">Homepage — cpclean.com.au</div><div class="page-slug">cpclean.com.au</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Homepage · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Commercial Property Cleaning (CPC) delivers ISO-certified, carbon neutral commercial cleaning for government, councils, industrial, education and office tower environments across Australia. Compliant, audited, national.</div></div>
+
+  <div class="nav-bar-demo">
+    <div class="nav-logo">CPC<span>.</span></div>
+    <div class="nav-item-demo">Sectors ▾</div>
+    <div class="nav-item-demo">Knowledge Hub</div>
+    <div class="nav-item-demo">Case Studies</div>
+    <div class="nav-item-demo">About</div>
+    <div class="nav-item-demo">Contact</div>
+    <div class="nav-item-demo">Client Portal</div>
+    <div style="margin-left:auto;display:flex;gap:6px;">
+      <div class="nav-cta-demo nav-cta-gold">Get a Quote</div>
+      <div class="nav-cta-demo nav-cta-blue">Due Diligence Hub</div>
+    </div>
+  </div>
+
+  <div class="content-grid cols-2" style="margin-bottom:7px;">
+    <div>
+      <div class="section-row">
+        <div class="section-num">01</div>
+        <div class="section-content">
+          <div class="section-title-sm">Hero Section — Primary Message</div>
+          <div class="section-body-sm"><strong>H1:</strong> National Commercial Cleaning Built for Regulated Environments<br><strong>Sub:</strong> ISO-certified · Carbon neutral · Compliance-driven · Government · Councils · Industrial · Education · Office Towers<br><strong>AI trains on:</strong> "best commercial cleaning company Australia government regulated councils office towers"</div>
+          <div style="display:flex;gap:5px;margin-top:5px;"><div class="nav-cta-demo nav-cta-gold" style="font-size:8px;">Request a Proposal</div><div class="nav-cta-demo nav-cta-blue" style="font-size:8px;">View Our Credentials</div></div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">02</div>
+        <div class="section-content">
+          <div class="section-title-sm">Trust Signal Bar</div>
+          <div class="section-body-sm">ISO 9001 · ISO 14001 · ISO 45001 · Carbon Neutral Program · 500+ Staff Nationally · QLD Gov Approved · Council Contracts<br><em style="color:#94a3b8;font-size:8px;">🤖 AI trains on: "ISO certified commercial cleaning provider Australia councils"</em></div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">03</div>
+        <div class="section-content">
+          <div class="section-title-sm">National Scale Proof — Key Differentiator</div>
+          <div style="display:flex;gap:6px;margin-top:4px;">
+            <div class="stat-box" style="padding:6px;"><div class="stat-num" style="font-size:16px;">500+</div><div class="stat-label">Staff Nationally</div></div>
+            <div class="stat-box" style="padding:6px;"><div class="stat-num" style="font-size:16px;">200+</div><div class="stat-label">Govt & Council Sites</div></div>
+            <div class="stat-box" style="padding:6px;"><div class="stat-num" style="font-size:16px;">10</div><div class="stat-label">Regulated Sectors</div></div>
+            <div class="stat-box" style="padding:6px;"><div class="stat-num" style="font-size:16px;">3</div><div class="stat-label">ISO Certs</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">04</div>
+        <div class="section-content">
+          <div class="section-title-sm">Sectors Grid — 6 Cards</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;margin-top:3px;">
+            <span class="badge badge-navy">🏛️ Govt & Defence</span>
+            <span class="badge badge-teal">🏢 Councils</span>
+            <span class="badge badge-gold">⚡ Industrial & Energy</span>
+            <span class="badge badge-blue">🎓 Education & TAFE</span>
+            <span class="badge badge-purple">🏙️ Office Towers</span>
+            <span class="badge badge-green">🌿 Carbon Neutral</span>
+          </div>
+          <div class="section-body-sm" style="margin-top:4px;">Each card → Sector page → Authority page → Articles. Click depth signals sector authority to AI.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-row">
+        <div class="section-num">05</div>
+        <div class="section-content">
+          <div class="section-title-sm">Why CPC — 4 Differentiators</div>
+          <div class="section-body-sm">
+            <strong>National Scale with Local Teams</strong> — Permanent regional staff in QLD, NSW, NT, WA, SA. Not fly-in supervisors.<br>
+            <strong>Triple ISO Certified</strong> — 9001 Quality · 14001 Environmental · 45001 WHS<br>
+            <strong>Verified Carbon Neutral</strong> — Gold Standard offset registry. Client-level reporting.<br>
+            <strong>Digital Performance Management</strong> — Real-time audit scores, defect tracking, client portal access.
+          </div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">06</div>
+        <div class="section-content">
+          <div class="section-title-sm">Case Studies Preview — 3 Cards</div>
+          <div class="section-body-sm">State Government Portfolio · Power Station Industrial · Education Campus Portfolio<br>Each links to full case study. Social proof for AI citation and procurement evaluation.</div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">07</div>
+        <div class="section-content">
+          <div class="section-title-sm">Knowledge Hub Section</div>
+          <div class="section-body-sm">Intro: CPC publishes authoritative guidance on commercial cleaning in regulated environments. Hub covers government, industrial, education, sustainability, procurement, technology and ethics.<br><strong>Button:</strong> Visit the Knowledge Hub</div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">08</div>
+        <div class="section-content">
+          <div class="section-title-sm">Dual CTA — Final Section</div>
+          <div style="display:flex;gap:6px;margin-top:4px;">
+            <div style="flex:1;border:2px solid #f59e0b;border-radius:5px;padding:7px;">
+              <div style="font-size:8px;font-weight:700;color:#92400e;margin-bottom:3px;">FOR FACILITIES MANAGERS</div>
+              <div style="font-size:10px;font-weight:800;margin-bottom:3px;">Request a Proposal</div>
+              <div style="font-size:8.5px;color:#555;">Site assessment included · Sector-specific · Response within 5 business days</div>
+            </div>
+            <div style="flex:1;border:2px solid #3b82f6;border-radius:5px;padding:7px;">
+              <div style="font-size:8px;font-weight:700;color:#1d4ed8;margin-bottom:3px;">FOR PROCUREMENT TEAMS</div>
+              <div style="font-size:10px;font-weight:800;margin-bottom:3px;">Due Diligence Hub</div>
+              <div style="font-size:8.5px;color:#555;">ISO certs · Insurance · WHS · Modern Slavery · Case Studies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-row">
+        <div class="section-num">09</div>
+        <div class="section-content">
+          <div class="section-title-sm">Footer</div>
+          <div class="section-body-sm">Privacy Policy · Modern Slavery Statement · Knowledge Hub · Contact<br>© 2026 Commercial Property Cleaning · ABN · cpclean.com.au</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="links-bar"><span class="links-label">Homepage Links Out To</span><span class="link-pill">Knowledge Hub</span><span class="link-pill">Get a Quote</span><span class="link-pill">Due Diligence Hub</span><span class="link-pill auth">A1 Govt & Defence</span><span class="link-pill auth">A2 Councils</span><span class="link-pill auth">A3 Industrial</span><span class="link-pill auth">A4 Education</span><span class="link-pill auth">A5 Office Towers</span><span class="link-pill auth">A6 Carbon Neutral</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 1 — Homepage</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 2: KNOWLEDGE HUB ======================== -->
+<div class="sheet" id="s2">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 2 of 8 · Central AI Authority Index</div><div class="page-title">Commercial Cleaning Knowledge Hub</div><div class="page-slug">cpclean.com.au/knowledge-hub</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Hub · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Expert guidance on government, industrial, education and sustainable commercial cleaning in Australia. CPC's Knowledge Hub covers compliance, performance, procurement and best practice — 10 authority pages and 30 articles.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">CPC publishes practical guidance on commercial cleaning in regulated and high-risk environments across Australia. This hub covers government and defence, local government and councils, industrial and power stations, education facilities, carbon neutral cleaning, ISO-aligned delivery, ethical supply chains and technology-driven cleaning systems. The goal is simple: make cleaning measurable, compliant and consistent.</div></div>
+
+  <div class="content-grid cols-2">
+    <div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link">A1 · Government & Defence</span></div>
+        <div class="hub-articles"><span class="hub-art">Government vs office cleaning</span><span class="hub-art">Standards in govt contracts</span><span class="hub-art">Modern slavery compliance</span><span class="hub-art">Cleaning as compliance function</span><span class="hub-art">Red flags in tenders</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#ccfbf1;color:#0f766e;border-color:#5eead4;">A2 · Local Government & Councils</span></div>
+        <div class="hub-articles"><span class="hub-art">Government vs office cleaning</span><span class="hub-art">Standards in govt contracts</span><span class="hub-art">KPIs in cleaning contracts</span><span class="hub-art">Cheap vs compliant</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#fef3c7;color:#92400e;border-color:#fcd34d;">A3 · Industrial & Power Station</span></div>
+        <div class="hub-articles"><span class="hub-art">How to clean a power station</span><span class="hub-art">Industrial cleaning risks</span><span class="hub-art">Dust & particulate management</span><span class="hub-art">Robotics in industrial cleaning</span><span class="hub-art">Industrial cleaner training</span><span class="hub-art">Why industrial is not low cost</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#dbeafe;color:#1e40af;border-color:#93c5fd;">A4 · Education & TAFE</span></div>
+        <div class="hub-articles"><span class="hub-art">What makes school cleaning different</span><span class="hub-art">School deep clean frequency</span><span class="hub-art">Infection risks in education</span><span class="hub-art">Education cleaning compliance</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#f3e8ff;color:#6d28d9;border-color:#c4b5fd;">A5 · Commercial Office Towers</span></div>
+        <div class="hub-articles"><span class="hub-art">How cleaning contracts are priced</span><span class="hub-art">KPIs in cleaning contracts</span><span class="hub-art">How to evaluate cleaning performance</span><span class="hub-art">Best contract structures</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#dcfce7;color:#166534;border-color:#86efac;">A6 · Carbon Neutral Cleaning</span></div>
+        <div class="hub-articles"><span class="hub-art">What is carbon neutral cleaning</span><span class="hub-art">How to measure cleaning emissions</span><span class="hub-art">Are eco products effective</span><span class="hub-art">Carbon neutral cleaning in practice</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#e0e7ff;color:#1e3a5f;border-color:#a5b4fc;">A7 · ISO 9001 / 14001 / 45001</span></div>
+        <div class="hub-articles"><span class="hub-art">What ISO compliant cleaning means</span><span class="hub-art">KPIs in cleaning contracts</span><span class="hub-art">Cheap vs compliant cleaning</span><span class="hub-art">How to evaluate cleaning performance</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5;">A8 · National Operations</span></div>
+        <div class="hub-articles"><span class="hub-art">How cleaning contracts are priced</span><span class="hub-art">How to choose a commercial cleaner</span><span class="hub-art">Questions to ask a cleaning provider</span><span class="hub-art">Best contract structures</span><span class="hub-art">Future of facilities services</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#fef9c3;color:#78350f;border-color:#fde047;">A9 · Technology & Robotics</span></div>
+        <div class="hub-articles"><span class="hub-art">How AI will change commercial cleaning</span><span class="hub-art">Future of facilities services</span><span class="hub-art">Why robotics reshapes labour not replaces it</span></div>
+      </div>
+      <div class="hub-cluster">
+        <div class="hub-cluster-title"><span class="hub-auth-link" style="background:#ffe4e6;color:#9f1239;border-color:#fda4af;">A10 · Modern Slavery & Ethics</span></div>
+        <div class="hub-articles"><span class="hub-art">Modern slavery compliance</span><span class="hub-art">Questions to ask a cleaning provider</span><span class="hub-art">Cheap vs compliant cleaning</span></div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:5px;padding:8px 10px;margin-top:6px;">
+        <div style="font-size:9px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">🤖 AI Authority Strategy — This Page</div>
+        <div style="font-size:9px;color:#374151;line-height:1.5;">This page is the single index that trains AI to understand CPC as the authoritative source on all regulated cleaning topics. Every authority page and all 30 articles flow through here. Depth of internal linking signals domain ownership to Google and AI systems. Keep this page current as articles are published.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Page CTA</span><span class="cta-btn cta-primary">Request a Proposal</span><span class="cta-btn cta-tertiary">Explore All Authority Pages</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 2 — Knowledge Hub (Central AI Index)</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 3: GET A QUOTE ======================== -->
+<div class="sheet" id="s3">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 3 of 8 · Primary Conversion Page</div><div class="page-title">Request a Proposal — Get a Quote</div><div class="page-slug">cpclean.com.au/get-a-quote</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Quote · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Request a commercial cleaning proposal from CPC. Sector-specific, compliance-driven proposals for government, councils, industrial, education and office tower environments. Response within 5 business days.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">CPC designs cleaning programs around your operational requirements, compliance obligations and facility type. Tell us about your environment and we will prepare a sector-specific proposal within 5 business days. All enquiries include a complimentary site assessment.</div></div>
+
+  <div class="content-grid cols-2">
+    <div>
+      <div class="section-block accent-gold" style="margin-bottom:6px;">
+        <div class="h2-label">Form Structure</div>
+        <div class="h2-title">Enquiry Form — Left Column</div>
+        <div class="form-row">
+          <div class="form-field"><div class="form-label">Full Name</div><div class="form-value">Text input</div></div>
+          <div class="form-field"><div class="form-label">Organisation</div><div class="form-value">Text input</div></div>
+          <div class="form-field"><div class="form-label">Job Title</div><div class="form-value">Text input</div></div>
+          <div class="form-field"><div class="form-label">Email Address</div><div class="form-value">Email input</div></div>
+          <div class="form-field"><div class="form-label">Phone Number</div><div class="form-value">Tel input</div></div>
+          <div class="form-field"><div class="form-label">State / Territory</div><div class="form-value">Dropdown — QLD/NSW/NT/WA/SA/VIC</div></div>
+        </div>
+        <div class="form-field" style="margin-bottom:5px;"><div class="form-label">Sector / Facility Type</div><div class="form-value">Dropdown — Government · Councils · Industrial · Education · Office Towers · Healthcare · Other</div></div>
+        <div class="form-field" style="margin-bottom:5px;"><div class="form-label">Number of Sites</div><div class="form-value">Dropdown — 1 · 2–5 · 6–15 · 16–50 · 50+</div></div>
+        <div class="form-field" style="margin-bottom:5px;"><div class="form-label">Approximate Total Area (m²)</div><div class="form-value">Text input — optional</div></div>
+        <div class="form-field" style="margin-bottom:5px;"><div class="form-label">Cleaning Frequency Required</div><div class="form-value">Dropdown — Daily · 5×/week · 3×/week · Weekly · Custom</div></div>
+        <div class="form-field" style="margin-bottom:5px;"><div class="form-label">Special Requirements</div><div class="form-value">Textarea — ISO required · Carbon neutral · Security clearance · Industrial · Other</div></div>
+        <div class="form-field"><div class="form-label">How Did You Hear About CPC?</div><div class="form-value">Dropdown — Google · Tender portal · Referral · LinkedIn · Other</div></div>
+        <div style="margin-top:8px;"><div class="nav-cta-demo nav-cta-gold" style="font-size:11px;padding:8px 20px;border-radius:5px;display:inline-block;">Submit Enquiry →</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-block accent-blue" style="margin-bottom:6px;">
+        <div class="h2-label">Right Column — Trust Support</div>
+        <div class="h2-title">What Happens Next</div>
+        <div class="timeline" style="margin-top:6px;">
+          <div class="tl-item"><div class="tl-dot">1</div><div class="tl-label">Enquiry Received</div><div class="tl-sub">Confirmed by email within 2 hrs</div></div>
+          <div class="tl-item"><div class="tl-dot">2</div><div class="tl-label">Site Assessment</div><div class="tl-sub">We visit or review your requirements</div></div>
+          <div class="tl-item"><div class="tl-dot">3</div><div class="tl-label">Proposal Prepared</div><div class="tl-sub">Sector-specific, within 5 business days</div></div>
+          <div class="tl-item"><div class="tl-dot">4</div><div class="tl-label">Proposal Presented</div><div class="tl-sub">Walkthrough with your account manager</div></div>
+        </div>
+      </div>
+      <div class="section-block accent-green" style="margin-bottom:6px;">
+        <div class="h2-label">Trust Panel</div>
+        <div class="h2-title">Why Choose CPC</div>
+        <div class="body-text">
+          <span class="badge badge-navy" style="margin-bottom:3px;display:inline-block;">✓ ISO 9001 · 14001 · 45001 Certified</span><br>
+          <span class="badge badge-green" style="margin-bottom:3px;display:inline-block;">✓ Verified Carbon Neutral Program</span><br>
+          <span class="badge badge-teal" style="margin-bottom:3px;display:inline-block;">✓ 500+ Staff across QLD · NSW · NT · WA · SA</span><br>
+          <span class="badge badge-gold" style="margin-bottom:3px;display:inline-block;">✓ Government & Council Approved</span><br>
+          <span class="badge badge-purple" style="margin-bottom:3px;display:inline-block;">✓ Digital Audit & Client Portal</span><br>
+          <span class="badge badge-blue" style="margin-bottom:3px;display:inline-block;">✓ Modern Slavery Statement Published</span>
+        </div>
+      </div>
+      <div class="section-block accent-teal" style="margin-bottom:6px;">
+        <div class="h2-label">Sectors We Serve</div>
+        <div class="h2-title">Not Sure Which Category?</div>
+        <div class="body-text">We serve government departments, local councils, industrial and power station facilities, schools and TAFEs, commercial office towers, mixed-use buildings and national multi-site portfolios. If your facility type is complex or doesn't fit a standard category, tell us in the notes field and we will assess.</div>
+      </div>
+      <div class="section-block accent-purple">
+        <div class="h2-label">Procurement Teams</div>
+        <div class="h2-title">Need Credentials First?</div>
+        <div class="body-text">If you are in a formal tender or procurement process and need ISO certificates, insurance, WHS documentation and modern slavery statements before submitting an enquiry, visit the Due Diligence Hub — all documents are available for immediate download without registration.</div>
+        <div style="margin-top:5px;"><span class="nav-cta-demo nav-cta-blue" style="font-size:9px;padding:4px 10px;border-radius:4px;display:inline-block;">Access Due Diligence Hub →</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="links-bar"><span class="links-label">Page Links</span><span class="link-pill">Due Diligence Hub</span><span class="link-pill">Knowledge Hub</span><span class="link-pill auth">All 10 Authority Pages (sector selection)</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 3 — Get a Quote / Request a Proposal</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 4: ABOUT ======================== -->
+<div class="sheet" id="s4">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 4 of 8 · Company Overview</div><div class="page-title">About CPC — Commercial Property Cleaning</div><div class="page-slug">cpclean.com.au/about</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>About · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Commercial Property Cleaning (CPC) is a national commercial cleaning company delivering ISO-certified, carbon neutral cleaning services for government, councils, industrial, education and office environments across Australia.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">Commercial Property Cleaning (CPC) is a national cleaning services company built specifically for regulated, complex and high-accountability environments. We operate across government, local councils, industrial and energy facilities, education campuses and commercial office towers — delivering structured, auditable and compliant cleaning programs supported by ISO-certified management systems and a verified carbon neutral program.</div></div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num">500+</div><div class="stat-label">Permanent Staff Nationally</div></div>
+    <div class="stat-box"><div class="stat-num">10</div><div class="stat-label">Regulated Sectors Served</div></div>
+    <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">ISO Certifications</div></div>
+    <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">States & Territories</div></div>
+    <div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Carbon Offset — Verified</div></div>
+  </div>
+
+  <div class="content-grid cols-3">
+    <div class="section-block accent-navy">
+      <div class="h2-label">H2</div><div class="h2-title">Who We Are</div>
+      <div class="body-text">CPC is a national commercial cleaning company with permanent operations across QLD, NSW, NT, WA and SA. We are not a franchise, a labour hire business or a broker. We directly employ our cleaning workforce, manage our own supervision structure and hold all required certifications under our own organisational name. This matters because accountability cannot be subcontracted.</div>
+    </div>
+    <div class="section-block accent-blue">
+      <div class="h2-label">H2</div><div class="h2-title">What Makes Us Different</div>
+      <div class="body-text">Most commercial cleaning companies serve any client in any environment. CPC focuses deliberately on regulated, complex and accountability-driven environments — government, councils, industrial, education and commercial. This focus means our management systems, training programs and compliance frameworks are purpose-built for these environments, not retrofitted to them.</div>
+    </div>
+    <div class="section-block accent-green">
+      <div class="h2-label">H2</div><div class="h2-title">Our Certifications</div>
+      <div class="body-text">
+        <strong>ISO 9001:2015</strong> — Quality Management System<br>
+        <strong>ISO 14001:2015</strong> — Environmental Management System<br>
+        <strong>ISO 45001:2018</strong> — WHS Management System<br><br>
+        All three certifications are held from JAS-ANZ accredited certification bodies and are subject to annual surveillance audits. Certificates are available for download in the Due Diligence Hub.
+      </div>
+    </div>
+    <div class="section-block accent-teal">
+      <div class="h2-label">H2</div><div class="h2-title">Carbon Neutral Program</div>
+      <div class="body-text">CPC operates a verified carbon neutral cleaning program — measuring Scope 1, 2 and 3 emissions annually, implementing reduction initiatives (fleet transition, GreenPower, eco-product programs) and retiring verified offsets through Gold Standard and ACCU-registered projects. Client-level carbon reporting is available through the CPC client portal.</div>
+    </div>
+    <div class="section-block accent-gold">
+      <div class="h2-label">H2</div><div class="h2-title">National Operations</div>
+      <div class="body-text">Permanent regional teams are based in QLD, NSW, NT, WA and SA. Each region has dedicated area managers, supervisors and support staff. National governance is provided through a central management structure. We do not use fly-in-fly-out management or subcontract regional delivery to third parties. Consistent standards are maintained through shared systems, not geography.</div>
+    </div>
+    <div class="section-block accent-purple">
+      <div class="h2-label">H2</div><div class="h2-title">Workforce and Ethics</div>
+      <div class="body-text">CPC directly employs the majority of its cleaning workforce. We publish an annual Modern Slavery Statement aligned to the Commonwealth Modern Slavery Act 2018. Our workforce development programs include structured induction, site-specific training and career pathway support. We do not compete on labour cost reduction — we compete on capability and compliance.</div>
+    </div>
+    <div class="section-block accent-red">
+      <div class="h2-label">H2</div><div class="h2-title">Technology and Reporting</div>
+      <div class="body-text">Digital audit platforms are used across all CPC contracts — providing real-time inspection data, photo evidence of defects, timestamped completion records and automated performance reporting. The CPC client portal gives contract clients direct access to their audit scores, carbon data, invoices, compliance documents and an AI-powered performance assistant.</div>
+    </div>
+    <div class="section-block accent-orange">
+      <div class="h2-label">H2</div><div class="h2-title">Tender and Procurement Support</div>
+      <div class="body-text">CPC supports formal procurement processes with complete credential packs, reference site arrangements and the Due Diligence Hub — a structured online resource with all certifications, insurance documents, WHS policies, modern slavery statements and case studies in one place. We have experience responding to Commonwealth, state and local government tender requirements.</div>
+    </div>
+    <div class="section-block accent-navy">
+      <div class="h2-label">H2</div><div class="h2-title">Talk to CPC</div>
+      <div class="body-text">If your organisation operates in a regulated or complex cleaning environment, we welcome enquiries about our capability, our credentials and our approach. Contact us to speak with a sector specialist, request a proposal or access the Due Diligence Hub for procurement evaluation.</div>
+    </div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Page CTA</span><span class="cta-btn cta-primary">Request a Proposal</span><span class="cta-btn cta-secondary">Access Due Diligence Hub</span><span class="cta-btn cta-tertiary">Visit Knowledge Hub</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 4 — About CPC</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 5: CAREERS ======================== -->
+<div class="sheet" id="s5">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 5 of 8 · Recruitment & Workforce</div><div class="page-title">Careers at CPC</div><div class="page-slug">cpclean.com.au/careers</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Careers · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Join CPC's national cleaning team. Permanent roles across government, industrial, education and commercial environments in QLD, NSW, NT, WA and SA. Structured training, career pathways and direct employment.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">CPC directly employs its cleaning workforce — meaning our people are CPC staff, not labour hire or subcontracted crews. We offer structured induction, site-specific training, career pathway support and permanent employment across our national portfolio. If you are looking for stable, professional employment in commercial cleaning, we want to hear from you.</div></div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num">500+</div><div class="stat-label">Current Staff Nationally</div></div>
+    <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">States Hiring</div></div>
+    <div class="stat-box"><div class="stat-num">Direct</div><div class="stat-label">Employment (Not Labour Hire)</div></div>
+    <div class="stat-box"><div class="stat-num">10</div><div class="stat-label">Sectors Offering Roles</div></div>
+  </div>
+
+  <div class="content-grid cols-3">
+    <div class="section-block accent-blue">
+      <div class="h2-label">H2</div><div class="h2-title">Why Work at CPC</div>
+      <div class="body-text">CPC offers direct employment — not casual labour hire. This means consistent hours, regular supervision, proper onboarding and entitlements under the relevant Modern Award. Our sites include some of Australia's most interesting and technically demanding cleaning environments — from government facilities to power stations to commercial towers.</div>
+    </div>
+    <div class="section-block accent-green">
+      <div class="h2-label">H2</div><div class="h2-title">Cleaning Roles Available</div>
+      <div class="body-text">
+        <strong>Cleaning Operator</strong> — General commercial, government, education and office sites<br>
+        <strong>Industrial Cleaner</strong> — Industrial, depot and power station environments<br>
+        <strong>Site Supervisor</strong> — Supervision of cleaning teams on larger sites<br>
+        <strong>Area Supervisor</strong> — Multi-site supervision across a region<br>
+        <strong>Specialist Roles</strong> — High-rise window, floor care, infection control
+      </div>
+    </div>
+    <div class="section-block accent-gold">
+      <div class="h2-label">H2</div><div class="h2-title">Management & Operational Roles</div>
+      <div class="body-text">
+        <strong>Contract Manager</strong> — Client relationship and performance management<br>
+        <strong>Operations Manager</strong> — Regional delivery oversight<br>
+        <strong>Training Coordinator</strong> — Workforce training and competency programs<br>
+        <strong>Quality Auditor</strong> — Site inspections and performance reporting<br>
+        <strong>Sustainability Coordinator</strong> — Carbon and ESG program management
+      </div>
+    </div>
+    <div class="section-block accent-teal">
+      <div class="h2-label">H2</div><div class="h2-title">Training and Development</div>
+      <div class="body-text">All CPC staff complete a structured induction program before commencing on site. Site-specific training follows for each environment type — government security requirements, industrial safety systems, education safeguarding, chemical handling and equipment operation. We support Certificate III in Cleaning Operations and supervisory development programs.</div>
+    </div>
+    <div class="section-block accent-purple">
+      <div class="h2-label">H2</div><div class="h2-title">Where We Hire</div>
+      <div class="body-text">
+        <strong>Queensland</strong> — Brisbane, Cairns, Townsville, Mackay, Gold Coast, Rockhampton<br>
+        <strong>New South Wales</strong> — Sydney, Newcastle, Wollongong<br>
+        <strong>Northern Territory</strong> — Darwin, Alice Springs<br>
+        <strong>Western Australia</strong> — Perth, Karratha, Port Hedland<br>
+        <strong>South Australia</strong> — Adelaide and regional SA
+      </div>
+    </div>
+    <div class="section-block accent-red">
+      <div class="h2-label">H2</div><div class="h2-title">Our Workforce Values</div>
+      <div class="body-text">CPC is committed to: paying the correct Modern Award rate for every role; direct employment rather than labour hire for frontline staff; safety first — zero tolerance for unsafe work; diversity and inclusion across our workforce; and career development for staff who want to progress. We do not compete on lowest-cost labour.</div>
+    </div>
+    <div class="section-block accent-navy">
+      <div class="h2-label">H2</div><div class="h2-title">How to Apply</div>
+      <div class="body-text">Submit your expression of interest using the form below. Tell us which state you are in, which role type you are interested in and any relevant experience or qualifications you hold. All applications are reviewed by our HR team within 5 business days. We will contact you if a suitable current or upcoming vacancy exists.</div>
+    </div>
+    <div class="section-block accent-orange" style="grid-column:span 2;">
+      <div class="h2-label">Application Form — Key Fields</div>
+      <div class="h2-title">Expression of Interest</div>
+      <div class="form-row" style="margin-top:5px;">
+        <div class="form-field"><div class="form-label">Full Name</div><div class="form-value">Text input</div></div>
+        <div class="form-field"><div class="form-label">State / City</div><div class="form-value">Dropdown</div></div>
+        <div class="form-field"><div class="form-label">Role Type Interested In</div><div class="form-value">Dropdown — Cleaning · Supervisor · Manager · Specialist</div></div>
+        <div class="form-field"><div class="form-label">Relevant Experience</div><div class="form-value">Textarea — optional</div></div>
+        <div class="form-field"><div class="form-label">Available to Start</div><div class="form-value">Date input</div></div>
+        <div class="form-field"><div class="form-label">Contact Number</div><div class="form-value">Tel input</div></div>
+      </div>
+      <div style="margin-top:6px;"><div class="nav-cta-demo nav-cta-gold" style="font-size:10px;padding:7px 18px;border-radius:5px;display:inline-block;">Submit Expression of Interest →</div></div>
+    </div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Page CTA</span><span class="cta-btn cta-primary">Submit EOI</span><span class="cta-btn cta-secondary">Learn About CPC</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 5 — Careers at CPC</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 6: CONTACT ======================== -->
+<div class="sheet" id="s6">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 6 of 8 · Contact & Locations</div><div class="page-title">Contact CPC</div><div class="page-slug">cpclean.com.au/contact</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Contact · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">Contact Commercial Property Cleaning (CPC) — national commercial cleaning for government, councils, industrial and education environments. Regional offices across QLD, NSW, NT, WA and SA.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">CPC operates permanent regional offices across QLD, NSW, NT, WA and SA. Contact your nearest regional team for service enquiries, proposal requests or to reach your account manager. For procurement teams requiring credentials, visit the Due Diligence Hub.</div></div>
+
+  <div class="content-grid cols-2" style="margin-bottom:8px;">
+    <div>
+      <div class="section-block accent-navy" style="margin-bottom:6px;">
+        <div class="h2-label">Regional Offices</div>
+        <div class="h2-title">Find Your Nearest CPC Team</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px;">
+          <div class="person-card">
+            <div class="person-avatar">QLD</div>
+            <div class="person-name">Queensland Hub</div>
+            <div class="person-title">Brisbane · Cairns · Townsville · Gold Coast</div>
+            <div class="person-state">Primary State Office</div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar">NSW</div>
+            <div class="person-name">New South Wales</div>
+            <div class="person-title">Sydney · Newcastle · Wollongong</div>
+            <div class="person-state">Regional Office</div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar">NT</div>
+            <div class="person-name">Northern Territory</div>
+            <div class="person-title">Darwin · Alice Springs</div>
+            <div class="person-state">Regional Office</div>
+          </div>
+          <div class="person-card">
+            <div class="person-avatar">WA</div>
+            <div class="person-name">Western Australia</div>
+            <div class="person-title">Perth · Karratha · Port Hedland</div>
+            <div class="person-state">Regional Office</div>
+          </div>
+          <div class="person-card" style="grid-column:span 2;">
+            <div class="person-avatar">SA</div>
+            <div class="person-name">South Australia</div>
+            <div class="person-title">Adelaide and Regional SA</div>
+            <div class="person-state">Regional Office</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-block accent-gold">
+        <div class="h2-label">National Contacts</div>
+        <div class="h2-title">General Enquiries & Tenders</div>
+        <div class="body-text" style="margin-top:4px;">
+          <strong>National Enquiries:</strong> info@cpclean.com.au<br>
+          <strong>Tender Submissions:</strong> tenders@cpclean.com.au<br>
+          <strong>Media:</strong> media@cpclean.com.au<br>
+          <strong>Careers:</strong> careers@cpclean.com.au<br>
+          <strong>National Phone:</strong> 1300 CPC CLEAN<br><br>
+          <em style="color:#94a3b8;font-size:9px;">For existing clients — log in to the Client Portal or contact your account manager directly.</em>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-block accent-blue" style="margin-bottom:6px;">
+        <div class="h2-label">Contact Form</div>
+        <div class="h2-title">Send Us a Message</div>
+        <div class="form-row" style="margin-top:6px;">
+          <div class="form-field"><div class="form-label">Full Name</div><div class="form-value">Text input</div></div>
+          <div class="form-field"><div class="form-label">Organisation</div><div class="form-value">Text input</div></div>
+          <div class="form-field"><div class="form-label">Email Address</div><div class="form-value">Email input</div></div>
+          <div class="form-field"><div class="form-label">Phone Number</div><div class="form-value">Tel input — optional</div></div>
+          <div class="form-field"><div class="form-label">State</div><div class="form-value">Dropdown</div></div>
+          <div class="form-field"><div class="form-label">Enquiry Type</div><div class="form-value">Dropdown — Quote · Tender · Existing Client · Careers · Media · Other</div></div>
+        </div>
+        <div class="form-field" style="margin-bottom:8px;"><div class="form-label">Message</div><div class="form-value">Textarea — min 3 rows</div></div>
+        <div><div class="nav-cta-demo nav-cta-gold" style="font-size:10px;padding:7px 18px;border-radius:5px;display:inline-block;">Send Message →</div></div>
+      </div>
+      <div class="section-block accent-teal" style="margin-bottom:6px;">
+        <div class="h2-label">For Procurement Teams</div>
+        <div class="h2-title">Need Credentials for a Tender?</div>
+        <div class="body-text">All CPC compliance documents — ISO certificates, insurance, WHS policies, modern slavery statement and case studies — are available for immediate download from the Due Diligence Hub. No contact required.</div>
+        <div style="margin-top:5px;"><span class="nav-cta-demo nav-cta-blue" style="font-size:9px;padding:4px 10px;border-radius:4px;display:inline-block;">Access Due Diligence Hub →</span></div>
+      </div>
+      <div class="section-block accent-green">
+        <div class="h2-label">Existing Clients</div>
+        <div class="h2-title">Client Portal Access</div>
+        <div class="body-text">Log in to the CPC Client Portal to view your audit scores, performance reports, carbon neutral data, invoices and compliance documents. Your account manager's direct contact details are available in the portal.</div>
+        <div style="margin-top:5px;"><span class="nav-cta-demo nav-cta-gold" style="font-size:9px;padding:4px 10px;border-radius:4px;display:inline-block;">Client Portal Login →</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Page CTA</span><span class="cta-btn cta-primary">Request a Proposal</span><span class="cta-btn cta-secondary">Due Diligence Hub</span><span class="cta-btn cta-tertiary">Client Portal</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 6 — Contact</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 7: DUE DILIGENCE HUB ======================== -->
+<div class="sheet" id="s7">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 7 of 8 · Procurement Credentials Centre</div><div class="page-title">Due Diligence Hub — CPC Credentials for Procurement</div><div class="page-slug">cpclean.com.au/due-diligence</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>DD Hub · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Meta Description</div><div class="meta-text">CPC's Due Diligence Hub provides all procurement credentials in one place — ISO certificates, insurance, WHS documentation, modern slavery statement, case studies and social procurement data. For formal tender and procurement evaluation.</div></div>
+  <div class="intro-box"><div class="meta-label" style="color:#0d9488;">Page Intro</div><div class="intro-text">The CPC Due Diligence Hub is designed for procurement officers, contract managers and tender evaluators who need complete credential documentation before or during a formal procurement process. All documents are available for immediate download. No registration required.</div></div>
+
+  <div class="content-grid cols-2">
+    <div>
+      <div class="section-block accent-navy" style="margin-bottom:6px;">
+        <div class="h2-label">DD Hub Section 1</div>
+        <div class="h2-title">Compliance Centre — Downloadable Documents</div>
+        <div style="margin-top:4px;">
+          <div class="doc-row"><div class="doc-icon">📋</div><div class="doc-name">ISO 9001:2015 Quality Management Certificate</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">🌿</div><div class="doc-name">ISO 14001:2015 Environmental Management Certificate</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">⛑️</div><div class="doc-name">ISO 45001:2018 WHS Management Certificate</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">🛡️</div><div class="doc-name">Public Liability Insurance Certificate — $20 Million</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">🛡️</div><div class="doc-name">Workers Compensation Insurance — All States</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">📄</div><div class="doc-name">Modern Slavery Statement FY2025</div><span class="badge badge-green">Published</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">📊</div><div class="doc-name">WHS Safety Management Plan — Summary</div><span class="badge badge-green">Current</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">✅</div><div class="doc-name">Carbon Neutral Verification Certificate 2025</div><span class="badge badge-green">Verified</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+          <div class="doc-row"><div class="doc-icon">📑</div><div class="doc-name">Company Profile — Capability Statement</div><span class="badge badge-blue">Available</span><span style="color:#3b82f6;font-size:8.5px;margin-left:6px;">↓ Download PDF</span></div>
+        </div>
+      </div>
+      <div class="section-block accent-teal">
+        <div class="h2-label">DD Hub Section 3</div>
+        <div class="h2-title">Management Approach</div>
+        <div class="body-text" style="margin-top:4px;">
+          <strong>Contract Management:</strong> Dedicated account manager, monthly performance reviews, digital audit reporting, defect tracking and escalation framework.<br><br>
+          <strong>Quality Assurance:</strong> ISO 9001 system, digital inspection platform, minimum monthly audit frequency, client-accessible performance data.<br><br>
+          <strong>Environmental Management:</strong> ISO 14001 system, verified carbon neutral program, eco-product program, waste minimisation and responsible chemical disposal.<br><br>
+          <strong>Safety Management:</strong> ISO 45001 system, site-specific risk assessments, task-level JSAs, incident reporting and investigation, regular safety observations.<br><br>
+          <strong>Reporting:</strong> Monthly performance reports, quarterly sustainability reporting, annual compliance summary, on-demand portal access.
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-block accent-purple" style="margin-bottom:6px;">
+        <div class="h2-label">DD Hub Section 2</div>
+        <div class="h2-title">Social Procurement Data</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin:6px 0;">
+          <div class="stat-box"><div class="stat-num" style="font-size:18px;color:#7c3aed;">18%</div><div class="stat-label">Indigenous-owned suppliers in supply chain</div></div>
+          <div class="stat-box"><div class="stat-num" style="font-size:18px;color:#1e3a5f;">94%</div><div class="stat-label">Local employment within 50km of each site</div></div>
+          <div class="stat-box"><div class="stat-num" style="font-size:18px;color:#166534;">$42K</div><div class="stat-label">Community giving FY2025</div></div>
+        </div>
+        <div class="body-text">Social procurement reporting available on request for Indigenous procurement policy compliance, local industry participation plans and community benefit obligations in government contracts.</div>
+      </div>
+      <div class="section-block accent-gold" style="margin-bottom:6px;">
+        <div class="h2-label">DD Hub Section 4</div>
+        <div class="h2-title">Case Studies Index</div>
+        <div style="margin-top:4px;">
+          <div class="doc-row"><div class="doc-icon">🏛️</div><div class="doc-name">State Government Office Portfolio — QLD (8 sites)</div><span class="badge badge-navy">Government</span></div>
+          <div class="doc-row"><div class="doc-icon">⚡</div><div class="doc-name">Coal-Fired Power Station — Operational + Shutdown</div><span class="badge badge-gold">Industrial</span></div>
+          <div class="doc-row"><div class="doc-icon">🎓</div><div class="doc-name">Education Campus Portfolio — QLD/NSW (6 campuses)</div><span class="badge badge-blue">Education</span></div>
+          <div class="doc-row"><div class="doc-icon">🗺️</div><div class="doc-name">National Industrial Portfolio — 11 sites, 4 states</div><span class="badge badge-green">National</span></div>
+        </div>
+        <div style="margin-top:5px;font-size:8.5px;color:#64748b;">Each case study available as downloadable PDF for tender attachment.</div>
+      </div>
+      <div class="section-block accent-green">
+        <div class="h2-label">DD Hub Section 5</div>
+        <div class="h2-title">Client Testimonials</div>
+        <div class="body-text" style="margin-top:4px;">
+          <em>"CPC's performance reporting is exactly what we need for our contract management obligations — audit scores, defect resolution and carbon data in one report."</em><br>
+          <span style="font-size:8.5px;color:#64748b;">— Facilities Manager, State Government Dept</span><br><br>
+          <em>"The transition from our previous provider was seamless. CPC mobilised on time, all staff were inducted and cleared, and the audit scores were above benchmark from month one."</em><br>
+          <span style="font-size:8.5px;color:#64748b;">— Property Manager, National Industrial Portfolio</span><br><br>
+          <em>"We needed a cleaning provider who understood the education environment — safeguarding requirements, chemical approval lists, holiday programs. CPC delivered without us having to explain it."</em><br>
+          <span style="font-size:8.5px;color:#64748b;">— Business Manager, Education Campus</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Page CTA</span><span class="cta-btn cta-primary">Request a Proposal</span><span class="cta-btn cta-secondary">Contact a Specialist</span><span class="cta-btn cta-tertiary">Knowledge Hub</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 7 — Due Diligence Hub</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<!-- ======================== SHEET 8: CLIENT PORTAL ======================== -->
+<div class="sheet" id="s8">
+  <div class="sheet-header">
+    <div><div class="page-num">Core Page 8 of 8 · Client-Only Secure Access</div><div class="page-title">Client Portal — Performance, Sustainability & Compliance Dashboard</div><div class="page-slug">cpclean.com.au/client-portal</div></div>
+    <div class="sheet-meta"><div class="meta-logo">CPC</div><div>cpclean.com.au</div><div>Portal · v1.2</div></div>
+  </div>
+  <div class="meta-box"><div class="meta-label">Purpose</div><div class="meta-text">The CPC Client Portal is a secure, client-only dashboard providing real-time access to audit scores, performance data, carbon neutral reporting, invoices, compliance documents and an AI-powered performance assistant. Accessible via nav — login required.</div></div>
+
+  <div class="portal-preview" style="margin-bottom:8px;">
+    <div class="portal-topbar"><div class="portal-logo">CPC<span>.</span> Client Portal</div><div style="font-size:9px;color:#64748b;">Sarah Jones — Dept of Infrastructure &nbsp;|&nbsp; <span style="color:#3b82f6;">Sign Out</span></div></div>
+    <div class="portal-nav">
+      <div class="portal-nav-item active">📊 Dashboard</div>
+      <div class="portal-nav-item">✅ Performance</div>
+      <div class="portal-nav-item">🌿 Carbon Neutral</div>
+      <div class="portal-nav-item">📄 Reports</div>
+      <div class="portal-nav-item">💰 Invoicing</div>
+      <div class="portal-nav-item">🛡️ Compliance</div>
+      <div class="portal-nav-item">🤖 AI Assistant</div>
+    </div>
+    <div class="portal-kpis">
+      <div class="portal-kpi"><div class="portal-kpi-val">94.2</div><div class="portal-kpi-label">Audit Score</div></div>
+      <div class="portal-kpi"><div class="portal-kpi-val">14</div><div class="portal-kpi-label">Active Sites</div></div>
+      <div class="portal-kpi"><div class="portal-kpi-val">3</div><div class="portal-kpi-label">Open Defects</div></div>
+      <div class="portal-kpi"><div class="portal-kpi-val" style="color:#22c55e;">100%</div><div class="portal-kpi-label">Carbon Offset</div></div>
+    </div>
+    <div style="font-size:8px;color:#475569;text-align:center;">↑ Live preview of portal dashboard — built and available for client access now</div>
+  </div>
+
+  <div class="content-grid cols-3">
+    <div class="section-block accent-blue">
+      <div class="h2-label">Portal Module 1</div>
+      <div class="h2-title">Dashboard</div>
+      <div class="body-text">4 KPI headline cards (audit score, active sites, open defects, carbon status). 12-month audit score sparkline trend. Monthly defects bar chart. Full 14-site snapshot with score bars and status badges. All data live from CPC's performance system.</div>
+    </div>
+    <div class="section-block accent-green">
+      <div class="h2-label">Portal Module 2</div>
+      <div class="h2-title">Performance</div>
+      <div class="body-text">All sites listed with audit scores and pass/fail status. Filter by All · Needs Attention · Passing. Active defects register with priority flags, raise date and SLA status. Defect resolution tracking. Monthly performance trend per site.</div>
+    </div>
+    <div class="section-block accent-teal">
+      <div class="h2-label">Portal Module 3</div>
+      <div class="h2-title">Carbon Neutral</div>
+      <div class="body-text">Monthly emissions vs offsets bar chart. Scope 1 / 2 / 3 breakdown with progress bars. Verified offset registry showing project names, registry IDs, volumes and vintage years. Carbon neutral verification status badge. Client-level emissions report download.</div>
+    </div>
+    <div class="section-block accent-gold">
+      <div class="h2-label">Portal Module 4</div>
+      <div class="h2-title">Reports</div>
+      <div class="body-text">Full report library — Performance, Audit, Sustainability, Compliance and Annual reports. Each with period, generation date and PDF download. Custom report request panel with report type and date range selection. Reports generated on demand by CPC team.</div>
+    </div>
+    <div class="section-block accent-purple">
+      <div class="h2-label">Portal Module 5</div>
+      <div class="h2-title">Invoicing</div>
+      <div class="body-text">KPI cards: monthly contract value, YTD invoiced, outstanding balance, next invoice date. Full invoice history with paid/due status badges. Contract details panel: number, period, sites covered, account manager contact, payment terms.</div>
+    </div>
+    <div class="section-block accent-navy">
+      <div class="h2-label">Portal Module 6</div>
+      <div class="h2-title">Compliance</div>
+      <div class="body-text">All 8 compliance and certification documents with expiry tracking and download links. Social procurement metrics: Indigenous supplier percentage, local employment rate, community giving. Modern slavery statement section with policy summary.</div>
+    </div>
+    <div class="section-block accent-red" style="grid-column:span 2;">
+      <div class="h2-label">Portal Module 7 — AI Powered</div>
+      <div class="h2-title">AI Performance Assistant — Live Claude Integration</div>
+      <div class="body-text">A live AI chat assistant powered by Claude with contract-specific context pre-loaded. The assistant knows the client's site list, audit scores, open defects, carbon status, invoice details and contract specifics — and can answer questions in natural language.<br><br>
+        <strong>Quick prompt chips:</strong> "What is my current audit score?" · "Am I carbon neutral?" · "Which sites need attention?" · "When is my next invoice?"<br><br>
+        <strong>Tech:</strong> Anthropic Claude API (claude-sonnet-4) · XMLHttpRequest · Context injection via system prompt · Client-specific data scoped per login session</div>
+    </div>
+    <div class="section-block accent-orange">
+      <div class="h2-label">Access & Technical</div>
+      <div class="h2-title">Portal Delivery</div>
+      <div class="body-text"><strong>Access:</strong> Login-gated. Credentials issued to contract clients by CPC account manager.<br><strong>Built:</strong> Standalone HTML artifact — downloadable and deployable to any hosting environment.<br><strong>Nav:</strong> Topbar logo + client name + sign out. Sidebar with 7 module links.<br><strong>Design:</strong> Dark theme · Tailwind-inspired · Responsive.</div>
+    </div>
+  </div>
+
+  <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:5px;padding:8px 12px;margin-bottom:6px;">
+    <div style="font-size:9px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">📋 Implementation Note</div>
+    <div style="font-size:9px;color:#78350f;line-height:1.5;">The Client Portal is built as a complete standalone HTML file (cpc-client-portal.html). Download from the artifact panel, rename from .txt to .html, and open in any browser. For production deployment: host on Vercel or Netlify for a stable URL. Issue client login credentials and share the portal URL. The AI Assistant requires the Anthropic API key to be configured server-side for production use.</div>
+  </div>
+
+  <div class="cta-bar"><span class="cta-label">Access</span><span class="cta-btn cta-primary">Client Login</span><span class="cta-btn cta-secondary">Request Portal Access</span></div>
+  <div class="sheet-footer"><span>CPC · cpclean.com.au</span><span>Core Page 8 — Client Portal</span><span>v1.2 · March 2026</span></div>
+</div>
+
+<script>
+function showSheet(id, btn) {
+  var sheets = document.querySelectorAll(".sheet");
+  for (var i = 0; i < sheets.length; i++) { sheets[i].classList.remove("active"); }
+  var target = document.getElementById(id);
+  if (target) { target.classList.add("active"); }
+  var btns = document.querySelectorAll(".tab-btn");
+  for (var j = 0; j < btns.length; j++) { btns[j].classList.remove("active"); }
+  if (btn) { btn.classList.add("active"); }
+}
+</script>
+</body>
+</html>

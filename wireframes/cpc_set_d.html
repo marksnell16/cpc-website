@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>CPC Set D — Case Studies</title>
+<style>
+@page { size: A3 landscape; margin: 8mm; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { background: #fff !important; }
+  .sheet { page-break-after: always; page-break-inside: avoid; box-shadow: none !important; margin: 0 !important; }
+  .sheet:last-child { page-break-after: auto; }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #d1d5db; color: #1a202c; }
+
+/* Toolbar */
+.toolbar { position: sticky; top: 0; z-index: 100; background: #0a0f1a; border-bottom: 3px solid #00d4aa; padding: 10px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.toolbar-logo { font-size: 14px; font-weight: 900; color: #00d4aa; }
+.toolbar-info { font-size: 10px; color: #64748b; }
+.cs-nav { display: flex; gap: 5px; }
+.cs-btn { padding: 5px 12px; font-size: 9.5px; font-weight: 700; color: #64748b; background: #1e293b; border: none; cursor: pointer; border-radius: 3px; }
+.cs-btn:hover { color: #00d4aa; }
+.toolbar-btn { margin-left: auto; padding: 9px 22px; background: #00d4aa; color: #0a0f1a; font-weight: 800; font-size: 12px; border: none; cursor: pointer; border-radius: 4px; }
+.toolbar-btn:hover { background: #00f0c4; }
+
+/* Sheet */
+.sheet { width: 404mm; min-height: 279mm; background: #fff; margin: 12px auto; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden; }
+
+/* Header */
+.sh-hdr { padding: 4.5mm 8mm 4mm; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--cs-color); flex-shrink: 0; background: #0a0f1a; }
+.sh-eyebrow { font-size: 8px; font-weight: 700; color: var(--cs-color); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+.sh-title { font-size: 17px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 3px; }
+.sh-sub { font-size: 9px; color: #94a3b8; line-height: 1.5; max-width: 250mm; }
+.sh-meta { text-align: right; font-size: 9px; color: #475569; white-space: nowrap; padding-left: 8mm; flex-shrink: 0; }
+.sh-pgnum { font-size: 20px; font-weight: 900; color: var(--cs-color); line-height: 1; margin-top: 2mm; }
+
+/* Outcome strip */
+.outcome-strip { display: flex; gap: 0; flex-shrink: 0; border-bottom: 1px solid #e5e7eb; }
+.outcome-cell { flex: 1; padding: 2.5mm 5mm; border-right: 1px solid #e5e7eb; background: var(--cs-light); }
+.outcome-cell:last-child { border-right: none; }
+.outcome-label { font-size: 7px; font-weight: 700; color: var(--cs-muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1mm; }
+.outcome-value { font-size: 11px; font-weight: 900; color: var(--cs-dark); line-height: 1.2; }
+.outcome-sub { font-size: 8px; color: #64748b; margin-top: 0.5mm; }
+
+/* Continuation band */
+.cont-band { background: var(--cs-light); border-bottom: 2px solid var(--cs-color); padding: 2mm 8mm; font-size: 9px; font-weight: 700; color: var(--cs-dark); flex-shrink: 0; display: flex; justify-content: space-between; }
+
+/* Body */
+.sh-body { flex: 1; padding: 5mm 8mm; overflow: hidden; }
+
+/* Typography */
+h1 { font-size: 15px; font-weight: 900; color: #0a0f1a; margin-bottom: 3.5mm; line-height: 1.2; letter-spacing: -.02em; }
+h2 { font-size: 11px; font-weight: 800; color: #0a0f1a; margin: 3mm 0 1.5mm; border-left: 3px solid var(--cs-color); padding-left: 3.5mm; line-height: 1.3; }
+h3 { font-size: 10px; font-weight: 700; color: #374151; margin: 2mm 0 1mm; }
+p { font-size: 10px; color: #374151; line-height: 1.7; margin-bottom: 2.5mm; }
+.intro { background: var(--cs-light); border-left: 4px solid var(--cs-color); padding: 3.5mm 4mm; font-size: 10.5px; color: var(--cs-dark); line-height: 1.7; margin-bottom: 4mm; border-radius: 0 4px 4px 0; font-weight: 500; }
+
+/* Grid */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; }
+.cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 4mm; }
+
+/* Result cards */
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; margin: 3mm 0; }
+.result-card { background: var(--cs-light); border: 1px solid var(--cs-border); border-radius: 4px; padding: 3mm 4mm; }
+.result-label { font-size: 7.5px; font-weight: 700; color: var(--cs-muted); letter-spacing: .07em; text-transform: uppercase; margin-bottom: 1.5mm; }
+.result-value { font-size: 11.5px; font-weight: 900; color: var(--cs-dark); line-height: 1.2; margin-bottom: 1mm; }
+.result-desc { font-size: 9px; color: #64748b; line-height: 1.5; }
+
+/* Service tags */
+.tag-row { display: flex; gap: 2mm; flex-wrap: wrap; margin: 2mm 0; }
+.tag { background: var(--cs-light); border: 1px solid var(--cs-border); color: var(--cs-dark); font-size: 8.5px; font-weight: 700; padding: 1.5mm 3mm; border-radius: 3px; }
+
+/* Complexity bar */
+.complexity-item { display: flex; align-items: center; gap: 3mm; padding: 1.5mm 0; border-bottom: 1px solid #f1f5f9; }
+.complexity-item:last-child { border-bottom: none; }
+.complexity-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cs-color); flex-shrink: 0; }
+.complexity-text { font-size: 9.5px; color: #374151; line-height: 1.4; }
+
+/* Links */
+.links-block { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3mm 4mm; margin-top: 3mm; }
+.links-title { font-size: 7.5px; font-weight: 700; color: #94a3b8; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2mm; }
+.lnk { font-size: 9.5px; color: #3b82f6; padding: 1.5mm 0; display: block; border-bottom: 1px solid #f1f5f9; line-height: 1.4; }
+.lnk::before { content: "→ "; color: var(--cs-color); }
+.lnk:last-child { border-bottom: none; }
+
+/* CTA */
+.cta-row { display: flex; gap: 3mm; margin-top: 4mm; }
+.btn-g { background: var(--cs-color); color: #fff; font-size: 9px; font-weight: 800; padding: 2.5mm 6mm; border-radius: 4px; border: none; display: inline-block; }
+.btn-b { border: 1.5px solid #3b82f6; color: #3b82f6; font-size: 9px; font-weight: 700; padding: 2.5mm 6mm; border-radius: 4px; background: transparent; display: inline-block; }
+
+/* Info table */
+table.info { width: 100%; border-collapse: collapse; font-size: 9.5px; margin: 2mm 0; }
+table.info th { background: #0a0f1a; color: #e2e8f0; padding: 2mm 3mm; text-align: left; font-size: 8px; letter-spacing: .05em; }
+table.info td { padding: 2mm 3mm; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+table.info tr:nth-child(even) td { background: #f8fafc; }
+
+/* Quote block */
+.quote { background: var(--cs-light); border-left: 4px solid var(--cs-color); padding: 3.5mm 4mm; margin: 3mm 0; border-radius: 0 4px 4px 0; }
+.quote-text { font-size: 10.5px; color: var(--cs-dark); line-height: 1.7; font-style: italic; font-weight: 500; margin-bottom: 1.5mm; }
+.quote-attr { font-size: 8.5px; color: #64748b; font-weight: 600; }
+
+/* Footer */
+.sh-footer { background: #f8fafc; border-top: 1px solid #e5e7eb; padding: 2mm 8mm; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.sh-footer-text { font-size: 7.5px; color: #94a3b8; }
+
+/* ── CASE STUDY COLOUR THEMES ── */
+.cs1 { --cs-color:#3b82f6; --cs-light:#eff6ff; --cs-dark:#1e40af; --cs-muted:#1d4ed8; --cs-border:#bfdbfe; }
+.cs2 { --cs-color:#f59e0b; --cs-light:#fffbeb; --cs-dark:#92400e; --cs-muted:#b45309; --cs-border:#fde68a; }
+.cs3 { --cs-color:#10b981; --cs-light:#f0fdf4; --cs-dark:#065f46; --cs-muted:#047857; --cs-border:#a7f3d0; }
+.cs4 { --cs-color:#8b5cf6; --cs-light:#f5f3ff; --cs-dark:#4c1d95; --cs-muted:#6d28d9; --cs-border:#ddd6fe; }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <div class="toolbar-logo">CPC · Set D — Case Studies</div>
+  <div class="toolbar-info">8 sheets · 2 per case study · A3 Landscape · v2 March 2026</div>
+  <div class="cs-nav">
+    <button class="cs-btn" onclick="document.getElementById('cs1').scrollIntoView({behavior:'smooth'})">CS1 Government</button>
+    <button class="cs-btn" onclick="document.getElementById('cs2').scrollIntoView({behavior:'smooth'})">CS2 Industrial</button>
+    <button class="cs-btn" onclick="document.getElementById('cs3').scrollIntoView({behavior:'smooth'})">CS3 National</button>
+    <button class="cs-btn" onclick="document.getElementById('cs4').scrollIntoView({behavior:'smooth'})">CS4 Education</button>
+  </div>
+  <button class="toolbar-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CASE STUDY 1 — GOVERNMENT FACILITY PORTFOLIO
+     Sheet 1 of 2
+════════════════════════════════════════════ -->
+<div class="sheet cs1" id="cs1">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 1 of 4 · Sheet 1 of 2 · /case-studies/government-facility-portfolio</div>
+      <div class="sh-title">Government Facility Portfolio — QLD Regional</div>
+      <div class="sh-sub">Sector: State Government · Multi-site portfolio · ISO-compliant delivery · Digital audit evidence · Contract renewed</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 1 of 8<div class="sh-pgnum">CS1</div></div>
+  </div>
+  <div class="outcome-strip">
+    <div class="outcome-cell"><div class="outcome-label">Sites Managed</div><div class="outcome-value">12+</div><div class="outcome-sub">Govt offices, service centres, community facilities</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Contract Term</div><div class="outcome-value">3 Years</div><div class="outcome-sub">Initial term · renewed for further 3 years</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Compliance Result</div><div class="outcome-value">Zero</div><div class="outcome-sub">Compliance deficiencies at annual procurement review</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Audit Score</div><div class="outcome-value">97–99%</div><div class="outcome-sub">Consistent across all sites throughout term</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Contract Status</div><div class="outcome-value">Renewed</div><div class="outcome-sub">3-year extension following performance review</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Government Facility Portfolio — QLD Regional</h1>
+        <div class="intro">A state government agency operating multiple public-facing facilities across regional Queensland required a cleaning provider capable of meeting formal procurement compliance requirements, delivering consistent service across diverse site types, and providing documented audit evidence aligned to contract obligations. The previous provider had been unable to supply the compliance documentation required for annual procurement review.</div>
+
+        <h2>The Environment</h2>
+        <p>A portfolio of government offices, customer service centres, community facilities and satellite service delivery points across regional Queensland. Sites operated under state government procurement frameworks with mandatory compliance documentation requirements at contract commencement and annual review. The portfolio included facilities in multiple regional centres with travel distances creating coordination challenges for supervisory coverage.</p>
+        <p>Each facility type had distinct operational requirements — customer service centres required cleaning during non-public hours with strict access management, community facilities had variable event schedules requiring flexible service delivery, and administrative offices required documented security induction compliance for all cleaning staff.</p>
+
+        <h2>The Risk</h2>
+        <p>The previous cleaning provider had delivered adequate day-to-day cleaning quality but was unable to supply ISO certification, modern slavery documentation or digital audit evidence when required for annual procurement review. Paper-based inspection records did not satisfy the agency's procurement acquittal obligations. The facilities management team faced the prospect of contract non-renewal with an existing provider or emergency procurement — both adverse outcomes.</p>
+        <p>The risk extended beyond the immediate contract. A compliance audit failure finding would require formal remediation, potential reporting to the agency's internal audit function, and documentation in the agency's annual procurement report. The compliance failure of a facilities service provider was the agency's compliance failure — not just the provider's.</p>
+
+        <h2>The Scope</h2>
+        <p>Routine daily and weekly cleaning of 12+ facilities across the regional portfolio. Periodic deep cleaning programs aligned to seasonal schedules and facility maintenance cycles. Consumables supply and management across all sites under a single ordering and replenishment system. Attendance and performance reporting aligned to the agency's contract KPI framework, delivered in the reporting format required for procurement acquittal.</p>
+      </div>
+      <div>
+        <h2>The Complexity</h2>
+        <p>Geographic spread across regional Queensland created the primary operational complexity. Permanent local workforce was required in each regional centre rather than a single team travelling between sites — travel-based models create attendance unreliability that is unacceptable in government facility management. Site-specific induction compliance required a credential management system capable of tracking multiple induction requirements across a geographically dispersed workforce.</p>
+        <p>Different facility types within the portfolio required different service specifications, different access arrangements and different compliance considerations. A single contract management framework had to accommodate this diversity while maintaining consistent governance standards across all sites.</p>
+        <p>The agency's procurement framework required formal reporting in a specified format on a monthly basis, with annual compliance documentation review including current ISO certificates, modern slavery statement, insurance certificates and WHS documentation. This reporting obligation was a contractual requirement equivalent in importance to the cleaning specification itself.</p>
+
+        <h2>The System CPC Used</h2>
+        <p>CPC deployed a dedicated contract manager with authority to manage all sites in the regional portfolio. Local supervisory teams were established in each regional centre with clear lines of accountability to the contract manager. CPC's digital audit platform was configured to align with the agency's KPI framework, producing reports in the required format on the required schedule.</p>
+        <p>ISO 9001 quality management system was applied across all sites as a standard operating requirement, not a supplementary compliance activity. Compliance documentation package — ISO certificates, modern slavery statement, insurance certificates, WHS documentation — was assembled and delivered within five business days of contract commencement. Credential management for all deployed staff was integrated into CPC's national workforce management system, providing real-time visibility of security induction status, right-to-work verification and any expiring credentials.</p>
+        <p>A formal performance review process was established from contract commencement — monthly review meetings with the agency's facilities management team, quarterly compliance documentation review, and annual formal review aligned to the procurement acquittal cycle. This process gave the agency continuous visibility of contract performance rather than periodic assessments triggered by complaints.</p>
+      </div>
+      <div>
+        <h2>The Results</h2>
+        <p>Compliance documentation was supplied within five business days of contract commencement — faster than the agency had experienced with any previous cleaning provider. The compliance documentation package included all required certificates and statements in procurement-ready format, eliminating the compilation work previously required by the agency's facilities management team.</p>
+        <p>Digital audit reports were delivered monthly throughout the contract term, with photographic evidence of completed areas and defect management records showing identification, assignment and resolution for every defect identified. The report format was aligned to the agency's internal governance requirements from the outset — no format changes were required during the contract term.</p>
+        <p>Audit scores across the portfolio averaged 97–99% throughout the contract term. No compliance deficiencies were recorded at the annual procurement review in either year one or year two of the initial contract term. The annual compliance documentation review was completed within the contracted timeframe in both years, with no requests for additional documentation or clarification.</p>
+
+        <div class="result-grid">
+          <div class="result-card"><div class="result-label">Compliance Documentation</div><div class="result-value">5 Days</div><div class="result-desc">Full compliance pack delivered within 5 business days of contract commencement</div></div>
+          <div class="result-card"><div class="result-label">Procurement Review</div><div class="result-value">Zero Deficiencies</div><div class="result-desc">No compliance deficiencies at annual procurement review — both years of initial term</div></div>
+          <div class="result-card"><div class="result-label">Audit Performance</div><div class="result-value">97–99%</div><div class="result-desc">Consistent digital audit scores across all sites throughout contract term</div></div>
+          <div class="result-card"><div class="result-label">Contract Outcome</div><div class="result-value">Renewed</div><div class="result-desc">3-year contract extension following successful annual performance review</div></div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Authority Pages &amp; Articles</div>
+          <div class="lnk">Government and Defence Cleaning in Australia — A1</div>
+          <div class="lnk">What standards apply in government cleaning contracts? — Art.2</div>
+          <div class="lnk">How to evaluate commercial cleaning performance — Art.26</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 1 — Government · Sheet 1 of 2 · Continues overleaf →</span>
+  </div>
+</div>
+
+<!-- CS1 Sheet 2 -->
+<div class="sheet cs1">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 1 of 4 · Sheet 2 of 2 · /case-studies/government-facility-portfolio</div>
+      <div class="sh-title">Government Facility Portfolio — QLD Regional <span style="font-size:11px;font-weight:400;color:#94a3b8;">— continued</span></div>
+      <div class="sh-sub">Services delivered · What improved · Lessons · CTA</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 2 of 8<div class="sh-pgnum">CS1</div></div>
+  </div>
+  <div class="cont-band"><span>← Continued from Sheet CS1–1</span><span>Government Facility Portfolio — QLD Regional</span></div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h2>Services Delivered</h2>
+        <div class="tag-row">
+          <span class="tag">Routine Daily Cleaning</span>
+          <span class="tag">Weekly Deep Service</span>
+          <span class="tag">Periodic Deep Clean</span>
+          <span class="tag">Consumables Supply</span>
+          <span class="tag">Digital Audit Reporting</span>
+          <span class="tag">Compliance Documentation</span>
+          <span class="tag">Staff Credential Management</span>
+          <span class="tag">Security Induction Compliance</span>
+          <span class="tag">Monthly Performance Reporting</span>
+          <span class="tag">Annual Compliance Review</span>
+        </div>
+
+        <h2>Sites Supported</h2>
+        <table class="info">
+          <tr><th>Facility Type</th><th>Characteristics</th></tr>
+          <tr><td>Government Offices</td><td>Administrative staff · After-hours access · Security induction required</td></tr>
+          <tr><td>Customer Service Centres</td><td>High public traffic · After-hours cleaning · Access card management</td></tr>
+          <tr><td>Community Facilities</td><td>Variable event schedules · Mixed day/evening cleaning requirements</td></tr>
+          <tr><td>Satellite Service Points</td><td>Small footprint · Remote locations · Travelling supervisor coverage</td></tr>
+        </table>
+      </div>
+      <div>
+        <h2>What Improved Compared to Previous Provider</h2>
+        <p>The most significant improvement was in compliance documentation management. The previous provider had operated in a reactive compliance mode — supplying documentation when formally requested, often requiring multiple follow-up requests, and providing documents in formats that required reformatting for the agency's procurement systems. CPC's approach was proactive — compliance documentation was supplied at contract commencement, updated on a defined schedule, and maintained in a format that could be immediately submitted without reformatting.</p>
+        <p>The shift from paper-based to digital audit reporting was the second most significant improvement. The agency's facilities management team had previously spent time during annual reviews compiling performance evidence from paper inspection records. Digital audit reports accessible through CPC's reporting portal eliminated this compilation effort and provided more granular performance data than paper records could contain.</p>
+        <p>Supervisory consistency improved through the dedicated contract manager model. The agency previously dealt with multiple CPC contacts depending on which facility had an issue. A single contract manager with authority across the portfolio simplified communication and reduced the management time the agency spent on contract administration.</p>
+
+        <h2>Lessons Applicable to Similar Contracts</h2>
+        <p>The most important lesson from this contract is that compliance infrastructure must be present from day one — not assembled in response to audit requests. Government procurement frameworks require documented compliance evidence on a continuous basis, not just at tender stage. Providers who treat compliance as a periodic documentation exercise rather than a continuous operational standard create ongoing risk for their government clients.</p>
+        <p>The second lesson is that reporting format alignment is a genuine service element in government cleaning. A provider who delivers excellent cleaning but reports in a format incompatible with the agency's governance systems creates administrative work for the client that represents a real cost. Formatting and reporting capability is part of the service, not a supplementary administrative function.</p>
+      </div>
+      <div>
+        <h2>How This Applies to Your Organisation</h2>
+        <p>If your organisation manages a government facility portfolio and is evaluating cleaning providers, or if your current provider is unable to meet procurement compliance documentation requirements, this case study demonstrates CPC's capability to deliver the compliance infrastructure that government contracts require.</p>
+        <p>CPC can provide a detailed capability statement, current compliance documentation package, and references from comparable government contracts. All compliance documentation — ISO certificates, modern slavery statement, insurance, WHS plans — is immediately accessible through CPC's Due Diligence Hub without requiring a formal documentation request process.</p>
+
+        <div class="quote">
+          <div class="quote-text">"The compliance documentation was ready before we asked for it. That was new. The reporting format was right from the first report. The performance data was exactly what we needed for our annual review. Simple things, but they matter enormously in government contract management."</div>
+          <div class="quote-attr">— Facilities Management Representative · State Government Agency</div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Resources</div>
+          <div class="lnk">Government and Defence Cleaning — Authority Page A1</div>
+          <div class="lnk">Local Government and Councils — Authority Page A2</div>
+          <div class="lnk">What standards apply in government cleaning contracts? — Art.2</div>
+          <div class="lnk">How to evaluate commercial cleaning performance — Art.26</div>
+          <div class="lnk">What KPIs should a cleaning contract include? — Art.4</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 1 — Government · Sheet 2 of 2</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CASE STUDY 2 — INDUSTRIAL POWER STATION
+     Sheet 3 & 4
+════════════════════════════════════════════ -->
+<div class="sheet cs2" id="cs2">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 2 of 4 · Sheet 1 of 2 · /case-studies/industrial-power-station</div>
+      <div class="sh-title">Industrial Power Station — Coal-Fired Generation Facility</div>
+      <div class="sh-sub">Sector: Industrial / Power Generation · Permit-to-work compliance · ISO 45001 · Dust control · Zero LTI record</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 3 of 8<div class="sh-pgnum">CS2</div></div>
+  </div>
+  <div class="outcome-strip">
+    <div class="outcome-cell"><div class="outcome-label">Lost-Time Incidents</div><div class="outcome-value">Zero</div><div class="outcome-sub">Full contract term — all site activities</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Permit Compliance</div><div class="outcome-value">100%</div><div class="outcome-sub">PTW documentation complete at audit review</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Dust Compliance</div><div class="outcome-value">100%</div><div class="outcome-sub">Dust control at all scheduled inspections</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Outage Programs</div><div class="outcome-value">On Time</div><div class="outcome-sub">All maintenance outage cleaning completed to schedule</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Certification</div><div class="outcome-value">ISO 45001</div><div class="outcome-sub">WHS management system active throughout</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Industrial Power Station — Coal-Fired Generation Facility</h1>
+        <div class="intro">A large coal-fired power generation facility operating under strict plant safety and environmental compliance requirements required a cleaning contractor capable of working in a high-risk environment with permit-to-work obligations, coal dust control requirements and plant-specific induction and access protocols. Previous cleaning arrangements had not maintained permit-to-work compliance documentation to the standard required by the plant operator's safety management system.</div>
+
+        <h2>The Environment</h2>
+        <p>A coal-fired power generation facility with active plant operations including coal handling conveyors and hoppers, turbine hall and boiler areas, ash handling systems, control rooms and administration areas. The facility operated under 24/7 generation obligations with scheduled maintenance outage windows for inspection and maintenance activities. Cleaning work in plant areas required integration with the facility's permit-to-work system and coordination with operations and maintenance scheduling.</p>
+        <p>Coal dust from handling systems presented the primary environmental hazard for cleaning operations — accumulations created combustion risk, equipment damage potential and respiratory exposure for workers. Ash handling areas contained fine ash particulates requiring respiratory protection and specific containment procedures. Turbine hall cleaning required work near rotating equipment under strict permit conditions.</p>
+
+        <h2>The Risk</h2>
+        <p>The previous cleaning arrangements had not maintained the permit-to-work compliance documentation required by the plant operator's safety management system. Permit records were incomplete, closing confirmations were not consistently documented, and some cleaning activities had been conducted without the required permits — a direct safety compliance failure and a significant liability for the plant operator.</p>
+        <p>Dust accumulation in coal handling areas had reached levels that created potential combustion risk. The cleaning frequency and methodology had not been sufficient to maintain dust levels within safe operating thresholds. The plant operator required immediate improvement in both safety compliance and dust management before the contract could continue.</p>
+      </div>
+      <div>
+        <h2>The Scope</h2>
+        <p>Routine cleaning of administration, control room and amenities areas on a daily basis with reduced weekend frequency. Scheduled dust control cleaning of coal handling areas on a frequency determined by risk assessment and accumulation measurement. Plant area cleaning — turbine hall, boiler areas, auxiliary plant rooms — scheduled in coordination with operations and maintenance to minimise production disruption. Outage cleaning during each scheduled maintenance shutdown, requiring rapid deployment of additional resources within the outage window.</p>
+        <p>Spill response capability maintained continuously — coal and ash spill response available at any hour of operation. Waste management including ash disposal coordination in compliance with environmental protection obligations.</p>
+
+        <h2>The Complexity</h2>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Permit-to-work integration</strong> — all plant area cleaning required active permit coordination with operations team, with no work commencing without current valid permit</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Dust assessment and frequency management</strong> — cleaning frequency in coal handling areas determined by accumulation measurement, not fixed calendar schedule</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Outage window constraints</strong> — maintenance outage cleaning must be completed within defined window before plant return to service</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Hazardous area equipment requirements</strong> — vacuum systems required explosion-proof ratings in coal handling areas</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Multi-competency workforce</strong> — staff required PTW training, dust control competency, height safety and respiratory protection certifications</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>24/7 response capability</strong> — spill response and emergency cleaning available at any hour of plant operation</div></div>
+      </div>
+      <div>
+        <h2>The System CPC Used</h2>
+        <p>CPC developed a site-specific safety management plan in collaboration with the plant safety team before any cleaning commenced. The plan covered risk assessments for each cleaning activity type, PPE specifications for each area, permit-to-work procedures for CPC staff, emergency response procedures and dust management frequency requirements. The plan was reviewed and approved by the plant safety manager and became the operational reference for all cleaning activities at the facility.</p>
+        <p>CPC's permit-to-work compliance was integrated into its daily task management documentation — no cleaning task in plant areas was assigned without confirmation that the required permit was active, permit conditions were reviewed with the cleaning crew before commencement, and permit closure confirmation was recorded at task completion. Permit records were maintained in CPC's contract management system and provided to the plant operator on a weekly basis.</p>
+        <p>Industrial vacuum systems with appropriate explosion-proof ratings and high-efficiency filtration were specified for coal and ash handling areas. Cleaning frequencies were established by risk assessment with accumulation measurement at defined intervals to confirm that frequency was sufficient to maintain dust levels within safe thresholds. The measurement results were documented and available for environmental and safety audit review.</p>
+        <p>Outage cleaning programs were planned in collaboration with the plant maintenance team at the start of each maintenance cycle. Resource requirements were assessed against the outage window duration, and additional workforce was deployed from CPC's regional network where the outage cleaning scope exceeded the regular site team capacity.</p>
+
+        <div class="result-grid">
+          <div class="result-card"><div class="result-label">Safety Performance</div><div class="result-value">Zero LTI</div><div class="result-desc">No lost-time incidents across full contract term including all high-risk activities</div></div>
+          <div class="result-card"><div class="result-label">PTW Compliance</div><div class="result-value">100%</div><div class="result-desc">Complete permit-to-work documentation at all audit reviews</div></div>
+          <div class="result-card"><div class="result-label">Dust Management</div><div class="result-value">In Threshold</div><div class="result-desc">Coal dust accumulation maintained within safe operating thresholds at all measurement points</div></div>
+          <div class="result-card"><div class="result-label">Outage Delivery</div><div class="result-value">On Schedule</div><div class="result-desc">All maintenance outage cleaning completed within planned windows</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 2 — Industrial Power Station · Sheet 1 of 2 · Continues overleaf →</span>
+  </div>
+</div>
+
+<!-- CS2 Sheet 2 -->
+<div class="sheet cs2">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 2 of 4 · Sheet 2 of 2 · /case-studies/industrial-power-station</div>
+      <div class="sh-title">Industrial Power Station <span style="font-size:11px;font-weight:400;color:#94a3b8;">— continued</span></div>
+      <div class="sh-sub">Results in detail · Services delivered · Lessons · Related resources</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 4 of 8<div class="sh-pgnum">CS2</div></div>
+  </div>
+  <div class="cont-band"><span>← Continued from Sheet CS2–1</span><span>Industrial Power Station — Coal-Fired Generation Facility</span></div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h2>Results in Detail</h2>
+        <p>Zero lost-time incidents over the full contract term represented the most significant outcome of this engagement. The power generation industry benchmark for cleaning contractor safety performance is measured against incident rates — CPC's zero LTI result across all plant activities, including coal handling area cleaning, turbine hall work and maintenance outage cleaning, demonstrated that high-risk industrial cleaning can be delivered safely when safety management is genuinely integrated into operations rather than treated as a compliance overlay.</p>
+        <p>Permit-to-work documentation was 100% complete at every audit review. The plant operator's safety auditor confirmed that CPC's permit compliance records were the most complete they had reviewed across all contractors operating at the facility. The documentation standard CPC established became a reference for the plant operator's other service contractors.</p>
+        <p>Dust control performance was confirmed as adequate at all scheduled measurement points throughout the contract. The coal handling area cleaning frequency, established by risk assessment rather than arbitrary schedule, proved sufficient to maintain accumulation levels within the plant operator's safety thresholds while not creating unnecessary cleaning burden in areas where accumulation rates were lower than initially estimated.</p>
+
+        <h2>Services Delivered</h2>
+        <div class="tag-row">
+          <span class="tag">Routine Administration Cleaning</span>
+          <span class="tag">Coal Area Dust Control</span>
+          <span class="tag">Ash Handling Cleaning</span>
+          <span class="tag">Turbine Hall Cleaning</span>
+          <span class="tag">Permit-to-Work Compliance</span>
+          <span class="tag">Maintenance Outage Programs</span>
+          <span class="tag">Spill Response</span>
+          <span class="tag">Waste Management</span>
+          <span class="tag">Safety Documentation</span>
+          <span class="tag">Dust Accumulation Monitoring</span>
+        </div>
+      </div>
+      <div>
+        <h2>What Improved vs Previous Arrangements</h2>
+        <p>The permit-to-work compliance improvement was the most immediately visible change from the previous cleaning arrangements. Where previous cleaning records showed incomplete permit documentation and evidence of cleaning activities conducted without active permits, CPC's system produced complete permit records from the first week of operations. The plant operator's safety team confirmed the improvement within the first monthly safety review.</p>
+        <p>Dust accumulation management improved through the shift from a fixed calendar schedule to a risk assessment-based frequency. The previous arrangements had applied the same cleaning frequency to all coal handling areas regardless of actual accumulation rates — some areas were being cleaned more frequently than necessary while others were not being cleaned frequently enough. The risk assessment approach matched cleaning frequency to actual accumulation rates, improving both safety outcomes and resource efficiency.</p>
+        <p>Outage cleaning coordination improved significantly through the advance planning process CPC established at the start of each maintenance cycle. The previous ad hoc approach to outage cleaning — assigning available staff to outage cleaning as capacity allowed — had resulted in incomplete cleaning within outage windows on two occasions, requiring extension of the maintenance window at significant cost to the plant operator.</p>
+
+        <h2>Lessons for Similar Contracts</h2>
+        <p>Industrial cleaning safety is achieved through system discipline, not just individual competence. Individual cleaning workers may be competent and safety-conscious, but without a system that enforces permit-to-work compliance at every task, ensures PPE is used consistently, and maintains documentation that can be reviewed and audited, safety outcomes depend on individual behaviour rather than systematic control. System discipline is what produces consistent safety performance over extended contract terms.</p>
+        <p>Dust management frequency must be evidence-based, not schedule-based. Different areas within a coal-fired power station generate very different dust accumulation rates depending on proximity to coal handling operations, air movement patterns and operational cycles. A risk assessment-based approach that measures actual accumulation rates and sets cleaning frequencies accordingly produces better safety outcomes and better resource efficiency than a uniform frequency applied regardless of actual conditions.</p>
+      </div>
+      <div>
+        <h2>How This Applies to Your Facility</h2>
+        <p>If your facility operates in an industrial environment requiring permit-to-work compliance, dust management or high-risk cleaning activities, CPC can provide a detailed capability statement, safety management documentation and references from comparable industrial contracts. CPC's ISO 45001 certification, permit compliance systems and industrial workforce competencies are documented and available for procurement evaluation.</p>
+
+        <div class="quote">
+          <div class="quote-text">"The permit documentation was complete from day one. We hadn't seen that from a cleaning contractor before. The dust measurement approach was exactly what we needed — matching frequency to accumulation rather than just running a fixed schedule. And the outage planning process meant we never had an incomplete outage clean again."</div>
+          <div class="quote-attr">— Plant Safety Manager · Power Generation Facility</div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Resources</div>
+          <div class="lnk">Industrial and Power Station Cleaning — Authority Page A3</div>
+          <div class="lnk">How do you clean a coal-fired power station? — Art.8</div>
+          <div class="lnk">Industrial cleaning risks and how to manage them — Art.9</div>
+          <div class="lnk">Dust contamination control in industrial environments — Art.10</div>
+          <div class="lnk">What training do industrial cleaners need? — Art.12</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 2 — Industrial Power Station · Sheet 2 of 2</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CASE STUDY 3 — NATIONAL INDUSTRIAL PORTFOLIO
+     Sheets 5 & 6
+════════════════════════════════════════════ -->
+<div class="sheet cs3" id="cs3">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 3 of 4 · Sheet 1 of 2 · /case-studies/national-industrial-portfolio</div>
+      <div class="sh-title">National Industrial Portfolio — Multi-State Manufacturing Client</div>
+      <div class="sh-sub">Sector: National Industrial · QLD · NSW · VIC · extended to WA · Single provider · Central governance · Portfolio expanded</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 5 of 8<div class="sh-pgnum">CS3</div></div>
+  </div>
+  <div class="outcome-strip">
+    <div class="outcome-cell"><div class="outcome-label">States Covered</div><div class="outcome-value">4 States</div><div class="outcome-sub">QLD · NSW · VIC · extended to WA</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Sites Managed</div><div class="outcome-value">Multi-site</div><div class="outcome-sub">Industrial and warehouse across all states</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Management Model</div><div class="outcome-value">Single Account</div><div class="outcome-sub">One contact · one report · one invoice</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Portfolio Growth</div><div class="outcome-value">Expanded</div><div class="outcome-sub">WA sites added after initial contract performance</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Audit Consistency</div><div class="outcome-value">Aligned</div><div class="outcome-sub">Consistent performance across all states</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>National Industrial Portfolio — Multi-State Manufacturing</h1>
+        <div class="intro">A national manufacturing and industrial client with facilities across Queensland, New South Wales and Victoria required a single cleaning provider capable of delivering consistent service standards across all states, providing centralised contract reporting and maintaining local operational presence without the administrative complexity of managing separate state-by-state cleaning providers. The client's previous arrangement — three separate local cleaning providers in three states — had produced inconsistent standards and significant management overhead.</div>
+
+        <h2>The Environment</h2>
+        <p>Industrial and warehouse facilities across three states with varying facility types, shift patterns and site-specific requirements. Queensland facilities included manufacturing operations with process dust requirements. New South Wales facilities included large warehouse and distribution operations with high-traffic floor areas. Victoria facilities included mixed manufacturing and office environments. Each state had different facility configurations requiring tailored service specifications, while the client needed nationally consistent governance standards and reporting.</p>
+        <p>Production environments required cleaning coordination with shift patterns — services scheduled to avoid peak production periods, with some sites requiring multiple daily cleaning visits to maintain standards in high-activity areas. Safety requirements varied by facility type and state, requiring flexible workforce competency management across the national portfolio.</p>
+
+        <h2>The Problem with the Previous Arrangement</h2>
+        <p>Three separate cleaning providers across three states had produced three separate reporting formats, three separate billing structures, three sets of compliance documentation to manage, and three separate escalation relationships when performance issues arose. The client's national facilities management team spent significant time each month managing these three relationships and reconciling performance data that was not comparable because the reporting formats were different.</p>
+        <p>Service standards varied between states despite equivalent specifications — what was acceptable performance in one state was not equivalent to what was being delivered in another. The client had no mechanism to make this comparison objectively because audit methodologies differed between providers. Portfolio-level performance visibility was not achievable without significant manual data compilation effort.</p>
+      </div>
+      <div>
+        <h2>The Scope</h2>
+        <p>Routine daily, weekly and periodic cleaning across all facilities in all states under a single national service agreement. Deep clean programs coordinated with production shutdown schedules across all sites. Consumables supply managed through a single national procurement arrangement with consistent product specifications across all states. Monthly performance reporting in a single format providing portfolio-wide visibility to the client's national facilities management team. Annual compliance review covering all states in a single documentation package.</p>
+
+        <h2>The Complexity</h2>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Multi-jurisdiction compliance</strong> — WHS legislation, environmental requirements and industrial award conditions vary between states; CPC's national systems maintained compliance across all jurisdictions simultaneously</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Facility type diversity</strong> — manufacturing, warehouse and distribution, mixed-use industrial sites each required different service specifications within the same national governance framework</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Production schedule integration</strong> — cleaning schedules in all states integrated with production planning systems to avoid peak production periods and coordinate with maintenance shutdowns</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Reporting harmonisation</strong> — audit methodology and reporting format standardised across all states to produce genuinely comparable portfolio-level performance data</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Single mobilisation across three states</strong> — simultaneous transition from three local providers in three states required careful planning to avoid service gaps during transition</div></div>
+
+        <h2>The System CPC Used</h2>
+        <p>CPC appointed a national account manager as the single point of contact for the client's national facilities management team. This person had authority and visibility across all three states — any performance issue in any state could be escalated to a single contact who could act without escalating to a separate state manager. The national account manager was supported by state-based contract managers in each state who held operational responsibility for their facilities.</p>
+        <p>CPC's national management systems were applied consistently across all states — same audit methodology, same reporting format, same defect management process, same compliance documentation standards. This consistency was the mechanism that produced comparable performance data across the portfolio and eliminated the format translation work the client's team had previously done manually.</p>
+      </div>
+      <div>
+        <h2>The Results</h2>
+        <p>The most immediate result was the reduction in management overhead for the client's national facilities management team. One account manager, one monthly report, one billing format and one compliance documentation package replaced three separate provider relationships. The time savings were material and freed the facilities management team to focus on facility improvement rather than provider management.</p>
+        <p>Performance data across the portfolio became genuinely comparable for the first time. The client's facilities management team could identify which facilities were performing above and below portfolio average, which state operations showed particular strengths or weaknesses, and which cleaning activities required additional focus across the national portfolio. This performance intelligence had not been available under the previous arrangement.</p>
+        <p>The expansion of the contract to include Western Australia facilities was the clearest indicator of the client's confidence in CPC's national delivery model. The decision to add a fourth state to the same single-provider arrangement rather than engaging a local WA provider reflected the client's experience of CPC's national consistency delivering what it had promised.</p>
+
+        <div class="result-grid">
+          <div class="result-card"><div class="result-label">Management Overhead</div><div class="result-value">Reduced</div><div class="result-desc">Three provider relationships replaced by one national account — significant FM team time saving</div></div>
+          <div class="result-card"><div class="result-label">Portfolio Visibility</div><div class="result-value">Real-Time</div><div class="result-desc">Consistent reporting format provided first genuine portfolio-level performance comparison</div></div>
+          <div class="result-card"><div class="result-label">Contract Expansion</div><div class="result-value">+WA</div><div class="result-desc">Western Australia facilities added to contract after initial term performance review</div></div>
+          <div class="result-card"><div class="result-label">Transition</div><div class="result-value">No Gaps</div><div class="result-desc">Simultaneous transition from three state providers completed without service gaps</div></div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Resources</div>
+          <div class="lnk">National Commercial Cleaning Operations — Authority Page A8</div>
+          <div class="lnk">How to choose a commercial cleaner — Art.22</div>
+          <div class="lnk">What contract structures work best for cleaning? — Art.27</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 3 — National Industrial · Sheet 1 of 2 · Continues overleaf →</span>
+  </div>
+</div>
+
+<!-- CS3 Sheet 2 -->
+<div class="sheet cs3">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 3 of 4 · Sheet 2 of 2 · /case-studies/national-industrial-portfolio</div>
+      <div class="sh-title">National Industrial Portfolio <span style="font-size:11px;font-weight:400;color:#94a3b8;">— continued</span></div>
+      <div class="sh-sub">Services delivered · What improved · Lessons · Related resources</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 6 of 8<div class="sh-pgnum">CS3</div></div>
+  </div>
+  <div class="cont-band"><span>← Continued from Sheet CS3–1</span><span>National Industrial Portfolio — Multi-State Manufacturing Client</span></div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h2>Services Delivered</h2>
+        <div class="tag-row">
+          <span class="tag">Routine Facility Cleaning</span>
+          <span class="tag">Industrial Floor Maintenance</span>
+          <span class="tag">Warehouse Cleaning</span>
+          <span class="tag">Process Area Cleaning</span>
+          <span class="tag">Deep Clean Programs</span>
+          <span class="tag">Consumables Supply</span>
+          <span class="tag">National Account Management</span>
+          <span class="tag">Portfolio Reporting</span>
+          <span class="tag">Compliance Documentation</span>
+          <span class="tag">Multi-State Governance</span>
+        </div>
+
+        <h2>National Footprint Used</h2>
+        <table class="info">
+          <tr><th>State</th><th>Facility Types</th><th>Key Requirement</th></tr>
+          <tr><td><strong>QLD</strong></td><td>Manufacturing, industrial</td><td>Process dust management, shift integration</td></tr>
+          <tr><td><strong>NSW</strong></td><td>Warehouse, distribution</td><td>High-frequency floor maintenance, traffic management</td></tr>
+          <tr><td><strong>VIC</strong></td><td>Manufacturing, offices</td><td>Mixed-use coordination, after-hours access</td></tr>
+          <tr><td><strong>WA</strong></td><td>Industrial (added yr 2)</td><td>Same national standards applied immediately on expansion</td></tr>
+        </table>
+      </div>
+      <div>
+        <h2>Lessons for Multi-State Contracts</h2>
+        <p>The most important lesson from this contract is that national coverage and national consistency are different things. Three local cleaning companies in three states provide national coverage — but they do not provide national consistency in standards, reporting, compliance documentation or escalation. Genuine national consistency requires a single provider with genuinely national management systems, not a collection of local providers aggregated under a single contract name.</p>
+        <p>The second lesson is that the transition planning investment pays off. CPC's simultaneous transition from three state providers across three states required significant upfront planning — mobilisation scheduling, credential verification, induction coordination, reporting format design, billing system configuration. This investment was substantial but produced a clean transition without service gaps and eliminated the performance uncertainty that sequential state-by-state transitions would have created.</p>
+        <p>The third lesson is that single-contact accountability at national level is more valuable than clients typically estimate before experiencing it. The number of management hours spent by the client's team on the previous three-provider arrangement — reconciling reports, managing separate escalations, coordinating compliance documentation from three sources — was only fully apparent when those hours disappeared under the single-provider model.</p>
+
+        <h2>How This Applies to Your Organisation</h2>
+        <p>If your organisation manages cleaning across multiple states and is currently managing multiple local providers, or if your national provider is not delivering genuine portfolio-level consistency and reporting, this case study demonstrates CPC's capability to deliver the governance simplification and performance consistency that national cleaning management requires.</p>
+      </div>
+      <div>
+        <div class="quote">
+          <div class="quote-text">"We went from three different report formats, three different billing systems and three different phone numbers to call when something went wrong — to one of each. The time saving for our national FM team was real. And being able to actually compare performance across sites — for the first time — gave us management information we simply hadn't had before."</div>
+          <div class="quote-attr">— National Facilities Manager · Manufacturing Group</div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Resources</div>
+          <div class="lnk">National Commercial Cleaning Operations — Authority Page A8</div>
+          <div class="lnk">Industrial and Power Station Cleaning — Authority Page A3</div>
+          <div class="lnk">How to choose a commercial cleaner — Art.22</div>
+          <div class="lnk">What contract structures work best? — Art.27</div>
+          <div class="lnk">How to evaluate commercial cleaning performance — Art.26</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 3 — National Industrial · Sheet 2 of 2</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CASE STUDY 4 — EDUCATION PORTFOLIO
+     Sheets 7 & 8
+════════════════════════════════════════════ -->
+<div class="sheet cs4" id="cs4">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 4 of 4 · Sheet 1 of 2 · /case-studies/education-portfolio</div>
+      <div class="sh-title">Education Campus Portfolio — State School Authority</div>
+      <div class="sh-sub">Sector: Education · Primary &amp; secondary schools · Regional &amp; metro · WWCC compliant · Infection control · Holiday deep clean</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 7 of 8<div class="sh-pgnum">CS4</div></div>
+  </div>
+  <div class="outcome-strip">
+    <div class="outcome-cell"><div class="outcome-label">Safeguarding</div><div class="outcome-value">Zero</div><div class="outcome-sub">WWCC compliance incidents over full contract term</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Deep Cleans</div><div class="outcome-value">100%</div><div class="outcome-sub">All holiday programs completed on schedule, all campuses</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Infection Response</div><div class="outcome-value">Activated</div><div class="outcome-sub">Pre-planned outbreak protocols deployed effectively during term</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Credential Status</div><div class="outcome-value">Current</div><div class="outcome-sub">All WWCC maintained current throughout contract — zero expired</div></div>
+    <div class="outcome-cell"><div class="outcome-label">Feedback</div><div class="outcome-value">Praised</div><div class="outcome-sub">Infection control praised by principals during outbreak periods</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Education Campus Portfolio — State School Authority</h1>
+        <div class="intro">A state education authority managing multiple primary and secondary schools across regional and metropolitan locations required a cleaning provider with Working with Children Check compliance for all deployed staff, infection control capability appropriate for education environments, and a service model capable of delivering holiday deep clean programs on schedule across a geographically spread portfolio. The previous provider had experienced WWCC compliance issues and had not consistently delivered holiday deep clean programs within the required windows.</div>
+
+        <h2>The Environment</h2>
+        <p>A portfolio of primary and secondary schools across regional and metropolitan locations, including facilities with science laboratories, commercial kitchens, swimming pools, gymnasiums and specialist learning areas. Facilities ranged from small regional primary schools with single-stream year groups to large metropolitan secondary colleges with multi-building campuses and several hundred staff and students.</p>
+        <p>The diversity of facility types required service specifications adapted to each school's configuration while maintaining consistent governance standards across the portfolio. School operating hours — typically 8am to 3:30pm — constrained cleaning windows to before-school, after-school and weekend periods. Holiday period deep clean programs had fixed windows determined by the education calendar and could not be extended without impacting teacher preparation days and student return.</p>
+
+        <h2>The Risk</h2>
+        <p>The WWCC compliance issues with the previous provider had created direct regulatory and reputational risk for the education authority. A cleaning worker operating at a school without a valid WWCC is a reportable compliance incident under child safety legislation, with notification obligations to the state education department's child safety unit. Two incidents in the previous contract had required formal reporting and triggered a formal compliance review of the cleaning contract.</p>
+        <p>Holiday deep clean delivery failures had required schools to open for teacher preparation days before deep cleans were complete, creating scheduling conflicts and in two cases requiring emergency supplementary cleaning at short notice and significant additional cost. The reliability failure was creating operational risk for school principal groups who needed to plan teacher preparation days with confidence that facilities would be clean-ready.</p>
+      </div>
+      <div>
+        <h2>The Scope</h2>
+        <p>Daily routine cleaning on school days covering all classroom areas, administration, toilets, laboratories and common areas. After-school cleaning windows coordinated with school activity schedules to avoid conflicts with after-school programs and evening events. Weekly higher-frequency cleaning of toilets, amenities and food preparation areas. Infection control protocols applied as standard operating procedure throughout the school year.</p>
+        <p>Holiday deep clean programs across four holiday periods — Term 1, Term 2, Term 3 and summer breaks. Programs planned at the start of the year against the confirmed education calendar with access windows confirmed before schools closed each term. Deep clean scope included floor resurfacing, carpet extraction, high-level cleaning, laboratory deep clean, commercial kitchen degreasing and gymnasium court treatment as applicable to each campus configuration.</p>
+        <p>Outbreak response protocols pre-planned for gastroenteritis, influenza and respiratory illness scenarios. Protocols activated by school principal notification and implemented without delay — enhanced cleaning frequencies and disinfectant protocols active within 24 hours of outbreak notification.</p>
+
+        <h2>The Complexity</h2>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>WWCC management at scale</strong> — all staff with unsupervised student access required current WWCC; credential management for a geographically dispersed workforce across multiple school sites</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Site configuration diversity</strong> — each school had different floor types, specialist areas and cleaning requirements within the same portfolio governance framework</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Calendar-constrained deep cleans</strong> — holiday window timing was non-negotiable; deep clean programs had to be completed before teacher preparation days regardless of other demands on the cleaning workforce</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Infection outbreak response</strong> — pre-planned response protocols needed to activate immediately without delay for resource planning or protocol development</div></div>
+        <div class="complexity-item"><div class="complexity-dot"></div><div class="complexity-text"><strong>Chemical safety requirements</strong> — product selection restricted to education-appropriate chemicals; storage and access management requirements on all campuses</div></div>
+      </div>
+      <div>
+        <h2>The System CPC Used</h2>
+        <p>CPC's WWCC management was integrated into its national credential management system from contract commencement. All staff with unsupervised student access were verified before deployment, with WWCC status recorded in the system and expiry alerts generated 60 days before any credential expiry. The 60-day alert window provided sufficient time for renewal to be completed before expiry without emergency processing. Zero WWCC compliance incidents occurred throughout the contract term.</p>
+        <p>Holiday deep clean programs were planned at the start of the school year against the confirmed education department holiday calendar. Planning identified the workforce, equipment and timing required for each campus deep clean program before the preceding term ended. Resource allocation was confirmed before schools closed — not assembled reactively when the holiday period began. Pre-planned programs meant that deep cleans commenced on the first available day of each holiday period rather than after mobilisation delays.</p>
+        <p>Infection outbreak response protocols were developed at contract commencement in collaboration with the education authority's health and wellbeing team. Protocols were documented for the most common outbreak scenarios — gastroenteritis, influenza, COVID-19 — specifying the enhanced cleaning frequencies, disinfectant product specifications and documentation requirements for each scenario. When an outbreak was notified by a school principal, the relevant protocol was activated immediately without the delay of ad hoc planning.</p>
+
+        <div class="result-grid">
+          <div class="result-card"><div class="result-label">WWCC Compliance</div><div class="result-value">Zero Incidents</div><div class="result-desc">No WWCC compliance events throughout contract term — credential management system effective</div></div>
+          <div class="result-card"><div class="result-label">Holiday Programs</div><div class="result-value">100% On Time</div><div class="result-desc">All deep clean programs completed before teacher preparation days — all terms, all campuses</div></div>
+          <div class="result-card"><div class="result-label">Outbreak Response</div><div class="result-value">&lt;24 Hours</div><div class="result-desc">Enhanced cleaning protocols activated within 24 hours of outbreak notification</div></div>
+          <div class="result-card"><div class="result-label">Principal Feedback</div><div class="result-value">Positive</div><div class="result-desc">Infection control outcomes praised during outbreak periods — direct principal feedback</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 4 — Education · Sheet 1 of 2 · Continues overleaf →</span>
+  </div>
+</div>
+
+<!-- CS4 Sheet 2 -->
+<div class="sheet cs4">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Case Study 4 of 4 · Sheet 2 of 2 · /case-studies/education-portfolio</div>
+      <div class="sh-title">Education Campus Portfolio <span style="font-size:11px;font-weight:400;color:#94a3b8;">— continued</span></div>
+      <div class="sh-sub">Services delivered · What improved · Lessons · Related resources</div>
+    </div>
+    <div class="sh-meta">Case Studies · Set D<br/>Sheet 8 of 8<div class="sh-pgnum">CS4</div></div>
+  </div>
+  <div class="cont-band"><span>← Continued from Sheet CS4–1</span><span>Education Campus Portfolio — State School Authority</span></div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h2>Services Delivered</h2>
+        <div class="tag-row">
+          <span class="tag">Daily Routine Cleaning</span>
+          <span class="tag">After-School Service</span>
+          <span class="tag">Toilet &amp; Amenities Service</span>
+          <span class="tag">Laboratory Cleaning</span>
+          <span class="tag">Commercial Kitchen Deep Clean</span>
+          <span class="tag">Gymnasium Treatment</span>
+          <span class="tag">Holiday Deep Clean Programs</span>
+          <span class="tag">Floor Resurfacing</span>
+          <span class="tag">Carpet Extraction</span>
+          <span class="tag">High-Level Cleaning</span>
+          <span class="tag">Infection Control Protocols</span>
+          <span class="tag">Outbreak Response</span>
+          <span class="tag">WWCC Credential Management</span>
+          <span class="tag">Compliance Documentation</span>
+        </div>
+
+        <h2>What Improved vs Previous Provider</h2>
+        <p>WWCC compliance was the most critical improvement. The previous provider's reactive approach to WWCC management — checking credentials when formally requested rather than proactively monitoring expiry — had produced two reportable incidents. CPC's proactive 60-day expiry alert system eliminated this risk from the first week of the contract. The education authority's child safety officer confirmed that CPC's credential management approach was the standard they expected but had not previously received from a cleaning provider.</p>
+        <p>Holiday deep clean reliability was the second major improvement. The previous provider's ad hoc approach to holiday resourcing — assembling available staff rather than pre-planning deployment against the calendar — had produced two incomplete programs. CPC's pre-planned approach, with resource allocation confirmed before each term ended, produced 100% on-time completion across all programs in the initial contract term.</p>
+      </div>
+      <div>
+        <h2>Lessons for Education Contracts</h2>
+        <p>WWCC management must be systematic, not reactive. The consequence of a WWCC compliance incident in a school environment is a reportable event under child safety legislation — not simply a contract management issue. Providers who manage WWCC compliance reactively, checking credentials when asked rather than monitoring proactively, will eventually produce compliance incidents that create regulatory and reputational risk for the education authority. Systematic credential management is not optional in education cleaning — it is a fundamental service requirement.</p>
+        <p>Holiday deep clean programs require planning at the start of the year, not at the start of the holiday. The compressed timeframes of school holidays — typically two weeks for term breaks and six weeks for summer — do not allow for resource planning after the holiday begins. Pre-planning against the confirmed calendar is the only approach that consistently produces on-time completion without emergency costs or incomplete programs.</p>
+        <p>Infection control should be a default operating standard, not an outbreak response. Schools that treat infection control as something that happens during outbreaks, rather than a baseline operating standard that reduces outbreak frequency, create higher infection risk throughout the year. CPC's standard cleaning protocols — applied continuously rather than reactively — contributed to the infection control outcomes that school principals observed during high-risk periods.</p>
+
+        <h2>How This Applies to Your Organisation</h2>
+        <p>If your education authority manages a cleaning portfolio and is experiencing WWCC compliance concerns, inconsistent holiday deep clean delivery or inadequate infection control capability, CPC can provide a detailed capability statement, sample WWCC management process documentation, and references from comparable education contracts.</p>
+      </div>
+      <div>
+        <div class="quote">
+          <div class="quote-text">"We had two WWCC incidents with the previous provider. With CPC we've had zero — and we're now three years in. The holiday deep cleans have been on time and complete every term without exception. During the gastroenteritis outbreak last winter, the response was immediate and exactly what the situation required. Those three things — WWCC, deep cleans, infection response — are what matter most to us, and CPC delivers all three."</div>
+          <div class="quote-attr">— Senior Facilities Manager · State Education Authority</div>
+        </div>
+
+        <div class="links-block">
+          <div class="links-title">Related Resources</div>
+          <div class="lnk">Education and TAFE Cleaning — Authority Page A4</div>
+          <div class="lnk">How school cleaning differs from office cleaning — Art.14</div>
+          <div class="lnk">What does a school deep clean involve? — Art.15</div>
+          <div class="lnk">Infection risks in education facilities — Art.16</div>
+          <div class="lnk">Education facility cleaning compliance requirements — Art.17</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Case Studies</span>
+    <span class="sh-footer-text">Set D · Case Study 4 — Education · Sheet 2 of 2 · End of Set D</span>
+  </div>
+</div>
+
+</body>
+</html>

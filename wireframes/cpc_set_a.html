@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>CPC Set A — Site Strategy</title>
+<style>
+/* ─────────────────────────────────────────
+   PRINT: A3 landscape, one .sheet = one page
+───────────────────────────────────────── */
+@page {
+  size: A3 landscape;
+  margin: 8mm;
+}
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { background: #fff !important; }
+  .sheet {
+    page-break-after: always;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  .sheet:last-child { page-break-after: auto; }
+}
+
+/* ─────────── RESET ─────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #d1d5db;
+  color: #1a202c;
+  font-size: 11px;
+}
+
+/* ─────────── SCREEN TOOLBAR ─────────── */
+.toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: #0a0f1a; border-bottom: 3px solid #00d4aa;
+  padding: 10px 20px; display: flex; align-items: center; gap: 16px;
+}
+.toolbar-logo { font-size: 15px; font-weight: 900; color: #00d4aa; }
+.toolbar-info { font-size: 11px; color: #64748b; }
+.toolbar-btn {
+  margin-left: auto; padding: 9px 22px;
+  background: #00d4aa; color: #0a0f1a;
+  font-weight: 800; font-size: 12px; border: none; cursor: pointer; border-radius: 4px;
+}
+.toolbar-btn:hover { background: #00f0c4; }
+
+/* ─────────── SHEET CANVAS ─────────── */
+.sheet {
+  width: 404mm;
+  min-height: 279mm;
+  background: #fff;
+  margin: 12px auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+/* ─────────── HEADER BAND ─────────── */
+.sh-hdr {
+  background: #0a0f1a;
+  padding: 5mm 8mm 4mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 3px solid #00d4aa;
+  flex-shrink: 0;
+}
+.sh-eyebrow { font-size: 8px; font-weight: 700; color: #00d4aa; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+.sh-title   { font-size: 18px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 3px; }
+.sh-sub     { font-size: 9px; color: #94a3b8; line-height: 1.5; max-width: 240mm; }
+.sh-meta    { text-align: right; font-size: 9px; color: #475569; white-space: nowrap; padding-left: 10mm; flex-shrink: 0; }
+.sh-pgnum   { font-size: 22px; font-weight: 900; color: #00d4aa; line-height: 1; margin-top: 2mm; }
+
+/* ─────────── STAT ROW ─────────── */
+.stat-row {
+  background: #111827; border-bottom: 1px solid #1e293b;
+  display: flex; flex-shrink: 0;
+}
+.stat-cell { flex: 1; padding: 3mm 6mm; border-right: 1px solid #1e293b; }
+.stat-cell:last-child { border-right: none; }
+.stat-n { font-size: 22px; font-weight: 900; color: #00d4aa; line-height: 1; }
+.stat-l { font-size: 8px; color: #94a3b8; margin-top: 1px; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ─────────── BODY ─────────── */
+.sh-body { flex: 1; padding: 5mm 8mm; overflow: hidden; }
+
+/* ─────────── TYPOGRAPHY ─────────── */
+h1 { font-size: 15px; font-weight: 900; color: #0a0f1a; margin-bottom: 3mm; line-height: 1.2; letter-spacing: -.02em; }
+h2 { font-size: 11px; font-weight: 800; color: #0a0f1a; margin: 3mm 0 1.5mm; border-left: 3px solid #00d4aa; padding-left: 3mm; line-height: 1.3; }
+h3 { font-size: 10px; font-weight: 700; color: #374151; margin: 2mm 0 1mm; }
+p  { font-size: 10px; color: #374151; line-height: 1.65; margin-bottom: 2.5mm; }
+.intro { background: #f0fdf9; border-left: 4px solid #00d4aa; padding: 3mm 4mm; font-size: 10px; color: #065f46; line-height: 1.65; margin-bottom: 4mm; border-radius: 0 4px 4px 0; }
+small { font-size: 8.5px; color: #94a3b8; }
+
+/* ─────────── GRID HELPERS ─────────── */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+.cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3mm; }
+.cols-5 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 3mm; }
+.cols-6 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; gap: 2.5mm; }
+
+/* ─────────── CARD ─────────── */
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3.5mm 4mm; break-inside: avoid; }
+.card.g { border-top: 3px solid #00d4aa; }
+.card.b { border-top: 3px solid #3b82f6; }
+.card.y { border-top: 3px solid #f59e0b; }
+.card.p { border-top: 3px solid #8b5cf6; }
+.card.r { border-top: 3px solid #ef4444; }
+.card.t { border-top: 3px solid #14b8a6; }
+.card-tag  { font-size: 7.5px; font-weight: 700; color: #00b894; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1.5mm; }
+.card-title{ font-size: 10px; font-weight: 800; color: #0a0f1a; margin-bottom: 1.5mm; line-height: 1.3; }
+.card-body { font-size: 9.5px; color: #64748b; line-height: 1.55; }
+
+/* ─────────── BADGE ─────────── */
+.badge { display: inline-block; padding: 1.5px 6px; border-radius: 3px; font-size: 8px; font-weight: 800; letter-spacing: .04em; margin-right: 2px; vertical-align: middle; }
+.b-slate  { background: #1e293b; color: #94a3b8; }
+.b-green  { background: #064e3b; color: #6ee7b7; }
+.b-blue   { background: #1e3a8a; color: #93c5fd; }
+.b-purple { background: #4c1d95; color: #c4b5fd; }
+.b-gold   { background: #78350f; color: #fcd34d; }
+.b-red    { background: #7f1d1d; color: #fca5a5; }
+.b-teal   { background: #134e4a; color: #5eead4; }
+
+/* ─────────── TABLE ─────────── */
+table { width: 100%; border-collapse: collapse; font-size: 10px; }
+table th { background: #0a0f1a; color: #e2e8f0; padding: 2mm 3mm; text-align: left; font-size: 8.5px; letter-spacing: .05em; }
+table td { padding: 2mm 3mm; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+table tr:nth-child(even) td { background: #f8fafc; }
+
+/* ─────────── TREE ─────────── */
+.tree-section { margin-bottom: 3mm; }
+.tree-root  { font-size: 11px; font-weight: 900; color: #fff; background: #0a0f1a; display: inline-block; padding: 2mm 4mm; border-radius: 4px; margin-bottom: 2mm; }
+.tree-node  { font-size: 10px; font-weight: 700; color: #0a0f1a; padding: 1.5mm 0; display: flex; align-items: flex-start; gap: 3px; flex-wrap: wrap; }
+.tree-children { padding-left: 5mm; border-left: 2px solid #e5e7eb; margin-left: 2mm; }
+.tree-child { font-size: 9.5px; color: #475569; padding: 1mm 0; display: flex; align-items: flex-start; gap: 3px; flex-wrap: wrap; }
+.tree-child-desc { font-size: 8.5px; color: #94a3b8; margin-left: 2mm; }
+.tree-art   { font-size: 9px; color: #94a3b8; padding: .5mm 0 .5mm 6mm; }
+.tree-art::before { content: "→ "; color: #00d4aa; font-size: 9px; }
+.tree-label { font-size: 9.5px; color: #374151; }
+
+/* ─────────── SECTION LABEL ─────────── */
+.sec-label {
+  font-size: 8.5px; font-weight: 700; color: #00d4aa;
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 2.5mm; padding-bottom: 1.5mm;
+  border-bottom: 1px solid #e5e7eb;
+  display: block;
+}
+
+/* ─────────── TENDER ROW ─────────── */
+.tender-row { display: flex; gap: 3mm; align-items: flex-start; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; }
+.tender-num { background: #7f1d1d; color: #fca5a5; font-size: 8px; font-weight: 800; padding: 1.5mm 3mm; border-radius: 3px; white-space: nowrap; flex-shrink: 0; margin-top: 0.5mm; }
+.tender-crit { font-size: 10px; font-weight: 700; color: #0a0f1a; }
+.tender-resp { font-size: 9.5px; color: #64748b; margin-top: 1px; }
+
+/* ─────────── WIREFRAME MOCKS ─────────── */
+.wf-dark { background: linear-gradient(135deg,#050a14,#0a1628); border-radius: 4px; padding: 4mm 5mm; }
+.wf-box  { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 3px; padding: 2mm 3mm; font-size: 9.5px; color: rgba(255,255,255,0.65); }
+.wf-nav  { background: #0a0f1a; padding: 2.5mm 4mm; display: flex; align-items: center; gap: 5mm; border-radius: 4px 4px 0 0; }
+.wf-nav-logo { color: #00d4aa; font-weight: 900; font-size: 12px; }
+.wf-nav-link { color: #64748b; font-size: 9px; }
+.wf-nav-spacer { flex: 1; }
+.wf-btn-g { background: #00d4aa; color: #0a0f1a; font-size: 8.5px; font-weight: 700; padding: 1.5mm 4mm; border-radius: 3px; }
+.wf-btn-b { border: 1px solid #3b82f6; color: #3b82f6; font-size: 8.5px; font-weight: 700; padding: 1.5mm 4mm; border-radius: 3px; }
+.wf-btn-ghost { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.55); font-size: 8.5px; font-weight: 700; padding: 1.5mm 4mm; border-radius: 3px; }
+.wf-light { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; padding: 2.5mm 3mm; font-size: 9.5px; color: #374151; }
+
+/* ─────────── DIVIDER ─────────── */
+.divider { border: none; border-top: 1px solid #e5e7eb; margin: 3mm 0; }
+
+/* ─────────── FOOTER STRIP ─────────── */
+.sh-footer {
+  background: #f8fafc; border-top: 1px solid #e5e7eb;
+  padding: 2mm 8mm;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-shrink: 0;
+}
+.sh-footer-text { font-size: 8px; color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <div class="toolbar-logo">CPC · Set A — Site Strategy</div>
+  <div class="toolbar-info">3 sheets · A3 Landscape · Print ready · v2 March 2026</div>
+  <button class="toolbar-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<!-- ═══════════════════════════════════
+     SHEET A1 — SITE MAP
+═══════════════════════════════════ -->
+<div class="sheet">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">CPC · Set A · Sheet 1 of 3 — Site Map</div>
+      <div class="sh-title">CPC Website Architecture — Full Site Map</div>
+      <div class="sh-sub">cpclean.com.au · 55 total pages · 10 authority pages · 30 articles · 4 case studies · 5 DD sub-pages · 1 client portal · QBuild FNQ3254SOFTFM2 aligned · v1.3 March 2026</div>
+    </div>
+    <div class="sh-meta">Commercial Property Cleaning<br/>cpclean.com.au<div class="sh-pgnum">A1</div></div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-n">55</div><div class="stat-l">Total Pages</div></div>
+    <div class="stat-cell"><div class="stat-n">10</div><div class="stat-l">Authority Pages</div></div>
+    <div class="stat-cell"><div class="stat-n">30</div><div class="stat-l">Articles</div></div>
+    <div class="stat-cell"><div class="stat-n">4</div><div class="stat-l">Case Studies</div></div>
+    <div class="stat-cell"><div class="stat-n">5</div><div class="stat-l">DD Sub-Pages</div></div>
+    <div class="stat-cell"><div class="stat-n">1</div><div class="stat-l">Client Portal</div></div>
+    <div class="stat-cell"><div class="stat-n">15</div><div class="stat-l">Tender Criteria</div></div>
+    <div class="stat-cell"><div class="stat-n">5</div><div class="stat-l">States</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3" style="gap:6mm; height:100%;">
+
+      <!-- COL 1: Homepage tree -->
+      <div>
+        <span class="sec-label">Homepage & Core Pages Tree</span>
+        <div class="tree-section">
+          <div class="tree-root">🏠 Homepage — cpclean.com.au</div>
+          <div style="font-size:9px;color:#64748b;margin-bottom:3mm;">Hero · Trust bar · Stats · Sectors · Why CPC · Case studies · Knowledge Hub preview · Dual CTA · Footer</div>
+          <div class="tree-children">
+            <div class="tree-node"><span class="badge b-gold">CTA</span><span class="tree-label">Get a Quote — /request-a-proposal</span></div>
+            <div class="tree-node"><span class="badge b-blue">CTA</span><span class="tree-label">Due Diligence Hub — /due-diligence</span></div>
+            <div class="tree-children">
+              <div class="tree-child"><span class="badge b-blue">DD1</span><span class="tree-label">Compliance Centre</span><span class="tree-child-desc">ISO certs · insurance · WHS · modern slavery</span></div>
+              <div class="tree-child"><span class="badge b-blue">DD2</span><span class="tree-label">Social Procurement</span><span class="tree-child-desc">Indigenous partnerships · social enterprise</span></div>
+              <div class="tree-child"><span class="badge b-blue">DD3</span><span class="tree-label">Management Approach</span><span class="tree-child-desc">Methodology · escalation · reporting</span></div>
+              <div class="tree-child"><span class="badge b-blue">DD4</span><span class="tree-label">Client Testimonials</span><span class="tree-child-desc">Named references · sector-specific</span></div>
+              <div class="tree-child"><span class="badge b-purple">CS</span><span class="tree-label">Case Studies Index</span><span class="tree-child-desc">Govt · Industrial · National · Education</span></div>
+            </div>
+            <div class="tree-node"><span class="badge b-slate">PAGE</span><span class="tree-label">About CPC — /about</span></div>
+            <div class="tree-children">
+              <div class="tree-child"><span class="badge b-slate">PAGE</span><span class="tree-label">Careers — /careers</span></div>
+            </div>
+            <div class="tree-node"><span class="badge b-slate">PAGE</span><span class="tree-label">Contact — /contact</span></div>
+            <div class="tree-node"><span class="badge b-slate">PAGE</span><span class="tree-label">Sectors Overview — /sectors</span></div>
+            <div class="tree-children">
+              <div class="tree-child">Government & Defence · Councils & Local Govt · Industrial & Energy</div>
+              <div class="tree-child">Education & TAFE · Commercial Office Towers · Healthcare</div>
+            </div>
+            <div class="tree-node"><span class="badge b-teal">PORTAL</span><span class="tree-label">Client Portal — /client-portal</span></div>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+        <span class="sec-label">Legend</span>
+        <div style="display:flex;gap:3mm;flex-wrap:wrap;align-items:center;">
+          <span class="badge b-slate">PAGE</span><span style="font-size:9px;color:#64748b;margin-right:4mm;">Core page</span>
+          <span class="badge b-gold">CTA</span><span style="font-size:9px;color:#64748b;margin-right:4mm;">Call to action</span>
+          <span class="badge b-blue">DD</span><span style="font-size:9px;color:#64748b;margin-right:4mm;">Due diligence sub-page</span>
+          <span class="badge b-green">AUTH</span><span style="font-size:9px;color:#64748b;margin-right:4mm;">Authority page</span>
+          <span class="badge b-purple">CS</span><span style="font-size:9px;color:#64748b;margin-right:4mm;">Case study</span>
+          <span class="badge b-teal">NEW</span><span style="font-size:9px;color:#64748b;">v1.3 addition</span>
+        </div>
+      </div>
+
+      <!-- COL 2: Knowledge Hub tree -->
+      <div>
+        <span class="sec-label">Knowledge Hub Tree — 10 Authority Pages</span>
+        <div class="tree-root">📚 Knowledge Hub — /knowledge-hub</div>
+        <div style="font-size:9px;color:#64748b;margin-bottom:3mm;">Central AI authority index · All 10 authority pages · 30 articles grouped by topic · 4 case studies</div>
+        <div class="tree-children">
+          <div class="tree-node"><span class="badge b-green">A1</span><span class="tree-label">Government & Defence Cleaning</span></div>
+          <div class="tree-art">Govt vs office cleaning · Standards in contracts · Modern slavery · Tender red flags · Compliance function</div>
+          <div class="tree-node"><span class="badge b-teal">A2</span><span class="tree-label">Local Government & Councils <span class="badge b-teal">NEW</span></span></div>
+          <div class="tree-art">Council procurement · Multi-site portfolio mgmt · Compliance programs</div>
+          <div class="tree-node"><span class="badge b-green">A3</span><span class="tree-label">Industrial & Power Station</span></div>
+          <div class="tree-art">Power station cleaning · Risks · Dust control · Robotics · Training · Low-cost myth</div>
+          <div class="tree-node"><span class="badge b-green">A4</span><span class="tree-label">Education & TAFE</span></div>
+          <div class="tree-art">School vs office · Deep clean programs · Infection risks · Compliance</div>
+          <div class="tree-node"><span class="badge b-teal">A5</span><span class="tree-label">Commercial Office Towers <span class="badge b-teal">NEW</span></span></div>
+          <div class="tree-art">CBD tower programs · After-hours · Tenancy compliance · Building mgmt reporting</div>
+          <div class="tree-node"><span class="badge b-green">A6</span><span class="tree-label">Carbon Neutral Cleaning</span></div>
+          <div class="tree-art">Emissions measurement · Verified offsets · Eco products · ESG reporting</div>
+          <div class="tree-node"><span class="badge b-green">A7</span><span class="tree-label">ISO 9001 / 14001 / 45001</span></div>
+          <div class="tree-art">Triple certification · Quality · Environmental · Safety management systems</div>
+          <div class="tree-node"><span class="badge b-green">A8</span><span class="tree-label">National Operations</span></div>
+          <div class="tree-art">5-state teams · Central governance · Portfolio management · Pricing</div>
+          <div class="tree-node"><span class="badge b-green">A9</span><span class="tree-label">Technology & Robotics</span></div>
+          <div class="tree-art">Autonomous systems · Digital audit tools · AI scheduling · Labour reshaping</div>
+          <div class="tree-node"><span class="badge b-green">A10</span><span class="tree-label">Modern Slavery & Ethics</span></div>
+          <div class="tree-art">Ethical labour governance · Modern Slavery Act · Supply chain due diligence</div>
+        </div>
+      </div>
+
+      <!-- COL 3: Articles + Internal linking -->
+      <div>
+        <span class="sec-label">30 Articles — Cluster Map</span>
+        <table>
+          <tr><th>Cluster</th><th>Authority</th><th>Articles</th></tr>
+          <tr><td style="font-weight:700;">Government</td><td>A1</td><td>1, 2, 3, 4, 5, 6, 7</td></tr>
+          <tr><td style="font-weight:700;">Industrial</td><td>A3</td><td>8, 9, 10, 11, 12, 13</td></tr>
+          <tr><td style="font-weight:700;">Education</td><td>A4</td><td>14, 15, 16, 17</td></tr>
+          <tr><td style="font-weight:700;">Carbon Neutral</td><td>A6</td><td>18, 19, 20, 21</td></tr>
+          <tr><td style="font-weight:700;">Procurement</td><td>A8/A10</td><td>22, 23, 24, 25, 26, 27</td></tr>
+          <tr><td style="font-weight:700;">Technology</td><td>A9</td><td>28, 29, 30</td></tr>
+        </table>
+
+        <hr class="divider"/>
+        <span class="sec-label">Internal Linking Rules</span>
+        <div class="card g" style="margin-bottom:2.5mm;">
+          <div class="card-title">Each Authority Page links to:</div>
+          <div class="card-body">Knowledge Hub · 4–6 supporting articles · 1–2 related authority pages · Request a Proposal CTA</div>
+        </div>
+        <div class="card b" style="margin-bottom:2.5mm;">
+          <div class="card-title">Each Article links to:</div>
+          <div class="card-body">1 Authority Page (near top of article) · 2 related articles (at bottom) · 1 case study (optional, once live)</div>
+        </div>
+        <div class="card y" style="margin-bottom:2.5mm;">
+          <div class="card-title">Knowledge Hub links to:</div>
+          <div class="card-body">All 10 authority pages · All 30 articles grouped by cluster · All 4 case studies</div>
+        </div>
+        <div class="card p">
+          <div class="card-title">Homepage links to:</div>
+          <div class="card-body">Knowledge Hub · Key authority pages (via sector cards) · Request a Proposal · Due Diligence Hub</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Confidential internal document</span>
+    <span class="sh-footer-text">Set A — Site Strategy · Sheet 1 of 3 · March 2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SHEET A2 — HOMEPAGE WIREFRAME
+═══════════════════════════════════ -->
+<div class="sheet">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">CPC · Set A · Sheet 2 of 3 — Homepage Wireframe</div>
+      <div class="sh-title">Homepage Layout — All Sections</div>
+      <div class="sh-sub">URL: cpclean.com.au · 10 sections · Dual CTA architecture · Client Portal in nav · AI authority engine · QBuild tender aligned</div>
+    </div>
+    <div class="sh-meta">Commercial Property Cleaning<br/>cpclean.com.au<div class="sh-pgnum">A2</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3" style="gap:5mm;">
+
+      <!-- COL 1 -->
+      <div>
+        <!-- NAV -->
+        <span class="sec-label">Section 01 — Navigation (sticky)</span>
+        <div class="wf-nav" style="margin-bottom:3mm;">
+          <span class="wf-nav-logo">CPC.</span>
+          <span class="wf-nav-link">Sectors ▾</span>
+          <span class="wf-nav-link">Knowledge Hub</span>
+          <span class="wf-nav-link">Case Studies</span>
+          <span class="wf-nav-link">About</span>
+          <span class="wf-nav-link">Contact</span>
+          <span class="wf-nav-spacer"></span>
+          <span class="wf-btn-g">Get a Quote</span>
+          <span class="wf-btn-b" style="margin-left:2mm;">DD Hub</span>
+          <span class="wf-btn-ghost" style="margin-left:2mm;">🔒 Client Portal</span>
+        </div>
+
+        <!-- HERO -->
+        <span class="sec-label">Section 02 — Hero (full viewport)</span>
+        <div class="wf-dark" style="margin-bottom:3mm;">
+          <div style="font-size:8.5px;font-weight:700;color:#00d4aa;letter-spacing:.1em;margin-bottom:2mm;">COMMERCIAL PROPERTY CLEANING · AUSTRALIA</div>
+          <div style="font-size:16px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:2mm;">National Cleaning Built for <span style="color:#00d4aa;">Regulated Environments</span></div>
+          <div style="font-size:10px;color:#94a3b8;margin-bottom:3mm;line-height:1.6;">ISO-certified, carbon neutral and compliance-driven — for government, councils, industrial, education and office portfolios across Australia.</div>
+          <div style="display:flex;gap:3mm;margin-bottom:3mm;">
+            <span class="wf-btn-g" style="font-size:10px;padding:2mm 5mm;">Request a Proposal →</span>
+            <span class="wf-btn-ghost" style="font-size:10px;padding:2mm 5mm;">View Our Credentials</span>
+          </div>
+          <div class="cols-4" style="gap:2mm;">
+            <div class="wf-box">ISO 9001 · 14001 · 45001</div>
+            <div class="wf-box">Carbon Neutral · Verified</div>
+            <div class="wf-box">5-State Coverage</div>
+            <div class="wf-box">Modern Slavery Compliant</div>
+          </div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.2);margin-top:3mm;text-align:center;">[ Full screen looping video — site operations / team at work / facilities ]</div>
+          <div style="font-size:8px;color:rgba(255,255,255,0.2);text-align:center;">Scroll indicator ↓</div>
+        </div>
+
+        <!-- TRUST BAR -->
+        <span class="sec-label">Section 03 — Trust Bar (dark strip)</span>
+        <div style="background:#0a0f1a;padding:3mm 4mm;border-radius:4px;display:flex;gap:0;flex-wrap:wrap;margin-bottom:3mm;">
+          <div style="padding:0 4mm;border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">ISO 9001</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Quality Management</div>
+          </div>
+          <div style="padding:0 4mm;border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">ISO 14001</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Environmental</div>
+          </div>
+          <div style="padding:0 4mm;border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">ISO 45001</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Safety Management</div>
+          </div>
+          <div style="padding:0 4mm;border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">Carbon Neutral</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Verified Program</div>
+          </div>
+          <div style="padding:0 4mm;border-right:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">Social Procurement</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Indigenous Partnerships</div>
+          </div>
+          <div style="padding:0 4mm;">
+            <div style="font-size:9px;font-weight:700;color:#e2e8f0;">Modern Slavery</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.35);">Act Compliant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COL 2 -->
+      <div>
+        <!-- STATS -->
+        <span class="sec-label">Section 04 — National Scale Stats (white bg)</span>
+        <div class="cols-2" style="gap:2mm;margin-bottom:3mm;">
+          <div class="wf-light" style="text-align:center;"><div style="font-size:20px;font-weight:900;color:#0a0f1a;">500+</div><div style="font-size:8.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;">Staff Nationally</div><div style="font-size:8.5px;color:#94a3b8;">Permanent regional teams across 5 states</div></div>
+          <div class="wf-light" style="text-align:center;"><div style="font-size:20px;font-weight:900;color:#0a0f1a;">200+</div><div style="font-size:8.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;">Govt & Council Sites</div><div style="font-size:8.5px;color:#94a3b8;">Active government and council contracts</div></div>
+          <div class="wf-light" style="text-align:center;"><div style="font-size:20px;font-weight:900;color:#0a0f1a;">10+</div><div style="font-size:8.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;">Regulated Sectors</div><div style="font-size:8.5px;color:#94a3b8;">From power stations to office towers</div></div>
+          <div class="wf-light" style="text-align:center;"><div style="font-size:20px;font-weight:900;color:#0a0f1a;">3</div><div style="font-size:8.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;">ISO Certifications</div><div style="font-size:8.5px;color:#94a3b8;">Quality · Environmental · Safety</div></div>
+        </div>
+
+        <!-- SECTORS -->
+        <span class="sec-label">Section 05 — Sectors (3×2 card grid, light bg)</span>
+        <div class="cols-3" style="gap:2mm;margin-bottom:3mm;">
+          <div class="wf-light"><div style="font-size:14px;">🏛️</div><div style="font-size:9.5px;font-weight:800;">Government & Defence</div><div style="font-size:8.5px;color:#64748b;">Compliance-driven · ISO-aligned · Security-sensitive</div></div>
+          <div class="wf-light" style="border:1.5px solid #00d4aa;"><div style="font-size:14px;">🏢</div><div style="font-size:9.5px;font-weight:800;">Councils & Local Govt ★</div><div style="font-size:8.5px;color:#64748b;">Multi-facility · Public accountability · Procurement</div></div>
+          <div class="wf-light"><div style="font-size:14px;">⚡</div><div style="font-size:9.5px;font-weight:800;">Industrial & Warehouse</div><div style="font-size:8.5px;color:#64748b;">Power stations · Permit-to-work · Dust control</div></div>
+          <div class="wf-light"><div style="font-size:14px;">🎓</div><div style="font-size:9.5px;font-weight:800;">Education & TAFE</div><div style="font-size:8.5px;color:#64748b;">Safeguarding · Infection control · Calendar scheduling</div></div>
+          <div class="wf-light" style="border:1.5px solid #00d4aa;"><div style="font-size:14px;">🏙️</div><div style="font-size:9.5px;font-weight:800;">Office Towers ★</div><div style="font-size:8.5px;color:#64748b;">A-grade CBD · After-hours · Digital audit</div></div>
+          <div class="wf-light"><div style="font-size:14px;">🏥</div><div style="font-size:9.5px;font-weight:800;">Healthcare</div><div style="font-size:8.5px;color:#64748b;">Clinical · Infection protocols · Regulated standards</div></div>
+        </div>
+        <p style="font-size:8.5px;color:#94a3b8;">★ Key client sectors. Each card links to its Authority Page → articles, case studies and proposal CTA.</p>
+      </div>
+
+      <!-- COL 3 -->
+      <div>
+        <!-- WHY CPC -->
+        <span class="sec-label">Section 06 — Why CPC (dark bg, 3×2 icon cards)</span>
+        <div class="cols-3" style="gap:2mm;margin-bottom:3mm;">
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">📋</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">Documented Systems</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">ISO-aligned procedures at every site, every shift</div></div>
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">🔍</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">Digital Audit Trail</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">Real-time data, photos, defect records. Timestamped.</div></div>
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">🌿</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">Carbon Neutral</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">Verified offset program. ESG reporting data available.</div></div>
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">⚖️</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">Ethical Labour</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">Award-compliant. Right-to-work verified. Indigenous partnerships.</div></div>
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">📍</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">National Coverage</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">Permanent local teams in 5 states. One relationship.</div></div>
+          <div class="wf-box" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:3mm;"><div style="font-size:14px;margin-bottom:1.5mm;">🏆</div><div style="font-size:9.5px;font-weight:800;color:#fff;margin-bottom:1mm;">Proven at Scale</div><div style="font-size:8.5px;color:rgba(255,255,255,0.45);">200+ govt sites. Power stations. Education networks.</div></div>
+        </div>
+
+        <!-- CASE STUDIES -->
+        <span class="sec-label">Section 07 — Case Studies (3 cards)</span>
+        <div class="cols-3" style="gap:2mm;margin-bottom:3mm;">
+          <div class="card"><div class="card-tag">Government & Council</div><div class="card-title">QLD Govt & Council Portfolio</div><div class="card-body">200+ sites · 3yr contract · 100% audit pass</div></div>
+          <div class="card"><div class="card-tag">Industrial</div><div class="card-title">Coal-Fired Power Station</div><div class="card-body">Dust control · Permit-to-work · Zero incidents</div></div>
+          <div class="card"><div class="card-tag">Education</div><div class="card-title">National Education Portfolio</div><div class="card-body">Multi-campus · Infection control · Full compliance</div></div>
+        </div>
+
+        <!-- KNOWLEDGE HUB -->
+        <span class="sec-label">Section 08 — Knowledge Hub Preview (10 cards · 5×2 · dark bg)</span>
+        <div class="cols-5" style="gap:2mm;margin-bottom:3mm;">
+          <div class="wf-box" style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#60a5fa;">Govt</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">4 articles</div></div>
+          <div class="wf-box" style="background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#a78bfa;">Councils</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">3 articles</div></div>
+          <div class="wf-box" style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#fbbf24;">Industrial</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">6 articles</div></div>
+          <div class="wf-box" style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#f87171;">Education</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">4 articles</div></div>
+          <div class="wf-box" style="background:rgba(0,212,170,0.08);border:1px solid rgba(0,212,170,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#00d4aa;">Towers</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">4 articles</div></div>
+          <div class="wf-box" style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#34d399;">Carbon</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">4 articles</div></div>
+          <div class="wf-box" style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#38bdf8;">ISO</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">5 articles</div></div>
+          <div class="wf-box" style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#fb923c;">National</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">4 articles</div></div>
+          <div class="wf-box" style="background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#f472b6;">Tech</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">3 articles</div></div>
+          <div class="wf-box" style="background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:3px;padding:2mm;"><div style="font-size:8.5px;font-weight:800;color:#94a3b8;">Ethics</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">3 articles</div></div>
+        </div>
+
+        <!-- DUAL CTA -->
+        <span class="sec-label">Section 09 — Dual CTA (light bg)</span>
+        <div class="cols-2" style="gap:2mm;margin-bottom:3mm;">
+          <div class="card y"><div class="card-tag">For New Clients</div><div class="card-title">Get a Cleaning Proposal</div><div class="card-body">Site assessment · Sector-specific · 5 business day response<br/><span style="background:#f59e0b;color:#0a0f1a;font-size:8.5px;font-weight:700;padding:1.5mm 4mm;border-radius:3px;display:inline-block;margin-top:2mm;">Request a Proposal →</span></div></div>
+          <div class="card b"><div class="card-tag">For Procurement Teams</div><div class="card-title">Due Diligence Hub</div><div class="card-body">ISO certs · Insurance · WHS · Modern Slavery · Social Procurement<br/><span style="background:#3b82f6;color:#fff;font-size:8.5px;font-weight:700;padding:1.5mm 4mm;border-radius:3px;display:inline-block;margin-top:2mm;">Access the DD Hub →</span></div></div>
+        </div>
+
+        <!-- FOOTER -->
+        <span class="sec-label">Section 10 — Footer (dark)</span>
+        <div style="background:#040c18;border-radius:4px;padding:3mm 4mm;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;font-weight:900;color:#fff;">CPC<span style="color:#00d4aa;">.</span></span>
+          <span style="font-size:8.5px;color:rgba(255,255,255,0.35);">Privacy · Modern Slavery · Social Procurement · Knowledge Hub · Contact</span>
+          <span style="font-size:8.5px;color:rgba(255,255,255,0.2);">© 2026 Commercial Property Cleaning · cpclean.com.au</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Confidential internal document</span>
+    <span class="sh-footer-text">Set A — Site Strategy · Sheet 2 of 3 · March 2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SHEET A3 — TENDER & AI STRATEGY
+═══════════════════════════════════ -->
+<div class="sheet">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">CPC · Set A · Sheet 3 of 3 — Tender & AI Strategy</div>
+      <div class="sh-title">QBuild FNQ3254SOFTFM2 Alignment + AI Authority Plan</div>
+      <div class="sh-sub">Tender criteria map · AI citation strategy · 4-phase execution plan · KPI measurement framework · AI query domination targets</div>
+    </div>
+    <div class="sh-meta">Commercial Property Cleaning<br/>cpclean.com.au<div class="sh-pgnum">A3</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-2" style="gap:6mm; height:100%;">
+
+      <!-- LEFT: Tender -->
+      <div>
+        <span class="sec-label">QBuild FNQ3254SOFTFM2 — Tender Criteria Alignment</span>
+        <div class="tender-row"><span class="tender-num">§1.1</span><div><div class="tender-crit">Quality Management System</div><div class="tender-resp">ISO 9001 certified · Compliance Centre in DD Hub · Digital audit trail · Defect management records available</div></div></div>
+        <div class="tender-row"><span class="tender-num">§1.2</span><div><div class="tender-crit">Environmental Management</div><div class="tender-resp">ISO 14001 certified · Carbon Neutral verified program · Eco product register · Emissions data for ESG reporting</div></div></div>
+        <div class="tender-row"><span class="tender-num">§1.3</span><div><div class="tender-crit">WHS Management System</div><div class="tender-resp">ISO 45001 certified · WHS documentation in Compliance Centre · Site-specific WHS plans available</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.1</span><div><div class="tender-crit">Modern Slavery Compliance</div><div class="tender-resp">Modern Slavery Statement published · Supply chain due diligence documented · Annual review maintained</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.2</span><div><div class="tender-crit">Workforce Training & Competency</div><div class="tender-resp">Training model documented on Authority Page A7 · Site-specific induction program · Supervisor competency records</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.3</span><div><div class="tender-crit">Management Processes & Tools</div><div class="tender-resp">Technology Authority Page A9 · Digital audit systems · AI scheduling · KPIs documented · Management DD sub-page</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.4.1</span><div><div class="tender-crit">Local & National Operational Capacity</div><div class="tender-resp">Authority Page A8 · Permanent teams in 5 states · National portfolio case study · FNQ regional presence</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.4.2</span><div><div class="tender-crit">Indigenous Business Participation</div><div class="tender-resp">Social Procurement DD sub-page · Indigenous partnerships documented · Local community commitments</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.4.3</span><div><div class="tender-crit">Social Enterprise</div><div class="tender-resp">Social Procurement DD sub-page · Social enterprise supplier relationships documented</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.4.5</span><div><div class="tender-crit">Environmental / Sustainable Procurement</div><div class="tender-resp">Carbon Neutral Authority A6 · Emissions articles · ISO 14001 · Eco product register in Compliance Centre</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.5</span><div><div class="tender-crit">Reference Checks</div><div class="tender-resp">4 public case studies · Client Testimonials DD sub-page · Named references available on request</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.6</span><div><div class="tender-crit">Contract Management Methodology</div><div class="tender-resp">Management Approach DD sub-page · Escalation procedures · SLA framework · Reporting cadence documented</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.6.3</span><div><div class="tender-crit">Reporting & Audit Evidence</div><div class="tender-resp">Digital audit trail · Photographic evidence · Timestamped records · Cannot be retrospectively altered</div></div></div>
+        <div class="tender-row"><span class="tender-num">§2.6.4</span><div><div class="tender-crit">Innovation</div><div class="tender-resp">Technology Authority A9 · Robotics in industrial cleaning · AI in scheduling · Digital audit platforms</div></div></div>
+
+        <div class="intro" style="margin-top:4mm;">
+          <strong>Tender positioning:</strong> CPC is not a commodity cleaner responding to a price schedule. CPC is an operational authority on compliant commercial cleaning in Australia — with the documentation, systems and evidence to prove it at every tender criterion.
+        </div>
+      </div>
+
+      <!-- RIGHT: AI Strategy -->
+      <div>
+        <span class="sec-label">AI Authority Strategy — 4-Phase Execution Plan</span>
+        <div class="cols-2" style="gap:3mm;margin-bottom:4mm;">
+          <div class="card g">
+            <div class="card-tag">Phase 1 · Days 1–30 · Foundation</div>
+            <div class="card-title">Build the Authority Base</div>
+            <div class="card-body">Build all 10 authority pages · Build Knowledge Hub · Set up navigation and menus · Publish 10 articles (Cluster 1 + 2) · Publish 2 case studies (Govt + Industrial)</div>
+          </div>
+          <div class="card b">
+            <div class="card-tag">Phase 2 · Days 31–60 · Content</div>
+            <div class="card-title">Deploy Content Clusters</div>
+            <div class="card-body">Publish 10 more articles (Clusters 3 + 4) · Publish 2 more case studies · Start PR outreach · Create media pages · Wire all internal links across live content</div>
+          </div>
+          <div class="card y">
+            <div class="card-tag">Phase 3 · Days 61–90 · Signals</div>
+            <div class="card-title">Build External Authority</div>
+            <div class="card-body">Publish final 10 articles (Clusters 5 + 6) · Secure 5+ external mentions · Test AI visibility across ChatGPT · Perplexity · Gemini · Copilot · Adjust</div>
+          </div>
+          <div class="card p">
+            <div class="card-tag">Ongoing · Measure & Defend</div>
+            <div class="card-title">Track, Maintain, Dominate</div>
+            <div class="card-body">Track AI brand mentions monthly · Monitor authority page traffic · Build backlinks and citations · Defensive ad strategy when AI ads go live</div>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+        <span class="sec-label">AI Query Domination Targets</span>
+        <table style="margin-bottom:4mm;">
+          <tr><th>AI Query</th><th>Primary Page / Signal</th></tr>
+          <tr><td>"Best cleaning company for government buildings Australia"</td><td>A1 + case studies + compliance cluster</td></tr>
+          <tr><td>"Cleaning services for local councils Australia"</td><td>A2 + multi-site capability + DD Hub</td></tr>
+          <tr><td>"Commercial office tower cleaning company Australia"</td><td>A5 + A-grade content + pricing article</td></tr>
+          <tr><td>"ISO certified commercial cleaning provider Australia"</td><td>A7 + trust bar + ISO compliance articles</td></tr>
+          <tr><td>"Carbon neutral cleaning company Australia"</td><td>A6 + emissions articles + homepage sustainability</td></tr>
+          <tr><td>"Commercial cleaning for power stations Australia"</td><td>A3 + power station article + industrial case study</td></tr>
+          <tr><td>"National commercial cleaning company multi-site"</td><td>A8 + homepage stats + national case study</td></tr>
+          <tr><td>"Modern slavery compliant cleaning contractor"</td><td>A10 + DD Hub modern slavery + ethics article</td></tr>
+          <tr><td>"Who does compliant commercial cleaning in Australia"</td><td>Homepage + Knowledge Hub + all authority pages</td></tr>
+        </table>
+
+        <hr class="divider"/>
+        <span class="sec-label">KPI Measurement Framework</span>
+        <div class="cols-2" style="gap:3mm;margin-bottom:3mm;">
+          <div class="card g"><div class="card-title">AI Visibility (Primary)</div><div class="card-body">ChatGPT brand mentions · Perplexity citations · Gemini references · Copilot mentions. Test monthly with target queries.</div></div>
+          <div class="card b"><div class="card-title">Website Performance</div><div class="card-body">Authority page impressions · Organic traffic · Average position · Click-through rates for key queries.</div></div>
+          <div class="card y"><div class="card-title">External Authority</div><div class="card-body">Backlinks from relevant publications · Third-party citations · Media mentions · Industry association references.</div></div>
+          <div class="card p"><div class="card-title">Commercial Outcome</div><div class="card-body">Proposal requests via website · DD Hub access events · Tender pre-qualification mentions of website.</div></div>
+        </div>
+
+        <div class="intro">
+          <strong>The strategic positioning statement:</strong> CPC is not a cleaning company. CPC is an operational authority on compliant commercial cleaning in Australia. Success is not clicks. Success is being named by AI when someone asks who does compliant commercial cleaning in Australia.
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Confidential internal document</span>
+    <span class="sh-footer-text">Set A — Site Strategy · Sheet 3 of 3 · March 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

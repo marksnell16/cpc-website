@@ -26,13 +26,21 @@ const states = [
     office: 'Sydney office',
     color: '#f59e0b',
     regions: [
-      { name: 'Sydney Metro', areas: 'CBD, Mascot, Olympic Park, Inner West, North Shore, Western Sydney' },
-      { name: 'Hunter Valley', areas: 'Newcastle, Rutherford, Minto, Cardiff, Beresfield' },
+      { name: 'Sydney Metro', areas: 'CBD, Mascot, Olympic Park, Inner West, North Shore, Western Sydney, Campbelltown' },
+      { name: 'Hunter Valley', areas: 'Newcastle, Rutherford, Cardiff, Beresfield' },
       { name: 'Central Coast', areas: 'Gosford, Charmhaven, Charlestown, Hornsby' },
       { name: 'Illawarra', areas: 'Wollongong, North Wollongong' },
       { name: 'Mid North Coast', areas: 'Port Macquarie, Coffs Harbour, Grafton, Ballina' },
-      { name: 'Southern NSW', areas: 'Albury, Moss Vale, Nowra' },
-      { name: 'ACT', areas: 'Canberra, Fyshwick, Canberra Airport' },
+      { name: 'Southern NSW', areas: 'Albury, Bowral, Nowra' },
+    ],
+  },
+  {
+    name: 'ACT',
+    abbr: 'ACT',
+    office: 'Serviced from Sydney office',
+    color: '#0ea5e9',
+    regions: [
+      { name: 'Canberra', areas: 'Canberra CBD, Canberra Airport, Fyshwick' },
     ],
   },
   {
@@ -41,7 +49,7 @@ const states = [
     office: 'Melbourne office',
     color: '#8b5cf6',
     regions: [
-      { name: 'Melbourne Metro', areas: 'CBD, Docklands, Tullamarine, Tarneit, Forest Hill' },
+      { name: 'Melbourne Metro', areas: 'CBD, Docklands, Tullamarine, Geelong, Frankston' },
     ],
   },
   {
@@ -50,13 +58,13 @@ const states = [
     office: 'Perth office',
     color: '#10b981',
     regions: [
-      { name: 'Perth Metro', areas: 'CBD, Fremantle, Perth Airport, Kewdale' },
+      { name: 'Perth', areas: 'CBD, Fremantle, Perth Airport, Kewdale' },
     ],
   },
   {
     name: 'South Australia',
     abbr: 'SA',
-    office: 'Serviced from Melbourne office',
+    office: 'Adelaide office',
     color: '#f43f5e',
     regions: [
       { name: 'Adelaide', areas: 'Adelaide CBD, Adelaide Airport' },
@@ -75,9 +83,9 @@ const states = [
 ]
 
 const sectors = [
-  { icon: '🏛', label: 'Government & Defence' },
+  { icon: '🏛', label: 'State & Federal Government' },
   { icon: '⚡', label: 'Industrial & Power' },
-  { icon: '🎓', label: 'Education & TAFE' },
+  { icon: '🎓', label: 'Education & Training' },
   { icon: '🏢', label: 'Commercial Office' },
   { icon: '🚗', label: 'Automotive & Fleet' },
   { icon: '🏥', label: 'Health & Community Services' },

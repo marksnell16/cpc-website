@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPC Compliance and Credentials Pack 2026</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #e2e8f0;
+    color: #0f172a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── PAGE LAYOUT ──────────────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: 0 auto 12mm;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media print {
+    body { background: transparent; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+    .no-print { display: none !important; }
+  }
+
+  /* ── COVER PAGE ───────────────────────────────────────── */
+  .cover {
+    background: #0a0f1a;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16mm 16mm 14mm;
+  }
+
+  .cover-top {}
+
+  .cover-logo {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12mm;
+  }
+
+  .cover-eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 6mm;
+  }
+
+  .cover-title {
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 5mm;
+    max-width: 140mm;
+  }
+
+  .cover-subtitle {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 130mm;
+    margin-bottom: 12mm;
+  }
+
+  .cover-divider {
+    width: 40mm;
+    height: 3px;
+    background: #14b8a6;
+    border-radius: 2px;
+    margin-bottom: 10mm;
+  }
+
+  .cover-cert-row {
+    display: flex;
+    gap: 3mm;
+    flex-wrap: wrap;
+    margin-bottom: 14mm;
+  }
+
+  .cover-cert-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 9px;
+    font-weight: 600;
+    color: #cbd5e1;
+    letter-spacing: 0.04em;
+  }
+
+  .cover-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 6mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-company {
+    font-size: 10px;
+    color: #475569;
+    line-height: 1.7;
+  }
+
+  .cover-company strong {
+    display: block;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 1mm;
+  }
+
+  .cover-date {
+    font-size: 9px;
+    color: #334155;
+    text-align: right;
+  }
+
+  /* ── INTERIOR PAGES ───────────────────────────────────── */
+  .page-header {
+    background: #0a0f1a;
+    padding: 7mm 16mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .page-header-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .page-header-right {
+    text-align: right;
+  }
+
+  .page-header-title {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #14b8a6;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .page-header-sub {
+    font-size: 8px;
+    color: #475569;
+    margin-top: 1px;
+  }
+
+  .page-body {
+    padding: 10mm 16mm 10mm;
+    flex: 1;
+  }
+
+  .page-footer {
+    padding: 4mm 16mm;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .page-footer-text {
+    font-size: 7.5px;
+    color: #94a3b8;
+  }
+
+  .page-footer-num {
+    font-size: 7.5px;
+    color: #cbd5e1;
+    font-weight: 600;
+  }
+
+  /* ── SECTION STYLES ───────────────────────────────────── */
+  .section-eyebrow {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #14b8a6;
+    margin-bottom: 2mm;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0a0f1a;
+    line-height: 1.2;
+    margin-bottom: 4mm;
+  }
+
+  .section-intro {
+    font-size: 10px;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 7mm;
+    max-width: 160mm;
+  }
+
+  /* ── CERT CARD ────────────────────────────────────────── */
+  .cert-card {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 6mm 7mm;
+    margin-bottom: 5mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: #14b8a6;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .cert-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3mm;
+  }
+
+  .cert-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+  }
+
+  .cert-card-badge {
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #0d9488;
+    white-space: nowrap;
+    margin-left: 4mm;
+    flex-shrink: 0;
+  }
+
+  .cert-card-badge.pending {
+    background: #fefce8;
+    border-color: #fde68a;
+    color: #92400e;
+  }
+
+  .cert-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3mm;
+  }
+
+  .cert-meta-item {}
+
+  .cert-meta-label {
+    font-size: 7.5px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1px;
+  }
+
+  .cert-meta-value {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .cert-meta-value.placeholder {
+    color: #f59e0b;
+    font-style: italic;
+  }
+
+  .cert-desc {
+    font-size: 9px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-top: 3mm;
+    padding-top: 3mm;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  /* ── TWO COLUMN ───────────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+  }
+
+  /* ── INFO BLOCK ───────────────────────────────────────── */
+  .info-block {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 5mm 6mm;
+  }
+
+  .info-block-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 3mm;
+    padding-bottom: 2mm;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.5mm 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 9px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-row-label {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .info-row-value {
+    color: #0f172a;
+    font-weight: 600;
+    text-align: right;
+    max-width: 60%;
+  }
+
+  .info-row-value.placeholder {
+    color: #f59e0b;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* ── STATEMENT BLOCK ──────────────────────────────────── */
+  .statement-block {
+    background: #0a0f1a;
+    border-radius: 8px;
+    padding: 6mm 7mm;
+    margin-bottom: 5mm;
+  }
+
+  .statement-block-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2mm;
+  }
+
+  .statement-block-text {
+    font-size: 9px;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  .statement-block-text strong {
+    color: #cbd5e1;
+  }
+
+  /* ── CONTACTS ─────────────────────────────────────────── */
+  .contact-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 5mm 6mm;
+    margin-bottom: 4mm;
+  }
+
+  .contact-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1mm;
+  }
+
+  .contact-title {
+    font-size: 8.5px;
+    color: #64748b;
+    margin-bottom: 2mm;
+  }
+
+  .contact-details {
+    font-size: 9px;
+    color: #475569;
+    line-height: 1.7;
+  }
+
+  /* ── TEAL CALLOUT ─────────────────────────────────────── */
+  .teal-callout {
+    background: #f0fdfa;
+    border: 1.5px solid #99f6e4;
+    border-radius: 8px;
+    padding: 5mm 6mm;
+    margin-bottom: 5mm;
+  }
+
+  .teal-callout-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0d9488;
+    margin-bottom: 2mm;
+  }
+
+  .teal-callout-text {
+    font-size: 9px;
+    color: #134e4a;
+    line-height: 1.7;
+  }
+
+  /* ── PLACEHOLDER NOTE ─────────────────────────────────── */
+  .placeholder-note {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 6px;
+    padding: 3mm 5mm;
+    font-size: 8px;
+    color: #78350f;
+    margin-bottom: 6mm;
+  }
+
+  .placeholder-note strong { font-weight: 700; }
+
+  /* ── PRINT BUTTON ─────────────────────────────────────── */
+  .print-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #0a0f1a;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+  }
+
+  .print-bar-text {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  .print-btn {
+    background: #14b8a6;
+    color: #0a0f1a;
+    border: none;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .print-btn:hover { background: #0d9488; }
+
+  @media print {
+    .print-bar { display: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ COVER PAGE ══════════════════════════════════ -->
+<div class="page">
+  <div class="cover">
+
+    <div class="cover-top">
+      <!-- Logo (white on dark) -->
+      <svg class="cover-logo" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg" aria-label="CPC logo">
+        <path fill="#fff" d="M1961.61,848.85h-150.86c-31.61-42.7-82.27-70.39-139.43-70.39s-105.8,26.56-137.41,67.7l-165.2,165.32-33.74,33.62-124.52,124.52c-105.91,105.91-269.55,118.69-389.36,38.56v203.15l-137.07,115.72v-470.51l61.08-61.19,79.8-79.69c-11.77,54.92,3.7,114.43,46.4,157.13,66.91,66.91,175.29,66.91,242.2,0l339.15-339.15c21.97-21.97,46.51-39.79,72.52-53.57,3.14-1.79,6.28-3.47,9.53-4.93,2.35-1.23,4.82-2.47,7.29-3.47l3.36-1.68c.22-.11.56-.22.78-.22.45-.22.78-.22,1.12-.56,5.38-2.35,10.76-4.48,16.14-6.5,2.69-.9,5.38-1.91,8.07-2.91,2.35-.78,4.71-1.46,7.06-2.35,5.16-1.57,10.42-3.14,15.69-4.48,2.47-.67,4.93-1.23,7.4-1.79,2.58-.56,5.04-1.12,7.51-1.68,2.58-.45,5.04-.9,7.62-1.46,2.47-.45,5.04-.78,7.62-1.23,2.24-.34,4.59-.67,6.95-.9,3.25-.45,6.61-.9,9.86-1.12,2.47-.22,4.93-.45,7.4-.67,2.47-.11,4.93-.34,7.4-.45,3.81,0,7.73-.22,11.66-.34h3.7c1.79,0,3.7.11,5.49.11h1.35c1.01,0,2.02,0,2.91.22h2.13l4.15.11c.34,0,.67,0,1.12.11,1.68,0,3.36.11,5.04.22.45.22,1.01.22,1.57.22.67,0,1.46.11,2.24.11,3.47.34,6.84.67,10.42,1.01,2.47.45,4.82.67,7.29,1.01,4.03.67,8.18,1.34,12.22,2.02,3.36.78,6.61,1.46,9.98,2.13.56.11,1.23.22,1.91.34,3.59.78,7.06,1.79,10.54,2.58,6.05,1.57,12.22,3.36,18.27,5.49,3.81,1.23,7.62,2.58,11.43,4.04,1.9.67,3.81,1.34,5.72,2.13,3.81,1.57,7.51,3.14,11.32,4.71,2.35,1.12,4.82,2.24,7.17,3.36,1.68.9,3.47,1.68,5.27,2.58,2.02,1.01,4.03,2.13,6.05,3.14,2.02,1.12,3.92,2.13,5.94,3.14.11.11.22.22.34.22,24.21,13.67,47.07,30.71,67.58,51.33,33.71,33.6,57.92,73.17,72.83,115.19Z"/>
+        <path fill="#fff" d="M1671.25,1124.86c-95.65,0-173.17-77.53-173.17-173.17,0-11.7,1.15-23.17,3.38-34.23l-125,125.01-.34.34c14.34,46.45,39.8,90.2,76.55,126.95,23.17,23.22,49.2,41.92,76.84,56.14,10.95,5.62,22.13,10.44,33.49,14.62,2.87,1.09,5.68,2.06,8.54,3.04,1.78.57,3.56,1.15,5.39,1.78,3.56,1.09,7.11,2.24,10.72,3.21.11.06.29.06.4.11,2.01.57,4.01,1.09,6.02,1.66,2.75.69,5.51,1.38,8.26,2.01l14.28,2.92c1.89.34,3.84.63,5.73.92,1.89.34,3.79.57,5.68.86.86.11,1.78.23,2.64.34,2.98.46,6.02.8,9.06,1.09,2.58.29,5.22.52,7.8.69,2.64.23,5.22.4,7.86.52,2.64.11,5.28.23,7.91.29,4.93.17,9.92.17,14.79,0,2.47-.06,4.93-.12,7.4-.23s4.93-.29,7.4-.46c13.36-.98,26.72-2.81,39.91-5.45,65.48-13.19,123.46-47.19,166.75-94.79l.52-.57c27.07-29.88,48.34-65.14,61.99-103.96h-151.44c-31.56,42.66-82.2,70.36-139.36,70.36Z"/>
+        <path fill="#fff" d="M11.95,1011.5c2.01,10.55,4.64,20.87,7.68,31.02l-.29.29c14.34,46.45,39.85,90.2,76.61,126.95,11.3,11.3,23.33,21.39,35.83,30.55,1.33.98,2.67,1.95,4.01,2.91h0c2.81,1.99,5.62,3.97,8.49,5.85h0c4.35,2.88,8.75,5.68,13.25,8.34,4.7,2.87,9.46,5.5,14.28,7.91,4.82,2.58,9.69,4.93,14.68,7.17,2.58,1.15,5.16,2.29,7.74,3.38,2.35.97,4.64,1.89,7,2.87,4.64,1.84,9.35,3.56,14.11,5.16,2.41.8,4.82,1.61,7.23,2.35,2.29.75,4.59,1.43,6.94,2.06,2.01.57,4.01,1.15,6.08,1.66.29.06.57.17.86.23.52.12,1.03.23,1.55.4,2.18.52,4.36,1.09,6.59,1.55,2.69.63,5.39,1.26,8.14,1.78,2.29.46,4.59.92,6.88,1.32,2.52.46,5.05.86,7.63,1.26,2.41.4,4.87.75,7.34,1.03.17.06.29.06.4.06,1.61.23,3.21.4,4.82.57.52.06,1.03.11,1.55.17,5.39.57,10.84,1.03,16.28,1.26,2.01.11,4.01.23,6.08.23,3.44.17,6.88.23,10.38.23,9.92,0,19.73-.46,29.42-1.43,1.89-.17,3.73-.34,5.56-.57.92-.06,1.78-.17,2.7-.29,1.72-.23,3.5-.46,5.22-.69,3.15-.4,6.31-.92,9.46-1.49,1.89-.34,3.78-.69,5.68-1.03.34,0,.75-.11,1.09-.17,2.29-.46,4.64-.97,6.94-1.49,2.41-.52,4.82-1.09,7.22-1.66,2.41-.57,4.82-1.2,7.22-1.83,1.89-.52,3.84-1.03,5.73-1.61.63-.17,1.26-.34,1.89-.57,4.47-1.32,8.95-2.75,13.36-4.3.34-.11.69-.23,1.09-.34,2.12-.8,4.24-1.55,6.31-2.35,2.35-.86,4.7-1.78,7-2.75,2.35-.92,4.65-1.89,6.94-2.92,1.89-.8,3.79-1.66,5.68-2.52,1.66-.75,3.33-1.55,4.99-2.35,1.66-.75,3.27-1.55,4.87-2.35,1.55-.8,3.04-1.55,4.53-2.35.11-.06.23-.11.34-.17,5.1-2.7,10.09-5.51,15.02-8.49,2.35-1.43,4.7-2.87,7-4.36,2.69-1.66,5.33-3.38,7.91-5.16,1.72-1.15,3.38-2.35,5.1-3.55,2.01-1.43,4.01-2.87,5.96-4.36,2.01-1.49,3.96-2.98,5.85-4.47,2.64-2.12,5.28-4.24,7.86-6.42.86-.69,1.72-1.38,2.52-2.12,2.29-1.95,4.59-3.96,6.82-6.02,3.56-3.21,7.05-6.59,10.44-9.98.06,0,.12-.06.17-.12l124.6-124.55,212.22-212.24c66.98-66.98,178.68-69.1,245.31-1.78,42.2,42.6,57.4,101.84,45.7,156.49l127.13-127.13c-14.28-46.45-39.79-90.14-76.55-126.9-32.34-32.34-70.07-56.02-110.33-70.99-108.61-40.37-230.97-12.56-315.44,66.75l-100.63,94.56-67.89,67.89-166.23,166.18c-.52.67-1.08,1.3-1.61,1.95-29.31,27.27-95.56,77.23-173.1,59.86-.46-.11-.93-.21-1.39-.32-2.66-.62-5.34-1.35-8.03-2.14-71.53-20.9-123.79-86.93-123.79-165.21,0-12.27,1.26-24.2,3.73-35.72,6.08-28.84,19.38-54.99,37.9-76.55.06-.12.17-.29.4-.4,31.48-36.47,78.1-59.52,130.11-59.52,72.59,0,134.7,44.9,159.98,108.49l100.52-100.52c-54.53-86.36-150.81-143.7-260.5-143.7-170.03,0-307.88,137.85-307.88,307.92,0,20.3,1.95,40.14,5.74,59.3Z"/>
+      </svg>
+
+      <div class="cover-eyebrow">Commercial Property Cleaning</div>
+
+      <div class="cover-title">Compliance and Credentials Pack</div>
+
+      <div class="cover-subtitle">This document provides procurement teams, asset managers and facilities managers with CPC's current certifications, compliance status and key credentials for evaluation and due diligence purposes.</div>
+
+      <div class="cover-divider"></div>
+
+      <div class="cover-cert-row">
+        <span class="cover-cert-pill">ISO 9001:2015 Certified</span>
+        <span class="cover-cert-pill">ISO 14001:2015 Certified</span>
+        <span class="cover-cert-pill">ISO 45001:2018 Certified</span>
+        <span class="cover-cert-pill">Carbon Neutral Certified</span>
+        <span class="cover-cert-pill">Modern Slavery Act Compliant</span>
+        <span class="cover-cert-pill">JAS-ANZ Accredited Auditor</span>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-company">
+        <strong>Commercial Property Cleaning Pty Ltd</strong>
+        cpclean.com.au &nbsp;·&nbsp; sales@cpclean.com.au<br>
+        81 Dunhill Crescent, Morningside QLD 4170<br>
+        National operations: QLD · NSW · VIC · WA · SA · NT
+      </div>
+      <div class="cover-date">
+        Issued: April 2026<br>
+        Valid for procurement evaluation
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════ PAGE 2: COMPANY OVERVIEW ════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <svg class="page-header-logo" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#fff" d="M1961.61,848.85h-150.86c-31.61-42.7-82.27-70.39-139.43-70.39s-105.8,26.56-137.41,67.7l-165.2,165.32-33.74,33.62-124.52,124.52c-105.91,105.91-269.55,118.69-389.36,38.56v203.15l-137.07,115.72v-470.51l61.08-61.19,79.8-79.69c-11.77,54.92,3.7,114.43,46.4,157.13,66.91,66.91,175.29,66.91,242.2,0l339.15-339.15c21.97-21.97,46.51-39.79,72.52-53.57,3.14-1.79,6.28-3.47,9.53-4.93,2.35-1.23,4.82-2.47,7.29-3.47l3.36-1.68c.22-.11.56-.22.78-.22.45-.22.78-.22,1.12-.56,5.38-2.35,10.76-4.48,16.14-6.5,2.69-.9,5.38-1.91,8.07-2.91,2.35-.78,4.71-1.46,7.06-2.35,5.16-1.57,10.42-3.14,15.69-4.48,2.47-.67,4.93-1.23,7.4-1.79,2.58-.56,5.04-1.12,7.51-1.68,2.58-.45,5.04-.9,7.62-1.46,2.47-.45,5.04-.78,7.62-1.23,2.24-.34,4.59-.67,6.95-.9,3.25-.45,6.61-.9,9.86-1.12,2.47-.22,4.93-.45,7.4-.67,2.47-.11,4.93-.34,7.4-.45,3.81,0,7.73-.22,11.66-.34h3.7c1.79,0,3.7.11,5.49.11h1.35c1.01,0,2.02,0,2.91.22h2.13l4.15.11c.34,0,.67,0,1.12.11,1.68,0,3.36.11,5.04.22.45.22,1.01.22,1.57.22.67,0,1.46.11,2.24.11,3.47.34,6.84.67,10.42,1.01,2.47.45,4.82.67,7.29,1.01,4.03.67,8.18,1.34,12.22,2.02,3.36.78,6.61,1.46,9.98,2.13.56.11,1.23.22,1.91.34,3.59.78,7.06,1.79,10.54,2.58,6.05,1.57,12.22,3.36,18.27,5.49,3.81,1.23,7.62,2.58,11.43,4.04,1.9.67,3.81,1.34,5.72,2.13,3.81,1.57,7.51,3.14,11.32,4.71,2.35,1.12,4.82,2.24,7.17,3.36,1.68.9,3.47,1.68,5.27,2.58,2.02,1.01,4.03,2.13,6.05,3.14,2.02,1.12,3.92,2.13,5.94,3.14.11.11.22.22.34.22,24.21,13.67,47.07,30.71,67.58,51.33,33.71,33.6,57.92,73.17,72.83,115.19Z"/>
+      <path fill="#fff" d="M1671.25,1124.86c-95.65,0-173.17-77.53-173.17-173.17,0-11.7,1.15-23.17,3.38-34.23l-125,125.01-.34.34c14.34,46.45,39.8,90.2,76.55,126.95,23.17,23.22,49.2,41.92,76.84,56.14,10.95,5.62,22.13,10.44,33.49,14.62,2.87,1.09,5.68,2.06,8.54,3.04,1.78.57,3.56,1.15,5.39,1.78,3.56,1.09,7.11,2.24,10.72,3.21.11.06.29.06.4.11,2.01.57,4.01,1.09,6.02,1.66,2.75.69,5.51,1.38,8.26,2.01l14.28,2.92c1.89.34,3.84.63,5.73.92,1.89.34,3.79.57,5.68.86.86.11,1.78.23,2.64.34,2.98.46,6.02.8,9.06,1.09,2.58.29,5.22.52,7.8.69,2.64.23,5.22.4,7.86.52,2.64.11,5.28.23,7.91.29,4.93.17,9.92.17,14.79,0,2.47-.06,4.93-.12,7.4-.23s4.93-.29,7.4-.46c13.36-.98,26.72-2.81,39.91-5.45,65.48-13.19,123.46-47.19,166.75-94.79l.52-.57c27.07-29.88,48.34-65.14,61.99-103.96h-151.44c-31.56,42.66-82.2,70.36-139.36,70.36Z"/>
+      <path fill="#fff" d="M11.95,1011.5c2.01,10.55,4.64,20.87,7.68,31.02l-.29.29c14.34,46.45,39.85,90.2,76.61,126.95,11.3,11.3,23.33,21.39,35.83,30.55,1.33.98,2.67,1.95,4.01,2.91h0c2.81,1.99,5.62,3.97,8.49,5.85h0c4.35,2.88,8.75,5.68,13.25,8.34,4.7,2.87,9.46,5.5,14.28,7.91,4.82,2.58,9.69,4.93,14.68,7.17,2.58,1.15,5.16,2.29,7.74,3.38,2.35.97,4.64,1.89,7,2.87,4.64,1.84,9.35,3.56,14.11,5.16,2.41.8,4.82,1.61,7.23,2.35,2.29.75,4.59,1.43,6.94,2.06,2.01.57,4.01,1.15,6.08,1.66.29.06.57.17.86.23.52.12,1.03.23,1.55.4,2.18.52,4.36,1.09,6.59,1.55,2.69.63,5.39,1.26,8.14,1.78,2.29.46,4.59.92,6.88,1.32,2.52.46,5.05.86,7.63,1.26,2.41.4,4.87.75,7.34,1.03.17.06.29.06.4.06,1.61.23,3.21.4,4.82.57.52.06,1.03.11,1.55.17,5.39.57,10.84,1.03,16.28,1.26,2.01.11,4.01.23,6.08.23,3.44.17,6.88.23,10.38.23,9.92,0,19.73-.46,29.42-1.43,1.89-.17,3.73-.34,5.56-.57.92-.06,1.78-.17,2.7-.29,1.72-.23,3.5-.46,5.22-.69,3.15-.4,6.31-.92,9.46-1.49,1.89-.34,3.78-.69,5.68-1.03.34,0,.75-.11,1.09-.17,2.29-.46,4.64-.97,6.94-1.49,2.41-.52,4.82-1.09,7.22-1.66,2.41-.57,4.82-1.2,7.22-1.83,1.89-.52,3.84-1.03,5.73-1.61.63-.17,1.26-.34,1.89-.57,4.47-1.32,8.95-2.75,13.36-4.3.34-.11.69-.23,1.09-.34,2.12-.8,4.24-1.55,6.31-2.35,2.35-.86,4.7-1.78,7-2.75,2.35-.92,4.65-1.89,6.94-2.92,1.89-.8,3.79-1.66,5.68-2.52,1.66-.75,3.33-1.55,4.99-2.35,1.66-.75,3.27-1.55,4.87-2.35,1.55-.8,3.04-1.55,4.53-2.35.11-.06.23-.11.34-.17,5.1-2.7,10.09-5.51,15.02-8.49,2.35-1.43,4.7-2.87,7-4.36,2.69-1.66,5.33-3.38,7.91-5.16,1.72-1.15,3.38-2.35,5.1-3.55,2.01-1.43,4.01-2.87,5.96-4.36,2.01-1.49,3.96-2.98,5.85-4.47,2.64-2.12,5.28-4.24,7.86-6.42.86-.69,1.72-1.38,2.52-2.12,2.29-1.95,4.59-3.96,6.82-6.02,3.56-3.21,7.05-6.59,10.44-9.98.06,0,.12-.06.17-.12l124.6-124.55,212.22-212.24c66.98-66.98,178.68-69.1,245.31-1.78,42.2,42.6,57.4,101.84,45.7,156.49l127.13-127.13c-14.28-46.45-39.79-90.14-76.55-126.9-32.34-32.34-70.07-56.02-110.33-70.99-108.61-40.37-230.97-12.56-315.44,66.75l-100.63,94.56-67.89,67.89-166.23,166.18c-.52.67-1.08,1.3-1.61,1.95-29.31,27.27-95.56,77.23-173.1,59.86-.46-.11-.93-.21-1.39-.32-2.66-.62-5.34-1.35-8.03-2.14-71.53-20.9-123.79-86.93-123.79-165.21,0-12.27,1.26-24.2,3.73-35.72,6.08-28.84,19.38-54.99,37.9-76.55.06-.12.17-.29.4-.4,31.48-36.47,78.1-59.52,130.11-59.52,72.59,0,134.7,44.9,159.98,108.49l100.52-100.52c-54.53-86.36-150.81-143.7-260.5-143.7-170.03,0-307.88,137.85-307.88,307.92,0,20.3,1.95,40.14,5.74,59.3Z"/>
+    </svg>
+    <div class="page-header-right">
+      <div class="page-header-title">Company Overview</div>
+      <div class="page-header-sub">Commercial Property Cleaning · cpclean.com.au</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="placeholder-note"><strong>Note for CPC team:</strong> Fields marked in amber require confirmation before distribution. Replace all placeholder values with current verified data.</div>
+
+    <div class="section-eyebrow">About CPC</div>
+    <div class="section-title">Company Overview</div>
+    <div class="section-intro">Commercial Property Cleaning (CPC) is a national commercial cleaning company delivering ISO-certified, carbon neutral cleaning programs for government, local government, industrial, education and commercial office environments across Australia. CPC has been operating for 30+ years and employs 500+ people directly across its national operations.</div>
+
+    <div class="two-col" style="margin-bottom:6mm;">
+      <div class="info-block">
+        <div class="info-block-title">Company Registration</div>
+        <div class="info-row"><span class="info-row-label">Legal Name</span><span class="info-row-value">Commercial Property Cleaning Pty Ltd</span></div>
+        <div class="info-row"><span class="info-row-label">ABN</span><span class="info-row-value placeholder">[INSERT ABN]</span></div>
+        <div class="info-row"><span class="info-row-label">ACN</span><span class="info-row-value placeholder">[INSERT ACN]</span></div>
+        <div class="info-row"><span class="info-row-label">Established</span><span class="info-row-value">1996</span></div>
+        <div class="info-row"><span class="info-row-label">Structure</span><span class="info-row-value">Proprietary Limited</span></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-title">National Operations</div>
+        <div class="info-row"><span class="info-row-label">Workforce</span><span class="info-row-value">500+ directly employed</span></div>
+        <div class="info-row"><span class="info-row-label">Active Sites</span><span class="info-row-value">1,000+ nationally</span></div>
+        <div class="info-row"><span class="info-row-label">States Covered</span><span class="info-row-value">QLD, NSW, VIC, WA, SA, NT</span></div>
+        <div class="info-row"><span class="info-row-label">HQ</span><span class="info-row-value">Morningside, QLD 4170</span></div>
+        <div class="info-row"><span class="info-row-label">Website</span><span class="info-row-value">cpclean.com.au</span></div>
+      </div>
+    </div>
+
+    <div class="info-block" style="margin-bottom:6mm;">
+      <div class="info-block-title">Office Locations</div>
+      <div class="info-row"><span class="info-row-label">Brisbane (HQ)</span><span class="info-row-value">81 Dunhill Crescent, Morningside QLD 4170</span></div>
+      <div class="info-row"><span class="info-row-label">Sydney</span><span class="info-row-value">383 George Street, Sydney NSW 2000</span></div>
+      <div class="info-row"><span class="info-row-label">Melbourne</span><span class="info-row-value">222 Exhibition Street, Melbourne VIC 3000</span></div>
+      <div class="info-row"><span class="info-row-label">Perth</span><span class="info-row-value">152 St Georges Terrace, Perth WA 6000</span></div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Insurance Summary</div>
+      <div class="info-row"><span class="info-row-label">Public Liability</span><span class="info-row-value placeholder">[INSERT AMOUNT — e.g. $20M]</span></div>
+      <div class="info-row"><span class="info-row-label">Professional Indemnity</span><span class="info-row-value placeholder">[INSERT AMOUNT]</span></div>
+      <div class="info-row"><span class="info-row-label">Workers Compensation</span><span class="info-row-value">Current — all states of operation</span></div>
+      <div class="info-row"><span class="info-row-label">Insurer</span><span class="info-row-value placeholder">[INSERT INSURER NAME]</span></div>
+      <div class="info-row"><span class="info-row-label">Policy Expiry</span><span class="info-row-value placeholder">[INSERT DATE]</span></div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">Commercial Property Cleaning · Compliance and Credentials Pack · April 2026</div>
+    <div class="page-footer-num">Page 2</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ PAGE 3: ISO CERTIFICATIONS ══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <svg class="page-header-logo" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1961.61,848.85h-150.86c-31.61-42.7-82.27-70.39-139.43-70.39s-105.8,26.56-137.41,67.7l-165.2,165.32-33.74,33.62-124.52,124.52c-105.91,105.91-269.55,118.69-389.36,38.56v203.15l-137.07,115.72v-470.51l61.08-61.19,79.8-79.69c-11.77,54.92,3.7,114.43,46.4,157.13,66.91,66.91,175.29,66.91,242.2,0l339.15-339.15c21.97-21.97,46.51-39.79,72.52-53.57,3.14-1.79,6.28-3.47,9.53-4.93,2.35-1.23,4.82-2.47,7.29-3.47l3.36-1.68c.22-.11.56-.22.78-.22.45-.22.78-.22,1.12-.56,5.38-2.35,10.76-4.48,16.14-6.5,2.69-.9,5.38-1.91,8.07-2.91,2.35-.78,4.71-1.46,7.06-2.35,5.16-1.57,10.42-3.14,15.69-4.48,2.47-.67,4.93-1.23,7.4-1.79,2.58-.56,5.04-1.12,7.51-1.68,2.58-.45,5.04-.9,7.62-1.46,2.47-.45,5.04-.78,7.62-1.23,2.24-.34,4.59-.67,6.95-.9,3.25-.45,6.61-.9,9.86-1.12,2.47-.22,4.93-.45,7.4-.67,2.47-.11,4.93-.34,7.4-.45,3.81,0,7.73-.22,11.66-.34h3.7c1.79,0,3.7.11,5.49.11h1.35c1.01,0,2.02,0,2.91.22h2.13l4.15.11c.34,0,.67,0,1.12.11,1.68,0,3.36.11,5.04.22.45.22,1.01.22,1.57.22.67,0,1.46.11,2.24.11,3.47.34,6.84.67,10.42,1.01,2.47.45,4.82.67,7.29,1.01,4.03.67,8.18,1.34,12.22,2.02,3.36.78,6.61,1.46,9.98,2.13.56.11,1.23.22,1.91.34,3.59.78,7.06,1.79,10.54,2.58,6.05,1.57,12.22,3.36,18.27,5.49,3.81,1.23,7.62,2.58,11.43,4.04,1.9.67,3.81,1.34,5.72,2.13,3.81,1.57,7.51,3.14,11.32,4.71,2.35,1.12,4.82,2.24,7.17,3.36,1.68.9,3.47,1.68,5.27,2.58,2.02,1.01,4.03,2.13,6.05,3.14,2.02,1.12,3.92,2.13,5.94,3.14.11.11.22.22.34.22,24.21,13.67,47.07,30.71,67.58,51.33,33.71,33.6,57.92,73.17,72.83,115.19Z"/><path fill="#fff" d="M1671.25,1124.86c-95.65,0-173.17-77.53-173.17-173.17,0-11.7,1.15-23.17,3.38-34.23l-125,125.01-.34.34c14.34,46.45,39.8,90.2,76.55,126.95,23.17,23.22,49.2,41.92,76.84,56.14,10.95,5.62,22.13,10.44,33.49,14.62,2.87,1.09,5.68,2.06,8.54,3.04,1.78.57,3.56,1.15,5.39,1.78,3.56,1.09,7.11,2.24,10.72,3.21.11.06.29.06.4.11,2.01.57,4.01,1.09,6.02,1.66,2.75.69,5.51,1.38,8.26,2.01l14.28,2.92c1.89.34,3.84.63,5.73.92,1.89.34,3.79.57,5.68.86.86.11,1.78.23,2.64.34,2.98.46,6.02.8,9.06,1.09,2.58.29,5.22.52,7.8.69,2.64.23,5.22.4,7.86.52,2.64.11,5.28.23,7.91.29,4.93.17,9.92.17,14.79,0,2.47-.06,4.93-.12,7.4-.23s4.93-.29,7.4-.46c13.36-.98,26.72-2.81,39.91-5.45,65.48-13.19,123.46-47.19,166.75-94.79l.52-.57c27.07-29.88,48.34-65.14,61.99-103.96h-151.44c-31.56,42.66-82.2,70.36-139.36,70.36Z"/><path fill="#fff" d="M11.95,1011.5c2.01,10.55,4.64,20.87,7.68,31.02l-.29.29c14.34,46.45,39.85,90.2,76.61,126.95,11.3,11.3,23.33,21.39,35.83,30.55,1.33.98,2.67,1.95,4.01,2.91h0c2.81,1.99,5.62,3.97,8.49,5.85h0c4.35,2.88,8.75,5.68,13.25,8.34,4.7,2.87,9.46,5.5,14.28,7.91,4.82,2.58,9.69,4.93,14.68,7.17,2.58,1.15,5.16,2.29,7.74,3.38,2.35.97,4.64,1.89,7,2.87,4.64,1.84,9.35,3.56,14.11,5.16,2.41.8,4.82,1.61,7.23,2.35,2.29.75,4.59,1.43,6.94,2.06,2.01.57,4.01,1.15,6.08,1.66.29.06.57.17.86.23.52.12,1.03.23,1.55.4,2.18.52,4.36,1.09,6.59,1.55,2.69.63,5.39,1.26,8.14,1.78,2.29.46,4.59.92,6.88,1.32,2.52.46,5.05.86,7.63,1.26,2.41.4,4.87.75,7.34,1.03.17.06.29.06.4.06,1.61.23,3.21.4,4.82.57.52.06,1.03.11,1.55.17,5.39.57,10.84,1.03,16.28,1.26,2.01.11,4.01.23,6.08.23,3.44.17,6.88.23,10.38.23,9.92,0,19.73-.46,29.42-1.43,1.89-.17,3.73-.34,5.56-.57.92-.06,1.78-.17,2.7-.29,1.72-.23,3.5-.46,5.22-.69,3.15-.4,6.31-.92,9.46-1.49,1.89-.34,3.78-.69,5.68-1.03.34,0,.75-.11,1.09-.17,2.29-.46,4.64-.97,6.94-1.49,2.41-.52,4.82-1.09,7.22-1.66,2.41-.57,4.82-1.2,7.22-1.83,1.89-.52,3.84-1.03,5.73-1.61.63-.17,1.26-.34,1.89-.57,4.47-1.32,8.95-2.75,13.36-4.3.34-.11.69-.23,1.09-.34,2.12-.8,4.24-1.55,6.31-2.35,2.35-.86,4.7-1.78,7-2.75,2.35-.92,4.65-1.89,6.94-2.92,1.89-.8,3.79-1.66,5.68-2.52,1.66-.75,3.33-1.55,4.99-2.35,1.66-.75,3.27-1.55,4.87-2.35,1.55-.8,3.04-1.55,4.53-2.35.11-.06.23-.11.34-.17,5.1-2.7,10.09-5.51,15.02-8.49,2.35-1.43,4.7-2.87,7-4.36,2.69-1.66,5.33-3.38,7.91-5.16,1.72-1.15,3.38-2.35,5.1-3.55,2.01-1.43,4.01-2.87,5.96-4.36,2.01-1.49,3.96-2.98,5.85-4.47,2.64-2.12,5.28-4.24,7.86-6.42.86-.69,1.72-1.38,2.52-2.12,2.29-1.95,4.59-3.96,6.82-6.02,3.56-3.21,7.05-6.59,10.44-9.98.06,0,.12-.06.17-.12l124.6-124.55,212.22-212.24c66.98-66.98,178.68-69.1,245.31-1.78,42.2,42.6,57.4,101.84,45.7,156.49l127.13-127.13c-14.28-46.45-39.79-90.14-76.55-126.9-32.34-32.34-70.07-56.02-110.33-70.99-108.61-40.37-230.97-12.56-315.44,66.75l-100.63,94.56-67.89,67.89-166.23,166.18c-.52.67-1.08,1.3-1.61,1.95-29.31,27.27-95.56,77.23-173.1,59.86-.46-.11-.93-.21-1.39-.32-2.66-.62-5.34-1.35-8.03-2.14-71.53-20.9-123.79-86.93-123.79-165.21,0-12.27,1.26-24.2,3.73-35.72,6.08-28.84,19.38-54.99,37.9-76.55.06-.12.17-.29.4-.4,31.48-36.47,78.1-59.52,130.11-59.52,72.59,0,134.7,44.9,159.98,108.49l100.52-100.52c-54.53-86.36-150.81-143.7-260.5-143.7-170.03,0-307.88,137.85-307.88,307.92,0,20.3,1.95,40.14,5.74,59.3Z"/></svg>
+    <div class="page-header-right">
+      <div class="page-header-title">ISO Certifications</div>
+      <div class="page-header-sub">JAS-ANZ Accredited · Annual External Audit</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="section-eyebrow">Management System Certifications</div>
+    <div class="section-title">ISO Certifications</div>
+    <div class="section-intro">CPC holds three ISO management system certifications, audited annually by a JAS-ANZ accredited certification body. All three certifications are maintained concurrently and apply across CPC's national operations.</div>
+
+    <div class="cert-card">
+      <div class="cert-card-header">
+        <div class="cert-card-title">ISO 9001:2015 — Quality Management System</div>
+        <div class="cert-card-badge">Current</div>
+      </div>
+      <div class="cert-meta">
+        <div class="cert-meta-item"><div class="cert-meta-label">Certificate Number</div><div class="cert-meta-value placeholder">[INSERT CERT NO.]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Certification Body</div><div class="cert-meta-value placeholder">[INSERT BODY]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Expiry Date</div><div class="cert-meta-value placeholder">[INSERT DATE]</div></div>
+      </div>
+      <div class="cert-desc">Covers the planning, delivery and performance management of commercial cleaning services across all CPC contracts nationally. Ensures consistent service quality, documented procedures, measurable KPIs and continuous improvement processes are applied across all sites.</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-card-header">
+        <div class="cert-card-title">ISO 14001:2015 — Environmental Management System</div>
+        <div class="cert-card-badge">Current</div>
+      </div>
+      <div class="cert-meta">
+        <div class="cert-meta-item"><div class="cert-meta-label">Certificate Number</div><div class="cert-meta-value placeholder">[INSERT CERT NO.]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Certification Body</div><div class="cert-meta-value placeholder">[INSERT BODY]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Expiry Date</div><div class="cert-meta-value placeholder">[INSERT DATE]</div></div>
+      </div>
+      <div class="cert-desc">Covers CPC's environmental management obligations including chemical management, waste minimisation, eco-product selection, carbon measurement and sustainability reporting. Supports client ESG reporting, Green Star building requirements and Net Zero commitments.</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-card-header">
+        <div class="cert-card-title">ISO 45001:2018 — Occupational Health and Safety Management System</div>
+        <div class="cert-card-badge">Current</div>
+      </div>
+      <div class="cert-meta">
+        <div class="cert-meta-item"><div class="cert-meta-label">Certificate Number</div><div class="cert-meta-value placeholder">[INSERT CERT NO.]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Certification Body</div><div class="cert-meta-value placeholder">[INSERT BODY]</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Expiry Date</div><div class="cert-meta-value placeholder">[INSERT DATE]</div></div>
+      </div>
+      <div class="cert-desc">Covers WHS management across all CPC operations including hazard identification, risk control, incident management, Safe Work Method Statements, chemical handling, workforce induction and emergency response procedures in all operating environments.</div>
+    </div>
+
+    <div class="teal-callout">
+      <div class="teal-callout-title">JAS-ANZ Accredited Certification</div>
+      <div class="teal-callout-text">All three ISO certifications are issued by a certification body accredited by the Joint Accreditation System of Australia and New Zealand (JAS-ANZ). Annual surveillance audits are conducted by the certification body at representative sites across CPC's national operations. Copies of current certificates are available on request through the CPC Due Diligence Hub at cpclean.com.au/due-diligence.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">Commercial Property Cleaning · Compliance and Credentials Pack · April 2026</div>
+    <div class="page-footer-num">Page 3</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ PAGE 4: CARBON + MODERN SLAVERY ═════════════ -->
+<div class="page">
+  <div class="page-header">
+    <svg class="page-header-logo" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1961.61,848.85h-150.86c-31.61-42.7-82.27-70.39-139.43-70.39s-105.8,26.56-137.41,67.7l-165.2,165.32-33.74,33.62-124.52,124.52c-105.91,105.91-269.55,118.69-389.36,38.56v203.15l-137.07,115.72v-470.51l61.08-61.19,79.8-79.69c-11.77,54.92,3.7,114.43,46.4,157.13,66.91,66.91,175.29,66.91,242.2,0l339.15-339.15c21.97-21.97,46.51-39.79,72.52-53.57,3.14-1.79,6.28-3.47,9.53-4.93,2.35-1.23,4.82-2.47,7.29-3.47l3.36-1.68c.22-.11.56-.22.78-.22.45-.22.78-.22,1.12-.56,5.38-2.35,10.76-4.48,16.14-6.5,2.69-.9,5.38-1.91,8.07-2.91,2.35-.78,4.71-1.46,7.06-2.35,5.16-1.57,10.42-3.14,15.69-4.48,2.47-.67,4.93-1.23,7.4-1.79,2.58-.56,5.04-1.12,7.51-1.68,2.58-.45,5.04-.9,7.62-1.46,2.47-.45,5.04-.78,7.62-1.23,2.24-.34,4.59-.67,6.95-.9,3.25-.45,6.61-.9,9.86-1.12,2.47-.22,4.93-.45,7.4-.67,2.47-.11,4.93-.34,7.4-.45,3.81,0,7.73-.22,11.66-.34h3.7c1.79,0,3.7.11,5.49.11h1.35c1.01,0,2.02,0,2.91.22h2.13l4.15.11c.34,0,.67,0,1.12.11,1.68,0,3.36.11,5.04.22.45.22,1.01.22,1.57.22.67,0,1.46.11,2.24.11,3.47.34,6.84.67,10.42,1.01,2.47.45,4.82.67,7.29,1.01,4.03.67,8.18,1.34,12.22,2.02,3.36.78,6.61,1.46,9.98,2.13.56.11,1.23.22,1.91.34,3.59.78,7.06,1.79,10.54,2.58,6.05,1.57,12.22,3.36,18.27,5.49,3.81,1.23,7.62,2.58,11.43,4.04,1.9.67,3.81,1.34,5.72,2.13,3.81,1.57,7.51,3.14,11.32,4.71,2.35,1.12,4.82,2.24,7.17,3.36,1.68.9,3.47,1.68,5.27,2.58,2.02,1.01,4.03,2.13,6.05,3.14,2.02,1.12,3.92,2.13,5.94,3.14.11.11.22.22.34.22,24.21,13.67,47.07,30.71,67.58,51.33,33.71,33.6,57.92,73.17,72.83,115.19Z"/><path fill="#fff" d="M1671.25,1124.86c-95.65,0-173.17-77.53-173.17-173.17,0-11.7,1.15-23.17,3.38-34.23l-125,125.01-.34.34c14.34,46.45,39.8,90.2,76.55,126.95,23.17,23.22,49.2,41.92,76.84,56.14,10.95,5.62,22.13,10.44,33.49,14.62,2.87,1.09,5.68,2.06,8.54,3.04,1.78.57,3.56,1.15,5.39,1.78,3.56,1.09,7.11,2.24,10.72,3.21.11.06.29.06.4.11,2.01.57,4.01,1.09,6.02,1.66,2.75.69,5.51,1.38,8.26,2.01l14.28,2.92c1.89.34,3.84.63,5.73.92,1.89.34,3.79.57,5.68.86.86.11,1.78.23,2.64.34,2.98.46,6.02.8,9.06,1.09,2.58.29,5.22.52,7.8.69,2.64.23,5.22.4,7.86.52,2.64.11,5.28.23,7.91.29,4.93.17,9.92.17,14.79,0,2.47-.06,4.93-.12,7.4-.23s4.93-.29,7.4-.46c13.36-.98,26.72-2.81,39.91-5.45,65.48-13.19,123.46-47.19,166.75-94.79l.52-.57c27.07-29.88,48.34-65.14,61.99-103.96h-151.44c-31.56,42.66-82.2,70.36-139.36,70.36Z"/><path fill="#fff" d="M11.95,1011.5c2.01,10.55,4.64,20.87,7.68,31.02l-.29.29c14.34,46.45,39.85,90.2,76.61,126.95,11.3,11.3,23.33,21.39,35.83,30.55,1.33.98,2.67,1.95,4.01,2.91h0c2.81,1.99,5.62,3.97,8.49,5.85h0c4.35,2.88,8.75,5.68,13.25,8.34,4.7,2.87,9.46,5.5,14.28,7.91,4.82,2.58,9.69,4.93,14.68,7.17,2.58,1.15,5.16,2.29,7.74,3.38,2.35.97,4.64,1.89,7,2.87,4.64,1.84,9.35,3.56,14.11,5.16,2.41.8,4.82,1.61,7.23,2.35,2.29.75,4.59,1.43,6.94,2.06,2.01.57,4.01,1.15,6.08,1.66.29.06.57.17.86.23.52.12,1.03.23,1.55.4,2.18.52,4.36,1.09,6.59,1.55,2.69.63,5.39,1.26,8.14,1.78,2.29.46,4.59.92,6.88,1.32,2.52.46,5.05.86,7.63,1.26,2.41.4,4.87.75,7.34,1.03.17.06.29.06.4.06,1.61.23,3.21.4,4.82.57.52.06,1.03.11,1.55.17,5.39.57,10.84,1.03,16.28,1.26,2.01.11,4.01.23,6.08.23,3.44.17,6.88.23,10.38.23,9.92,0,19.73-.46,29.42-1.43,1.89-.17,3.73-.34,5.56-.57.92-.06,1.78-.17,2.7-.29,1.72-.23,3.5-.46,5.22-.69,3.15-.4,6.31-.92,9.46-1.49,1.89-.34,3.78-.69,5.68-1.03.34,0,.75-.11,1.09-.17,2.29-.46,4.64-.97,6.94-1.49,2.41-.52,4.82-1.09,7.22-1.66,2.41-.57,4.82-1.2,7.22-1.83,1.89-.52,3.84-1.03,5.73-1.61.63-.17,1.26-.34,1.89-.57,4.47-1.32,8.95-2.75,13.36-4.3.34-.11.69-.23,1.09-.34,2.12-.8,4.24-1.55,6.31-2.35,2.35-.86,4.7-1.78,7-2.75,2.35-.92,4.65-1.89,6.94-2.92,1.89-.8,3.79-1.66,5.68-2.52,1.66-.75,3.33-1.55,4.99-2.35,1.66-.75,3.27-1.55,4.87-2.35,1.55-.8,3.04-1.55,4.53-2.35.11-.06.23-.11.34-.17,5.1-2.7,10.09-5.51,15.02-8.49,2.35-1.43,4.7-2.87,7-4.36,2.69-1.66,5.33-3.38,7.91-5.16,1.72-1.15,3.38-2.35,5.1-3.55,2.01-1.43,4.01-2.87,5.96-4.36,2.01-1.49,3.96-2.98,5.85-4.47,2.64-2.12,5.28-4.24,7.86-6.42.86-.69,1.72-1.38,2.52-2.12,2.29-1.95,4.59-3.96,6.82-6.02,3.56-3.21,7.05-6.59,10.44-9.98.06,0,.12-.06.17-.12l124.6-124.55,212.22-212.24c66.98-66.98,178.68-69.1,245.31-1.78,42.2,42.6,57.4,101.84,45.7,156.49l127.13-127.13c-14.28-46.45-39.79-90.14-76.55-126.9-32.34-32.34-70.07-56.02-110.33-70.99-108.61-40.37-230.97-12.56-315.44,66.75l-100.63,94.56-67.89,67.89-166.23,166.18c-.52.67-1.08,1.3-1.61,1.95-29.31,27.27-95.56,77.23-173.1,59.86-.46-.11-.93-.21-1.39-.32-2.66-.62-5.34-1.35-8.03-2.14-71.53-20.9-123.79-86.93-123.79-165.21,0-12.27,1.26-24.2,3.73-35.72,6.08-28.84,19.38-54.99,37.9-76.55.06-.12.17-.29.4-.4,31.48-36.47,78.1-59.52,130.11-59.52,72.59,0,134.7,44.9,159.98,108.49l100.52-100.52c-54.53-86.36-150.81-143.7-260.5-143.7-170.03,0-307.88,137.85-307.88,307.92,0,20.3,1.95,40.14,5.74,59.3Z"/></svg>
+    <div class="page-header-right">
+      <div class="page-header-title">Carbon Neutral + Modern Slavery</div>
+      <div class="page-header-sub">Sustainability and Ethical Supply Chain</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <div class="section-eyebrow">Carbon Neutral Certification</div>
+    <div class="section-title">Carbon Neutral Cleaning</div>
+
+    <div class="cert-card" style="margin-bottom:8mm;">
+      <div class="cert-card-header">
+        <div class="cert-card-title">Carbon Neutral Certification — carbonneutral.com.au</div>
+        <div class="cert-card-badge">Annually Verified</div>
+      </div>
+      <div class="cert-meta">
+        <div class="cert-meta-item"><div class="cert-meta-label">Scope</div><div class="cert-meta-value">Scope 1, 2 and 3</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Certifier</div><div class="cert-meta-value">carbonneutral.com.au</div></div>
+        <div class="cert-meta-item"><div class="cert-meta-label">Verification</div><div class="cert-meta-value">Annual independent audit</div></div>
+      </div>
+      <div class="cert-desc">CPC measures Scope 1, 2 and 3 emissions across all cleaning operations annually. Emissions are reduced at source through fleet transition, energy efficiency and eco-product programs. Remaining emissions are offset through verified carbon credits registered with accredited offset registries. Every CPC client site receives a Carbon Neutral Cleaning Certificate with verified offset documentation and transparent carbon credit purchase records.</div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:8mm;">
+      <div class="info-block">
+        <div class="info-block-title">What is Covered</div>
+        <div class="info-row"><span class="info-row-label">Scope 1</span><span class="info-row-value">Fleet, equipment fuel</span></div>
+        <div class="info-row"><span class="info-row-label">Scope 2</span><span class="info-row-value">Electricity consumption</span></div>
+        <div class="info-row"><span class="info-row-label">Scope 3</span><span class="info-row-value">Supply chain, chemicals, waste</span></div>
+        <div class="info-row"><span class="info-row-label">Certificate</span><span class="info-row-value">Issued per site per contract period</span></div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-title">Client Reporting</div>
+        <div class="info-row"><span class="info-row-label">Monthly Data</span><span class="info-row-value">Carbon footprint per site</span></div>
+        <div class="info-row"><span class="info-row-label">Offset Records</span><span class="info-row-value">Registry references disclosed</span></div>
+        <div class="info-row"><span class="info-row-label">Format</span><span class="info-row-value">GRESB, NABERS, ESG reports</span></div>
+        <div class="info-row"><span class="info-row-label">Board Use</span><span class="info-row-value">Investor disclosure ready</span></div>
+      </div>
+    </div>
+
+    <div class="section-eyebrow" style="margin-top:2mm;">Modern Slavery Act Compliance</div>
+    <div class="statement-block">
+      <div class="statement-block-title">Modern Slavery Statement — Modern Slavery Act 2018 (Cth)</div>
+      <div class="statement-block-text">
+        CPC publishes an annual Modern Slavery Statement in compliance with the Modern Slavery Act 2018 (Cth). The statement is registered on the Australian Border Force Modern Slavery Register and is available for download at cpclean.com.au/due-diligence.<br><br>
+        <strong>Statement covers:</strong> Identification of modern slavery risks in CPC's operations and supply chains · Due diligence processes applied · Actions taken to address identified risks · Effectiveness assessment · Key approval and sign-off by CPC's responsible entity.<br><br>
+        CPC's supply chain management includes direct employment preference to reduce subcontracting risk, supplier screening for labour compliance, Fair Work Act compliance across all direct operations, and documented grievance mechanisms for all workforce.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">Commercial Property Cleaning · Compliance and Credentials Pack · April 2026</div>
+    <div class="page-footer-num">Page 4</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ PAGE 5: CONTACTS + ACCESS ═══════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <svg class="page-header-logo" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1961.61,848.85h-150.86c-31.61-42.7-82.27-70.39-139.43-70.39s-105.8,26.56-137.41,67.7l-165.2,165.32-33.74,33.62-124.52,124.52c-105.91,105.91-269.55,118.69-389.36,38.56v203.15l-137.07,115.72v-470.51l61.08-61.19,79.8-79.69c-11.77,54.92,3.7,114.43,46.4,157.13,66.91,66.91,175.29,66.91,242.2,0l339.15-339.15c21.97-21.97,46.51-39.79,72.52-53.57,3.14-1.79,6.28-3.47,9.53-4.93,2.35-1.23,4.82-2.47,7.29-3.47l3.36-1.68c.22-.11.56-.22.78-.22.45-.22.78-.22,1.12-.56,5.38-2.35,10.76-4.48,16.14-6.5,2.69-.9,5.38-1.91,8.07-2.91,2.35-.78,4.71-1.46,7.06-2.35,5.16-1.57,10.42-3.14,15.69-4.48,2.47-.67,4.93-1.23,7.4-1.79,2.58-.56,5.04-1.12,7.51-1.68,2.58-.45,5.04-.9,7.62-1.46,2.47-.45,5.04-.78,7.62-1.23,2.24-.34,4.59-.67,6.95-.9,3.25-.45,6.61-.9,9.86-1.12,2.47-.22,4.93-.45,7.4-.67,2.47-.11,4.93-.34,7.4-.45,3.81,0,7.73-.22,11.66-.34h3.7c1.79,0,3.7.11,5.49.11h1.35c1.01,0,2.02,0,2.91.22h2.13l4.15.11c.34,0,.67,0,1.12.11,1.68,0,3.36.11,5.04.22.45.22,1.01.22,1.57.22.67,0,1.46.11,2.24.11,3.47.34,6.84.67,10.42,1.01,2.47.45,4.82.67,7.29,1.01,4.03.67,8.18,1.34,12.22,2.02,3.36.78,6.61,1.46,9.98,2.13.56.11,1.23.22,1.91.34,3.59.78,7.06,1.79,10.54,2.58,6.05,1.57,12.22,3.36,18.27,5.49,3.81,1.23,7.62,2.58,11.43,4.04,1.9.67,3.81,1.34,5.72,2.13,3.81,1.57,7.51,3.14,11.32,4.71,2.35,1.12,4.82,2.24,7.17,3.36,1.68.9,3.47,1.68,5.27,2.58,2.02,1.01,4.03,2.13,6.05,3.14,2.02,1.12,3.92,2.13,5.94,3.14.11.11.22.22.34.22,24.21,13.67,47.07,30.71,67.58,51.33,33.71,33.6,57.92,73.17,72.83,115.19Z"/><path fill="#fff" d="M1671.25,1124.86c-95.65,0-173.17-77.53-173.17-173.17,0-11.7,1.15-23.17,3.38-34.23l-125,125.01-.34.34c14.34,46.45,39.8,90.2,76.55,126.95,23.17,23.22,49.2,41.92,76.84,56.14,10.95,5.62,22.13,10.44,33.49,14.62,2.87,1.09,5.68,2.06,8.54,3.04,1.78.57,3.56,1.15,5.39,1.78,3.56,1.09,7.11,2.24,10.72,3.21.11.06.29.06.4.11,2.01.57,4.01,1.09,6.02,1.66,2.75.69,5.51,1.38,8.26,2.01l14.28,2.92c1.89.34,3.84.63,5.73.92,1.89.34,3.79.57,5.68.86.86.11,1.78.23,2.64.34,2.98.46,6.02.8,9.06,1.09,2.58.29,5.22.52,7.8.69,2.64.23,5.22.4,7.86.52,2.64.11,5.28.23,7.91.29,4.93.17,9.92.17,14.79,0,2.47-.06,4.93-.12,7.4-.23s4.93-.29,7.4-.46c13.36-.98,26.72-2.81,39.91-5.45,65.48-13.19,123.46-47.19,166.75-94.79l.52-.57c27.07-29.88,48.34-65.14,61.99-103.96h-151.44c-31.56,42.66-82.2,70.36-139.36,70.36Z"/><path fill="#fff" d="M11.95,1011.5c2.01,10.55,4.64,20.87,7.68,31.02l-.29.29c14.34,46.45,39.85,90.2,76.61,126.95,11.3,11.3,23.33,21.39,35.83,30.55,1.33.98,2.67,1.95,4.01,2.91h0c2.81,1.99,5.62,3.97,8.49,5.85h0c4.35,2.88,8.75,5.68,13.25,8.34,4.7,2.87,9.46,5.5,14.28,7.91,4.82,2.58,9.69,4.93,14.68,7.17,2.58,1.15,5.16,2.29,7.74,3.38,2.35.97,4.64,1.89,7,2.87,4.64,1.84,9.35,3.56,14.11,5.16,2.41.8,4.82,1.61,7.23,2.35,2.29.75,4.59,1.43,6.94,2.06,2.01.57,4.01,1.15,6.08,1.66.29.06.57.17.86.23.52.12,1.03.23,1.55.4,2.18.52,4.36,1.09,6.59,1.55,2.69.63,5.39,1.26,8.14,1.78,2.29.46,4.59.92,6.88,1.32,2.52.46,5.05.86,7.63,1.26,2.41.4,4.87.75,7.34,1.03.17.06.29.06.4.06,1.61.23,3.21.4,4.82.57.52.06,1.03.11,1.55.17,5.39.57,10.84,1.03,16.28,1.26,2.01.11,4.01.23,6.08.23,3.44.17,6.88.23,10.38.23,9.92,0,19.73-.46,29.42-1.43,1.89-.17,3.73-.34,5.56-.57.92-.06,1.78-.17,2.7-.29,1.72-.23,3.5-.46,5.22-.69,3.15-.4,6.31-.92,9.46-1.49,1.89-.34,3.78-.69,5.68-1.03.34,0,.75-.11,1.09-.17,2.29-.46,4.64-.97,6.94-1.49,2.41-.52,4.82-1.09,7.22-1.66,2.41-.57,4.82-1.2,7.22-1.83,1.89-.52,3.84-1.03,5.73-1.61.63-.17,1.26-.34,1.89-.57,4.47-1.32,8.95-2.75,13.36-4.3.34-.11.69-.23,1.09-.34,2.12-.8,4.24-1.55,6.31-2.35,2.35-.86,4.7-1.78,7-2.75,2.35-.92,4.65-1.89,6.94-2.92,1.89-.8,3.79-1.66,5.68-2.52,1.66-.75,3.33-1.55,4.99-2.35,1.66-.75,3.27-1.55,4.87-2.35,1.55-.8,3.04-1.55,4.53-2.35.11-.06.23-.11.34-.17,5.1-2.7,10.09-5.51,15.02-8.49,2.35-1.43,4.7-2.87,7-4.36,2.69-1.66,5.33-3.38,7.91-5.16,1.72-1.15,3.38-2.35,5.1-3.55,2.01-1.43,4.01-2.87,5.96-4.36,2.01-1.49,3.96-2.98,5.85-4.47,2.64-2.12,5.28-4.24,7.86-6.42.86-.69,1.72-1.38,2.52-2.12,2.29-1.95,4.59-3.96,6.82-6.02,3.56-3.21,7.05-6.59,10.44-9.98.06,0,.12-.06.17-.12l124.6-124.55,212.22-212.24c66.98-66.98,178.68-69.1,245.31-1.78,42.2,42.6,57.4,101.84,45.7,156.49l127.13-127.13c-14.28-46.45-39.79-90.14-76.55-126.9-32.34-32.34-70.07-56.02-110.33-70.99-108.61-40.37-230.97-12.56-315.44,66.75l-100.63,94.56-67.89,67.89-166.23,166.18c-.52.67-1.08,1.3-1.61,1.95-29.31,27.27-95.56,77.23-173.1,59.86-.46-.11-.93-.21-1.39-.32-2.66-.62-5.34-1.35-8.03-2.14-71.53-20.9-123.79-86.93-123.79-165.21,0-12.27,1.26-24.2,3.73-35.72,6.08-28.84,19.38-54.99,37.9-76.55.06-.12.17-.29.4-.4,31.48-36.47,78.1-59.52,130.11-59.52,72.59,0,134.7,44.9,159.98,108.49l100.52-100.52c-54.53-86.36-150.81-143.7-260.5-143.7-170.03,0-307.88,137.85-307.88,307.92,0,20.3,1.95,40.14,5.74,59.3Z"/></svg>
+    <div class="page-header-right">
+      <div class="page-header-title">Key Contacts and Document Access</div>
+      <div class="page-header-sub">Commercial Property Cleaning · cpclean.com.au</div>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <div class="section-eyebrow">Key Contacts</div>
+    <div class="section-title">Procurement and Compliance Contacts</div>
+    <div class="section-intro">For tender submissions, compliance verification, certificate copies or due diligence requests, contact the CPC team directly. All compliance documentation requests are responded to within one business day.</div>
+
+    <div class="two-col" style="margin-bottom:8mm;">
+      <div class="contact-card">
+        <div class="contact-name">Sales and Proposals</div>
+        <div class="contact-title">New business, tenders and proposals</div>
+        <div class="contact-details">
+          sales@cpclean.com.au<br>
+          cpclean.com.au/request-a-proposal
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-name">General Enquiries</div>
+        <div class="contact-title">Compliance documentation and due diligence</div>
+        <div class="contact-details">
+          contact@cpclean.com.au<br>
+          cpclean.com.au/contact
+        </div>
+      </div>
+    </div>
+
+    <div class="section-eyebrow">Online Document Access</div>
+
+    <div class="info-block" style="margin-bottom:6mm;">
+      <div class="info-block-title">CPC Due Diligence Hub — cpclean.com.au/due-diligence</div>
+      <div class="info-row"><span class="info-row-label">ISO Certificates</span><span class="info-row-value">Current certificates available for download</span></div>
+      <div class="info-row"><span class="info-row-label">Carbon Neutral Certificate</span><span class="info-row-value">Available on request</span></div>
+      <div class="info-row"><span class="info-row-label">Modern Slavery Statement</span><span class="info-row-value">Published annually, available for download</span></div>
+      <div class="info-row"><span class="info-row-label">Case Studies</span><span class="info-row-value">4 published sector case studies</span></div>
+      <div class="info-row"><span class="info-row-label">Management Approach</span><span class="info-row-value">Contract governance and compliance framework</span></div>
+      <div class="info-row"><span class="info-row-label">Social Procurement</span><span class="info-row-value">Indigenous employment, local supply chain data</span></div>
+    </div>
+
+    <div class="teal-callout">
+      <div class="teal-callout-title">For Tender Submissions Requiring Additional Documentation</div>
+      <div class="teal-callout-text">CPC can provide certificate copies in specific formats, insurance certificates of currency, BAFO compliance packs formatted to your evaluation criteria, reference contacts matched by sector, and custom compliance documentation packages. Email sales@cpclean.com.au with your tender reference and the specific documents required. CPC responds within one business day.</div>
+    </div>
+
+    <div class="statement-block" style="margin-top:6mm;">
+      <div class="statement-block-title">Document Currency Statement</div>
+      <div class="statement-block-text">This compliance pack was prepared in April 2026. All certifications and statements described herein were current at the date of issue. CPC maintains all certifications on a continuous basis with annual external audit cycles. For the most current certificate copies, access the CPC Due Diligence Hub or contact sales@cpclean.com.au. Fields marked [INSERT] in this document require confirmation from CPC before distribution to third parties.</div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">Commercial Property Cleaning · Compliance and Credentials Pack · April 2026 · Confidential — For procurement evaluation purposes</div>
+    <div class="page-footer-num">Page 5</div>
+  </div>
+</div>
+
+
+<!-- ── PRINT BUTTON ──────────────────────────────────────────────────── -->
+<div class="print-bar no-print">
+  <div class="print-bar-text">CPC Compliance Pack · 5 pages · Open in Chrome or Safari and print to PDF (Cmd+P)</div>
+  <button class="print-btn" onclick="window.print()">Save as PDF</button>
+</div>
+
+</body>
+</html>

@@ -31,10 +31,12 @@ const isContact = variant === 'contact'
   <input type="hidden" name="redirect" value="/thank-you/" />
   <!-- Honeypot anti-spam -->
   <input type="checkbox" name="botcheck" class="pf-honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" />
+  <!-- Cloudflare Turnstile token (populated after CAPTCHA passes) -->
+  <input type="hidden" name="cf-turnstile-response" id="captcha-token" />
 
   {!isContact && (
     <p class="pf-intro-note">
-      Only your contact details are required. The sections below help us scope your proposal more accurately — but you can skip them entirely and we'll discuss everything by phone.
+      Only your contact details are required. The sections below help us scope your proposal more accurately. You can skip them entirely and we'll discuss everything by phone.
     </p>
   )}
 
@@ -94,7 +96,7 @@ const isContact = variant === 'contact'
 
       <div class="pf-field">
         <label for="pf-message" class="pf-label">Message <span class="pf-req">*</span></label>
-        <textarea id="pf-message" name="requirements" class="pf-input pf-textarea" rows="5" placeholder="Tell us how we can help — sites, sector, what you're looking for." required></textarea>
+        <textarea id="pf-message" name="requirements" class="pf-input pf-textarea" rows="5" placeholder="Tell us how we can help: sites, sector, what you're looking for." required></textarea>
         <p class="pf-error" id="err-message" hidden>Please enter a message.</p>
       </div>
     </div>
@@ -171,7 +173,7 @@ const isContact = variant === 'contact'
             <option>100,000+ sqm</option>
             <option>Not sure / Multi-site (varies)</option>
           </select>
-          <p class="pf-helper">The cleaning industry estimates by sqm — even a rough number helps us scope accurately.</p>
+          <p class="pf-helper">The cleaning industry estimates by sqm. Even a rough number helps us scope accurately.</p>
         </div>
       </div>
 
@@ -258,9 +260,9 @@ const isContact = variant === 'contact'
           <span class="pf-label">Currently in a tender process?</span>
           <div class="form-radio-group" id="tenderStatus-group">
             {[
-              "Yes — formal tender open",
-              "Yes — early procurement / RFI stage",
-              "No — direct engagement",
+              "Yes: formal tender open",
+              "Yes: early procurement / RFI stage",
+              "No: direct engagement",
               "Not sure",
             ].map(opt => (
               <label>
@@ -328,6 +330,19 @@ const isContact = variant === 'contact'
   </div>
 
 </form>
+
+<!-- Cloudflare Turnstile CAPTCHA modal -->
+<div id="captcha-overlay" class="captcha-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="captcha-title">
+  <div class="captcha-modal">
+    <p class="captcha-modal-title" id="captcha-title">One quick security check</p>
+    <p class="captcha-modal-sub">Confirm you're not a bot to submit your request.</p>
+    <div id="captcha-widget" class="captcha-widget-wrap"></div>
+    <button type="button" id="captcha-cancel" class="captcha-cancel-btn">Cancel</button>
+  </div>
+</div>
+
+<!-- Cloudflare Turnstile script (explicit render) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 
 <style is:global>
 
@@ -704,6 +719,71 @@ const isContact = variant === 'contact'
   to { transform: rotate(360deg); }
 }
 
+/* ─── CAPTCHA overlay ────────────────────────────────────────────────────── */
+.captcha-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 15, 26, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.captcha-overlay[hidden] { display: none; }
+
+.captcha-modal {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  animation: captcha-in 0.18s ease;
+}
+@keyframes captcha-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.captcha-modal-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #0a0f1a;
+  margin: 0;
+}
+.captcha-modal-sub {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+.captcha-widget-wrap {
+  margin: 0.75rem 0 0.25rem;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.captcha-cancel-btn {
+  background: none;
+  border: none;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.15s;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.captcha-cancel-btn:hover { color: #475569; }
+
 </style>
 
 <script is:inline>
@@ -724,8 +804,6 @@ const isContact = variant === 'contact'
   }
 
   // ─── Conditional field: Sector "Other" ───────────────────────────────────
-  // Contact variant (pf-sector-c): sector is required, so sectorOther becomes required
-  // Full variant (pf-sector): sector is optional, so sectorOther stays optional
   const sectorSelect = form.querySelector('select[name="sector"]')
   const sectorOtherField = form.querySelector('#sector-other-field')
   if (sectorSelect && sectorOtherField) {
@@ -792,21 +870,15 @@ const isContact = variant === 'contact'
       if (fail) valid = false
     }
 
-    // Full Name
     check('pf-fullName', 'err-fullName', getVal('pf-fullName').length > 0)
 
-    // Email
     const emailEl = document.getElementById('pf-email')
     const emailOk = emailEl && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())
     check('pf-email', 'err-email', emailOk)
 
-    // Phone (min 8 digits)
     const phoneVal = getVal('pf-phone').replace(/\D/g, '')
     check('pf-phone', 'err-phone', phoneVal.length >= 8)
 
-    // Contact variant only ─────────────────────────────────────────────────
-
-    // Sector (contact variant — still required)
     const sectorC = document.getElementById('pf-sector-c')
     if (sectorC) {
       const fail = !sectorC.value
@@ -816,13 +888,11 @@ const isContact = variant === 'contact'
       if (fail) valid = false
     }
 
-    // Contact message
     const msgEl = document.getElementById('pf-message')
     if (msgEl) {
       check('pf-message', 'err-message', msgEl.value.trim().length > 0)
     }
 
-    // Scroll to first error
     if (firstError) {
       firstError.scrollIntoView({ behavior: 'smooth', block: 'center' })
       setTimeout(() => { try { firstError.focus() } catch (e) {} }, 300)
@@ -831,26 +901,106 @@ const isContact = variant === 'contact'
     return valid
   }
 
+  // ─── CAPTCHA modal ────────────────────────────────────────────────────────
+  // IMPORTANT: Replace the sitekey below with your Cloudflare Turnstile site key.
+  // Get one at https://dash.cloudflare.com/?to=/:account/turnstile
+  // Add cpclean.com.au (and localhost for testing) as allowed hostnames.
+  var TURNSTILE_SITE_KEY = '0x4AAAAAADR-xMm2c4rV4g9U'
+
+  var overlay     = document.getElementById('captcha-overlay')
+  var cancelBtn   = document.getElementById('captcha-cancel')
+  var tokenInput  = document.getElementById('captcha-token')
+  var widgetId    = null
+  var submitter   = null
+
+  function openCaptcha(clickedBtn) {
+    submitter = clickedBtn
+    overlay.hidden = false
+    document.body.style.overflow = 'hidden'
+    renderWidget()
+  }
+
+  function renderWidget() {
+    if (window.turnstile) {
+      widgetId = window.turnstile.render('#captcha-widget', {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: onCaptchaPass,
+        'error-callback': function () {
+          if (widgetId !== null) window.turnstile.reset(widgetId)
+        },
+        'expired-callback': function () {
+          if (widgetId !== null) window.turnstile.reset(widgetId)
+        }
+      })
+    } else {
+      setTimeout(renderWidget, 100)
+    }
+  }
+
+  function closeCaptcha() {
+    overlay.hidden = true
+    document.body.style.overflow = ''
+    if (widgetId !== null && window.turnstile) {
+      window.turnstile.remove(widgetId)
+      widgetId = null
+    }
+    submitter = null
+  }
+
+  function onCaptchaPass(token) {
+    tokenInput.value = token
+    overlay.hidden = true
+    document.body.style.overflow = ''
+    widgetId = null
+
+    // If quick-submit was clicked, add its submission_type as a hidden field
+    if (submitter && submitter.name === 'submission_type') {
+      var st = form.querySelector('input[name="submission_type"][type="hidden"]')
+      if (!st) {
+        st = document.createElement('input')
+        st.type = 'hidden'
+        st.name = 'submission_type'
+        form.appendChild(st)
+      }
+      st.value = submitter.value
+    }
+
+    // Show loading state on the clicked button (or main button as fallback)
+    var btn     = submitter || document.getElementById('pf-submit-btn')
+    var btnText = document.getElementById('pf-btn-text')
+    var spinner = document.getElementById('pf-spinner')
+    if (btn) btn.disabled = true
+    if (btnText && btn && btn.id === 'pf-submit-btn') {
+      btnText.textContent = 'Sending…'
+      if (spinner) spinner.classList.remove('hidden')
+    }
+
+    // Submit the form directly, bypassing JS submit listeners
+    form.submit()
+  }
+
+  if (cancelBtn) cancelBtn.addEventListener('click', closeCaptcha)
+  if (overlay) {
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeCaptcha()
+    })
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay && !overlay.hidden) closeCaptcha()
+  })
+
   // ─── Submit handler ───────────────────────────────────────────────────────
   form.addEventListener('submit', function (e) {
-    const isValid = validate()
-    const errBanner = document.getElementById('pf-form-error')
-    const btn       = document.getElementById('pf-submit-btn')
-    const btnText   = document.getElementById('pf-btn-text')
-    const spinner   = document.getElementById('pf-spinner')
+    e.preventDefault()
+    var errBanner = document.getElementById('pf-form-error')
 
-    if (!isValid) {
-      e.preventDefault()
+    if (!validate()) {
       if (errBanner) errBanner.hidden = false
       return
     }
 
     if (errBanner) errBanner.hidden = true
-
-    // Loading state
-    if (btn) btn.disabled = true
-    if (btnText) btnText.textContent = 'Sending…'
-    if (spinner) spinner.classList.remove('hidden')
+    openCaptcha(e.submitter || document.getElementById('pf-submit-btn'))
   })
 
   // ─── Clear error on input ─────────────────────────────────────────────────

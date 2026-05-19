@@ -1,15 +1,31 @@
 ---
 const sectors = [
-  { label: 'Government & Defence',          href: '/authority/government-defence-cleaning',       code: 'A1' },
-  { label: 'Local Government & Councils',   href: '/authority/local-government-council-cleaning',  code: 'A2' },
-  { label: 'Industrial & Power Station',    href: '/authority/industrial-power-station-cleaning',  code: 'A3' },
-  { label: 'Education & TAFE',              href: '/authority/education-tafe-cleaning',             code: 'A4' },
-  { label: 'Commercial Office Towers',      href: '/authority/commercial-office-tower-cleaning',   code: 'A5' },
-  { label: 'Carbon Neutral Cleaning',       href: '/authority/carbon-neutral-cleaning',            code: 'A6' },
-  { label: 'ISO Cleaning Provider',         href: '/authority/iso-cleaning-provider',              code: 'A7' },
-  { label: 'National Operations',           href: '/authority/national-cleaning-operations',       code: 'A8' },
-  { label: 'Technology & Robotics',         href: '/authority/cleaning-technology-robotics',       code: 'A9' },
-  { label: 'Modern Slavery & Ethical Supply', href: '/authority/modern-slavery-ethical-cleaning', code: 'A10' },
+  { label: 'State & Federal Government',        href: '/authority/government-defence-cleaning' },
+  { label: 'Local Government & Councils', href: '/authority/local-government-council-cleaning' },
+  { label: 'Industrial',                   href: '/authority/industrial-power-station-cleaning' },
+  { label: 'Education & Training',         href: '/authority/education-tafe-cleaning' },
+  { label: 'Commercial',                   href: '/authority/commercial-office-tower-cleaning' },
+]
+
+const capabilities = [
+  { label: 'National Operations',           href: '/authority/national-cleaning-operations' },
+  { label: 'Technology & Robotics',         href: '/authority/cleaning-technology-robotics' },
+  { label: 'Compliance & ESG',              href: '/authority/compliance-esg' },
+]
+
+const hubSectors = [
+  { label: 'Government',   href: '/knowledge-hub/#government' },
+  { label: 'Industrial',   href: '/knowledge-hub/#industrial' },
+  { label: 'Education',    href: '/knowledge-hub/#education' },
+  { label: 'Carbon',       href: '/knowledge-hub/#carbon' },
+  { label: 'Procurement',  href: '/knowledge-hub/#procurement' },
+  { label: 'Technology',   href: '/knowledge-hub/#technology' },
+]
+
+const credentials = [
+  { label: 'Carbon Neutral Cleaning',       href: '/authority/carbon-neutral-cleaning' },
+  { label: 'ISO Cleaning Provider',         href: '/authority/iso-cleaning-provider' },
+  { label: 'Modern Slavery & Ethical Supply', href: '/authority/modern-slavery-ethical-cleaning' },
 ]
 ---
 
@@ -21,7 +37,7 @@ const sectors = [
     <div class="flex items-center h-16 gap-6">
 
       <!-- Logo -->
-      <a href="/" class="flex-shrink-0" aria-label="Commercial Property Cleaning — Home">
+      <a href="/" class="flex-shrink-0" aria-label="Commercial Property Cleaning: Home">
         <img src="/images/logo/cpc-logo-white.svg" alt="Commercial Property Cleaning" class="h-10 w-auto" width="40" height="40" />
       </a>
 
@@ -44,21 +60,75 @@ const sectors = [
           <!-- Dropdown panel -->
           <div class="absolute left-0 top-full pt-1 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
             <div class="bg-[#0f172a] border border-white/10 rounded-lg shadow-2xl py-2">
+              <p class="px-4 pt-1 pb-1.5 text-[10px] font-bold tracking-widest uppercase text-teal/70">Sectors</p>
               {sectors.map(s => (
-                <a
-                  href={s.href}
-                  class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
-                >
+                <a href={s.href} class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
                   {s.label}
+                </a>
+              ))}
+              <div class="my-2 border-t border-white/10"></div>
+              <p class="px-4 pb-1.5 text-[10px] font-bold tracking-widest uppercase text-teal/70">Capabilities</p>
+              {capabilities.map(c => (
+                <a href={c.href} class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
+                  {c.label}
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <a href="/knowledge-hub/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Knowledge Hub</a>
+        <!-- Knowledge Hub dropdown -->
+        <div class="relative group">
+          <button
+            class="flex items-center gap-1 px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Knowledge Hub
+            <svg class="w-3.5 h-3.5 mt-0.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="absolute left-0 top-full pt-1 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+            <div class="bg-[#0f172a] border border-white/10 rounded-lg shadow-2xl py-2">
+              <a href="/knowledge-hub/" class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">All Articles</a>
+              <div class="my-2 border-t border-white/10"></div>
+              <p class="px-4 pb-1.5 text-[10px] font-bold tracking-widest uppercase text-teal/70">By Sector</p>
+              {hubSectors.map(s => (
+                <a href={s.href} class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
+                  {s.label}
+                </a>
+              ))}
+              <div class="my-2 border-t border-white/10"></div>
+              <p class="px-4 pb-1.5 text-[10px] font-bold tracking-widest uppercase text-teal/70">Credentials</p>
+              {credentials.map(c => (
+                <a href={c.href} class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">
+                  {c.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
         <a href="/case-studies/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Case Studies</a>
-        <a href="/about/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">About</a>
+        <!-- About dropdown -->
+        <div class="relative group">
+          <button
+            class="flex items-center gap-1 px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            About
+            <svg class="w-3.5 h-3.5 mt-0.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="absolute left-0 top-full pt-1 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+            <div class="bg-[#0f172a] border border-white/10 rounded-lg shadow-2xl py-2">
+              <a href="/about/" class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">About CPC</a>
+              <a href="/about/our-team/" class="block px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-colors">Our Team</a>
+            </div>
+          </div>
+        </div>
         <a href="/locations/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Locations</a>
         <a href="/careers/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Careers</a>
         <a href="/contact/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Contact</a>
@@ -120,13 +190,38 @@ const sectors = [
             {s.label}
           </a>
         ))}
+        <p class="px-3 pt-3 pb-1.5 text-xs font-bold text-teal tracking-widest uppercase">Capabilities</p>
+        {capabilities.map(c => (
+          <a href={c.href} class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">
+            {c.label}
+          </a>
+        ))}
       </div>
 
       <hr class="border-white/10 my-2" />
 
-      <a href="/knowledge-hub/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Knowledge Hub</a>
+      <div>
+        <p class="px-3 py-1.5 text-xs font-bold text-teal tracking-widest uppercase">Knowledge Hub</p>
+        <a href="/knowledge-hub/" class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">All Articles</a>
+        <p class="px-3 pt-2 pb-1 text-[10px] font-bold text-teal/70 tracking-widest uppercase">By Sector</p>
+        {hubSectors.map(s => (
+          <a href={s.href} class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">
+            {s.label}
+          </a>
+        ))}
+        <p class="px-3 pt-2 pb-1 text-[10px] font-bold text-teal/70 tracking-widest uppercase">Credentials</p>
+        {credentials.map(c => (
+          <a href={c.href} class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">
+            {c.label}
+          </a>
+        ))}
+      </div>
       <a href="/case-studies/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Case Studies</a>
-      <a href="/about/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">About</a>
+      <div>
+        <p class="px-3 py-1.5 text-xs font-bold text-teal tracking-widest uppercase">About</p>
+        <a href="/about/" class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">About CPC</a>
+        <a href="/about/our-team/" class="block px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Our Team</a>
+      </div>
       <a href="/locations/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Locations</a>
       <a href="/careers/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Careers</a>
       <a href="/contact/" class="px-3 py-2 text-sm text-slate-300 hover:text-white rounded transition-colors">Contact</a>

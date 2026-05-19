@@ -14,11 +14,12 @@ const sections = [
   },
   {
     eyebrow: 'Technology',
-    title: 'Technology and Reporting',
+    title: 'CPC Command Centre and Client Portal',
     body: [
-      'CPC\'s operational technology platform integrates IoT monitoring, digital job cards and real-time reporting to provide verifiable evidence of service delivery across the contract portfolio. IoT sensors in high-use environments — including amenity blocks, high-traffic corridors and washrooms — provide objective data on cleaning frequency and consumable status without reliance on manual records.',
-      'Digital job cards replace paper-based attendance and task records. Every service event is recorded with a timestamp, staff identifier and task completion status, creating an immutable audit trail that is available through the CPC client portal within 24 hours of service completion.',
-      'The CPC client portal provides real-time visibility of service status, historical performance data, incident records and audit results for all sites under contract. Access is provided to contract managers and facilities managers as a standard component of service delivery, not an optional add-on.',
+      'CPC operates a proprietary operational platform called the CPC Command Centre. It provides real-time visibility across every site, every shift and every service event in the national portfolio. The Command Centre is the operational hub from which CPC\'s management team monitors live service status, workforce attendance, audit completion rates, incident flags and consumable levels simultaneously across all active contracts.',
+      'Every client with an active CPC contract receives access to their own dedicated client portal: a live, web-based dashboard showing service delivery data for their sites. The portal is not a reporting add-on. It is a standard component of every CPC contract and provides procurement teams, contract managers and facilities managers with documented evidence of performance without needing to request it.',
+      'IoT sensors deployed in high-frequency environments (amenity blocks, washrooms, high-traffic corridors) feed objective usage and attendance data directly into the Command Centre and the client portal. Sensor data removes reliance on manual attendance records and provides an independently verifiable layer of evidence that service events occurred at the scheduled time.',
+      'Digital job cards replace all paper-based task and attendance records. Every service event is timestamped, linked to a staff identifier and marked against the site specification. The audit trail is immutable and available in the client portal within 24 hours of service completion. For government and regulated contracts, this means documentation exists continuously, not assembled ahead of an audit.',
     ],
   },
   {
@@ -43,7 +44,7 @@ const sections = [
     eyebrow: 'Incident Management',
     title: 'Incident Management',
     body: [
-      'CPC operates a zero lost-time injury (LTI) target across all operations. All incidents — including near misses, property damage and personal injury — are recorded in CPC\'s incident management system within 24 hours of occurrence. Serious incidents are reported to the relevant WHS regulator in accordance with legislative requirements.',
+      'CPC operates a zero lost-time injury (LTI) target across all operations. All incidents (near misses, property damage and personal injury) are recorded in CPC\'s incident management system within 24 hours of occurrence. Serious incidents are reported to the relevant WHS regulator in accordance with legislative requirements.',
       'Client notification is a standard component of CPC\'s incident response protocol. For any incident that affects a client\'s facility or involves a client\'s personnel, the contract Account Manager notifies the client\'s nominated contact within 2 hours of CPC becoming aware of the incident. A formal incident report is provided within 5 business days.',
       'Corrective actions arising from incident investigations are tracked in the QMS and reviewed for systemic implications. Where an incident reveals a gap in procedure, training or equipment, corrective action is implemented across all relevant contracts, not just the site where the incident occurred.',
     ],
@@ -52,7 +53,7 @@ const sections = [
     eyebrow: 'Improvement',
     title: 'Continuous Improvement',
     body: [
-      'CPC conducts an annual management review that evaluates the performance of all three ISO management systems — quality, environmental and WHS — against objectives and targets. The review considers client satisfaction data, internal audit results, incident trends, supplier performance and regulatory changes to identify improvement opportunities and set objectives for the coming year.',
+      'CPC conducts an annual management review that evaluates the performance of all three ISO management systems (quality, environmental and WHS) against objectives and targets. The review considers client satisfaction data, internal audit results, incident trends, supplier performance and regulatory changes to identify improvement opportunities and set objectives for the coming year.',
       'Client satisfaction is assessed through an annual client satisfaction survey administered to the primary contract contact at each site. Survey results are reviewed at management level and fed into the annual management review. Clients who raise concerns through the survey receive a direct response within 10 business days.',
       'CPC benchmarks its management system performance against the requirements of ISO 9001, 14001 and 45001 on an ongoing basis. Surveillance audits conducted by SAI Global provide an independent benchmark of system performance against the standards, with findings that are visible to procurement teams on request.',
     ],
@@ -61,7 +62,7 @@ const sections = [
 ---
 
 <DDHubLayout
-  title="Management Approach: Operations at Scale — CPC Due Diligence Hub"
+  title="Management Approach: Operations at Scale | CPC Due Diligence Hub"
   description="How CPC manages quality, technology, workforce, contracts, incidents and continuous improvement across its national cleaning portfolio. Documented systems for procurement evaluation."
   breadcrumbs={[
     { name: 'Home', url: 'https://cpclean.com.au/' },
@@ -79,7 +80,7 @@ const sections = [
           How CPC manages<br class="hidden sm:block" /> operations at scale.
         </h1>
         <p class="text-lg text-slate-300 leading-relaxed max-w-2xl">
-          Six documented management frameworks — quality, technology, workforce, contracts, incidents and continuous improvement — structured for procurement teams evaluating operational capability.
+          Six documented management frameworks plus the CPC Command Centre and client portal: quality, technology, workforce, contracts, incidents and continuous improvement. Structured for procurement teams evaluating operational capability.
         </p>
       </div>
     </div>
@@ -87,7 +88,7 @@ const sections = [
 
   <!-- Content sections alternating -->
   {sections.map((section, i) => (
-    <section class={i % 2 === 0 ? 'bg-white py-16 lg:py-20' : 'bg-slate-50 py-16 lg:py-20'}>
+    <section class={i % 2 === 0 ? 'bg-white py-10 lg:py-12' : 'bg-slate-50 py-10 lg:py-12'}>
       <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
         <div class="max-w-4xl">
           <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">{section.eyebrow}</p>
@@ -102,8 +103,40 @@ const sections = [
     </section>
   ))}
 
+  <!-- CPC Command Centre feature cards -->
+  <section class="bg-navy py-10 lg:py-12">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <div class="max-w-4xl mb-10">
+        <p class="text-xs font-bold tracking-widest uppercase text-teal mb-3">Client Portal</p>
+        <h2 class="text-2xl font-bold text-white mb-4">What the CPC client portal gives you</h2>
+        <p class="text-slate-400 leading-relaxed">
+          Every CPC contract includes full portal access as standard. No upgrade. No additional fee. This is what is available to every contract manager and facilities manager from day one.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[
+          { icon: '📋', title: 'Live service status', desc: 'Real-time visibility of which sites are in progress, completed or flagged for follow-up. Updated as events occur, not end of day.' },
+          { icon: '📸', title: 'Photographic evidence', desc: 'Timestamped photos captured during service delivery, organised by site, date and area. Available without requesting them.' },
+          { icon: '📊', title: 'Audit results and trends', desc: 'All inspection scores, defect records and corrective action status in one view. Historical trend data across the reporting period.' },
+          { icon: '🕐', title: 'Attendance records', desc: 'Digital job card data showing staff attendance, shift start and finish times and task completion status for every service event.' },
+          { icon: '⚠️', title: 'Incident and defect tracking', desc: 'All incidents and defects logged, assigned and tracked to closure. Status visible to clients as events are actioned, not in monthly reports.' },
+          { icon: '📁', title: 'Compliance documentation', desc: 'Workforce credentials, insurance certificates, ISO certificates and compliance records accessible in a single location for procurement and audit purposes.' },
+        ].map(f => (
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div class="text-2xl mb-3">{f.icon}</div>
+            <p class="text-sm font-bold text-white mb-2">{f.title}</p>
+            <p class="text-sm text-slate-400 leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 text-sm text-slate-500">
+        Portal access is provisioned during contract mobilisation. Contact <a href="mailto:sales@cpclean.com.au" class="text-teal hover:underline">sales@cpclean.com.au</a> to request a portal demonstration.
+      </p>
+    </div>
+  </section>
+
   <!-- Summary callout -->
-  <section class="bg-white py-12 lg:py-16">
+  <section class="bg-white py-10 lg:py-12">
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
       <div class="max-w-4xl">
         <div class="bg-teal/10 border border-teal/30 rounded-xl p-6 lg:p-8">
@@ -112,7 +145,7 @@ const sections = [
             Need management system documentation for a tender?
           </p>
           <p class="text-slate-700 leading-relaxed">
-            CPC can provide a complete Management Approach document — covering all six frameworks above — formatted for inclusion in a tender response. Contact <a href="mailto:compliance@cpclean.com.au" class="font-bold text-teal hover:underline">compliance@cpclean.com.au</a> with your tender reference and turnaround requirements.
+            CPC can provide a complete Management Approach document covering all six frameworks above, formatted for inclusion in a tender response. Contact <a href="mailto:sales@cpclean.com.au" class="font-bold text-teal hover:underline">sales@cpclean.com.au</a> with your tender reference and turnaround requirements.
           </p>
         </div>
       </div>

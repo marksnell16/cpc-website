@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>CPC Set E — Core Pages</title>
+<style>
+@page { size: A3 landscape; margin: 8mm; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { background: #fff !important; }
+  .sheet { page-break-after: always; page-break-inside: avoid; box-shadow: none !important; margin: 0 !important; }
+  .sheet:last-child { page-break-after: auto; }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #d1d5db; color: #1a202c; }
+
+/* ── Toolbar ── */
+.toolbar { position: sticky; top: 0; z-index: 100; background: #0a0f1a; border-bottom: 3px solid #00d4aa; padding: 9px 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.toolbar-logo { font-size: 14px; font-weight: 900; color: #00d4aa; }
+.toolbar-info { font-size: 10px; color: #64748b; }
+.pg-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.pg-btn { padding: 4px 10px; font-size: 9px; font-weight: 700; color: #64748b; background: #1e293b; border: none; cursor: pointer; border-radius: 3px; }
+.pg-btn:hover { color: #00d4aa; }
+.toolbar-btn { margin-left: auto; padding: 8px 20px; background: #00d4aa; color: #0a0f1a; font-weight: 800; font-size: 11px; border: none; cursor: pointer; border-radius: 4px; }
+.toolbar-btn:hover { background: #00f0c4; }
+
+/* ── Sheet ── */
+.sheet { width: 404mm; min-height: 279mm; background: #fff; margin: 12px auto; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden; }
+
+/* ── Header ── */
+.sh-hdr { background: #0a0f1a; padding: 4.5mm 8mm 4mm; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #00d4aa; flex-shrink: 0; }
+.sh-eyebrow { font-size: 8px; font-weight: 700; color: #00d4aa; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+.sh-title { font-size: 17px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 3px; }
+.sh-sub { font-size: 9px; color: #94a3b8; line-height: 1.5; max-width: 250mm; }
+.sh-meta { text-align: right; font-size: 9px; color: #475569; white-space: nowrap; padding-left: 8mm; flex-shrink: 0; }
+.sh-pgnum { font-size: 20px; font-weight: 900; color: #00d4aa; line-height: 1; margin-top: 2mm; }
+
+/* ── Section label strip ── */
+.section-strip { background: #111827; border-bottom: 1px solid #1e293b; padding: 2mm 8mm; display: flex; gap: 6mm; flex-shrink: 0; flex-wrap: wrap; }
+.section-tag { font-size: 8px; color: #94a3b8; }
+.section-tag strong { color: #e2e8f0; }
+
+/* ── Body ── */
+.sh-body { flex: 1; padding: 5mm 8mm; overflow: hidden; }
+
+/* ── Typography ── */
+h1 { font-size: 15px; font-weight: 900; color: #0a0f1a; margin-bottom: 3.5mm; line-height: 1.2; letter-spacing: -.02em; }
+h2 { font-size: 11px; font-weight: 800; color: #0a0f1a; margin: 3mm 0 1.5mm; border-left: 3px solid #00d4aa; padding-left: 3.5mm; line-height: 1.3; }
+h3 { font-size: 10px; font-weight: 700; color: #374151; margin: 2mm 0 1mm; }
+p { font-size: 10px; color: #374151; line-height: 1.7; margin-bottom: 2.5mm; }
+.intro { background: #f0fdf9; border-left: 4px solid #00d4aa; padding: 3.5mm 4mm; font-size: 10.5px; color: #065f46; line-height: 1.7; margin-bottom: 4mm; border-radius: 0 4px 4px 0; font-weight: 500; }
+ul.pg { padding-left: 5mm; margin-bottom: 2.5mm; }
+ul.pg li { font-size: 10px; color: #374151; line-height: 1.7; margin-bottom: 1mm; }
+
+/* ── Grids ── */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; }
+.cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 4mm; }
+
+/* ── Cards ── */
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3.5mm 4mm; break-inside: avoid; }
+.card.g { border-top: 3px solid #00d4aa; }
+.card.b { border-top: 3px solid #3b82f6; }
+.card.y { border-top: 3px solid #f59e0b; }
+.card.p { border-top: 3px solid #8b5cf6; }
+.card.r { border-top: 3px solid #ef4444; }
+.card.t { border-top: 3px solid #14b8a6; }
+.card-tag { font-size: 7.5px; font-weight: 700; color: #00b894; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1.5mm; }
+.card-title { font-size: 10.5px; font-weight: 800; color: #0a0f1a; margin-bottom: 1.5mm; line-height: 1.3; }
+.card-body { font-size: 9.5px; color: #64748b; line-height: 1.6; }
+
+/* ── Stat cells ── */
+.stat-row { display: flex; gap: 0; background: #111827; flex-shrink: 0; }
+.stat-cell { flex: 1; padding: 3mm 6mm; border-right: 1px solid #1e293b; }
+.stat-cell:last-child { border-right: none; }
+.stat-n { font-size: 20px; font-weight: 900; color: #00d4aa; line-height: 1; }
+.stat-l { font-size: 7.5px; color: #94a3b8; margin-top: 1px; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ── Hero mock ── */
+.hero-mock { background: linear-gradient(135deg,#050a14,#0a1628); border-radius: 4px; padding: 5mm 6mm; margin-bottom: 3mm; }
+.hero-eyebrow { font-size: 8px; font-weight: 700; color: #00d4aa; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2mm; }
+.hero-h1 { font-size: 17px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -.025em; margin-bottom: 2mm; }
+.hero-h1 em { font-style: normal; color: #00d4aa; }
+.hero-sub { font-size: 10px; color: #94a3b8; line-height: 1.65; margin-bottom: 3mm; max-width: 160mm; }
+.hero-btn-g { display: inline-block; background: #00d4aa; color: #0a0f1a; font-size: 9.5px; font-weight: 800; padding: 2mm 5mm; border-radius: 3px; margin-right: 2mm; }
+.hero-btn-ghost { display: inline-block; border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 9.5px; font-weight: 600; padding: 2mm 5mm; border-radius: 3px; }
+.hero-pills { display: flex; gap: 2mm; margin-top: 3mm; flex-wrap: wrap; }
+.hero-pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); font-size: 8.5px; padding: 1.5mm 3mm; border-radius: 3px; }
+
+/* ── Nav mock ── */
+.nav-mock { background: #0a0f1a; padding: 2.5mm 5mm; display: flex; align-items: center; gap: 5mm; border-radius: 4px 4px 0 0; flex-wrap: wrap; }
+.nm-logo { color: #00d4aa; font-weight: 900; font-size: 13px; }
+.nm-link { color: #64748b; font-size: 9px; }
+.nm-spacer { flex: 1; }
+.nm-btn-g { background: #00d4aa; color: #0a0f1a; font-size: 8.5px; font-weight: 700; padding: 1.5mm 3.5mm; border-radius: 3px; }
+.nm-btn-b { border: 1px solid #3b82f6; color: #3b82f6; font-size: 8.5px; font-weight: 700; padding: 1.5mm 3.5mm; border-radius: 3px; }
+.nm-btn-ghost { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); font-size: 8.5px; font-weight: 700; padding: 1.5mm 3.5mm; border-radius: 3px; }
+
+/* ── Trust bar ── */
+.trust-bar { background: #0a0f1a; padding: 2.5mm 5mm; display: flex; gap: 0; border-radius: 0 0 4px 4px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 2.5mm; padding: 0 4mm; border-right: 1px solid rgba(255,255,255,0.08); }
+.trust-item:last-child { border-right: none; }
+.trust-check { width: 16px; height: 16px; background: rgba(0,212,170,0.15); border: 1px solid rgba(0,212,170,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; color: #00d4aa; font-weight: 900; flex-shrink: 0; }
+.trust-label { font-size: 8.5px; font-weight: 700; color: #e2e8f0; }
+.trust-sub { font-size: 7.5px; color: rgba(255,255,255,0.35); }
+
+/* ── Sector cards ── */
+.sector-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3mm; }
+.sector-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3mm; }
+.sector-card.featured { border-color: #00d4aa; background: #f0fdf9; }
+.sector-icon { font-size: 16px; margin-bottom: 1.5mm; }
+.sector-name { font-size: 9.5px; font-weight: 800; color: #0a0f1a; margin-bottom: 1mm; }
+.sector-desc { font-size: 8.5px; color: #64748b; line-height: 1.5; }
+.sector-lnk { font-size: 8px; font-weight: 700; color: #00b894; margin-top: 1.5mm; }
+
+/* ── Hub cards ── */
+.hub-grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 2.5mm; }
+.hub-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; padding: 2.5mm; }
+.hub-card.feat { border-color: rgba(0,212,170,0.25); background: rgba(0,212,170,0.05); }
+.hub-cat { font-size: 8.5px; font-weight: 800; margin-bottom: 1.5mm; padding-bottom: 1.5mm; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.hub-lnk { font-size: 8.5px; color: rgba(255,255,255,0.45); padding: 1mm 0; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.4; }
+.hub-lnk:last-child { border-bottom: none; }
+.hub-lnk::before { content: "→ "; color: rgba(255,255,255,0.2); font-size: 8px; }
+
+/* ── Form mock ── */
+.form-mock { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 4mm; }
+.form-field { margin-bottom: 3mm; }
+.form-label { font-size: 8.5px; font-weight: 700; color: #374151; display: block; margin-bottom: 1mm; }
+.form-input { height: 7mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; }
+.form-textarea { height: 14mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; }
+.form-select { height: 7mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; }
+
+/* ── CTA blocks ── */
+.dual-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.cta-block { border-radius: 6px; padding: 4mm; position: relative; overflow: hidden; }
+.cta-block-gold { background: #fff; border: 1.5px solid #e5e7eb; }
+.cta-block-gold::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#f59e0b,#fbbf24); }
+.cta-block-blue { background: #fff; border: 1.5px solid #e5e7eb; }
+.cta-block-blue::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#3b82f6,#60a5fa); }
+.cta-eyebrow-g { font-size: 8px; font-weight: 800; color: #b45309; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5mm; }
+.cta-eyebrow-b { font-size: 8px; font-weight: 800; color: #1d4ed8; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5mm; }
+.cta-title { font-size: 14px; font-weight: 900; color: #0a0f1a; letter-spacing: -.02em; margin-bottom: 1.5mm; }
+.cta-body { font-size: 9.5px; color: #64748b; line-height: 1.65; margin-bottom: 2.5mm; }
+.cta-list { list-style: none; margin-bottom: 3mm; }
+.cta-list li { font-size: 9px; color: #374151; padding: 1.5mm 0; display: flex; gap: 2.5mm; align-items: flex-start; border-bottom: 1px solid #f1f5f9; }
+.cta-list li:last-child { border-bottom: none; }
+.cta-check { color: #00b894; font-weight: 900; flex-shrink: 0; }
+.btn-gold { background: #f59e0b; color: #0a0f1a; font-size: 9px; font-weight: 800; padding: 2.5mm 6mm; border-radius: 4px; border: none; display: inline-block; }
+.btn-blue { background: #3b82f6; color: #fff; font-size: 9px; font-weight: 700; padding: 2.5mm 6mm; border-radius: 4px; border: none; display: inline-block; }
+
+/* ── CTA row ── */
+.cta-row { display: flex; gap: 3mm; margin-top: 4mm; }
+.btn-g { background: #00d4aa; color: #0a0f1a; font-size: 9px; font-weight: 800; padding: 2.5mm 6mm; border-radius: 4px; border: none; display: inline-block; }
+.btn-b { border: 1.5px solid #3b82f6; color: #3b82f6; font-size: 9px; font-weight: 700; padding: 2.5mm 6mm; border-radius: 4px; background: transparent; display: inline-block; }
+
+/* ── Links block ── */
+.links-block { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3mm 4mm; margin-top: 3mm; }
+.links-title { font-size: 7.5px; font-weight: 700; color: #94a3b8; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2mm; }
+.lnk { font-size: 9.5px; color: #3b82f6; padding: 1.5mm 0; display: block; border-bottom: 1px solid #f1f5f9; line-height: 1.4; }
+.lnk::before { content: "→ "; color: #00d4aa; }
+.lnk:last-child { border-bottom: none; }
+
+/* ── Table ── */
+table.pg { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+table.pg th { background: #0a0f1a; color: #e2e8f0; padding: 2mm 3mm; text-align: left; font-size: 8px; letter-spacing: .05em; }
+table.pg td { padding: 2mm 3mm; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+table.pg tr:nth-child(even) td { background: #f8fafc; }
+
+/* ── DD sub page banner ── */
+.dd-banner { background: #1e3a8a; border-bottom: 3px solid #3b82f6; padding: 4.5mm 8mm 4mm; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+.dd-banner .sh-eyebrow { color: #93c5fd; }
+.dd-banner .sh-title { color: #fff; }
+.dd-banner .sh-sub { color: #93c5fd; opacity: .8; }
+.dd-banner .sh-pgnum { color: #60a5fa; }
+.dd-banner .sh-meta { color: #64748b; }
+
+/* ── Cert card ── */
+.cert-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3.5mm; }
+.cert-icon { font-size: 18px; margin-bottom: 1.5mm; }
+.cert-name { font-size: 10px; font-weight: 800; color: #0a0f1a; margin-bottom: 1mm; }
+.cert-desc { font-size: 9px; color: #64748b; line-height: 1.55; margin-bottom: 1.5mm; }
+.cert-status { font-size: 8px; font-weight: 700; color: #00b894; background: #f0fdf9; border: 1px solid #86efac; padding: 1mm 3mm; border-radius: 3px; display: inline-block; }
+.cert-download { font-size: 8px; font-weight: 700; color: #3b82f6; margin-top: 1.5mm; display: block; }
+
+/* ── Tag row ── */
+.tag-row { display: flex; gap: 2mm; flex-wrap: wrap; margin: 2mm 0; }
+.tag { background: #f0fdf9; border: 1px solid #86efac; color: #065f46; font-size: 8.5px; font-weight: 700; padding: 1.5mm 3mm; border-radius: 3px; }
+
+/* ── Why cards dark ── */
+.why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.why-card { background: #0d1626; padding: 3.5mm 3mm; }
+.why-icon { font-size: 16px; margin-bottom: 1.5mm; }
+.why-title { font-size: 9.5px; font-weight: 800; color: #fff; margin-bottom: 1mm; }
+.why-desc { font-size: 8.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+/* ── State offices ── */
+.state-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 4px; padding: 3mm; }
+.state-name-tag { font-size: 8px; font-weight: 800; color: #fff; background: #0a0f1a; padding: 1mm 3mm; border-radius: 3px; display: inline-block; margin-bottom: 1.5mm; }
+.state-title { font-size: 10px; font-weight: 800; color: #0a0f1a; margin-bottom: 1mm; }
+.state-desc { font-size: 8.5px; color: #64748b; line-height: 1.5; }
+
+/* ── Footer ── */
+.sh-footer { background: #f8fafc; border-top: 1px solid #e5e7eb; padding: 2mm 8mm; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.sh-footer-text { font-size: 7.5px; color: #94a3b8; }
+
+/* ── Section divider label ── */
+.sec-label { font-size: 8.5px; font-weight: 700; color: #00d4aa; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2.5mm; padding-bottom: 1.5mm; border-bottom: 1px solid #e5e7eb; display: block; }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <div class="toolbar-logo">CPC · Set E — Core Pages</div>
+  <div class="toolbar-info">12 sheets · A3 Landscape · v2 March 2026</div>
+  <div class="pg-nav">
+    <button class="pg-btn" onclick="document.getElementById('e1').scrollIntoView({behavior:'smooth'})">Homepage</button>
+    <button class="pg-btn" onclick="document.getElementById('e2').scrollIntoView({behavior:'smooth'})">Knowledge Hub</button>
+    <button class="pg-btn" onclick="document.getElementById('e3').scrollIntoView({behavior:'smooth'})">Proposal</button>
+    <button class="pg-btn" onclick="document.getElementById('e4').scrollIntoView({behavior:'smooth'})">About</button>
+    <button class="pg-btn" onclick="document.getElementById('e5').scrollIntoView({behavior:'smooth'})">Careers</button>
+    <button class="pg-btn" onclick="document.getElementById('e6').scrollIntoView({behavior:'smooth'})">Contact</button>
+    <button class="pg-btn" onclick="document.getElementById('e7').scrollIntoView({behavior:'smooth'})">DD Hub</button>
+    <button class="pg-btn" onclick="document.getElementById('e8').scrollIntoView({behavior:'smooth'})">DD: Compliance</button>
+    <button class="pg-btn" onclick="document.getElementById('e9').scrollIntoView({behavior:'smooth'})">DD: Social</button>
+    <button class="pg-btn" onclick="document.getElementById('e10').scrollIntoView({behavior:'smooth'})">DD: Mgmt</button>
+    <button class="pg-btn" onclick="document.getElementById('e11').scrollIntoView({behavior:'smooth'})">DD: Testimonials</button>
+    <button class="pg-btn" onclick="document.getElementById('e12').scrollIntoView({behavior:'smooth'})">DD: Cases Index</button>
+  </div>
+  <button class="toolbar-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<!-- ════════════════════════════════════
+     E1 — HOMEPAGE
+════════════════════════════════════ -->
+<div class="sheet" id="e1">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E1 · Homepage · cpclean.com.au/</div>
+      <div class="sh-title">Homepage — cpclean.com.au</div>
+      <div class="sh-sub">All 10 sections · Hero · Trust bar · Stats · Sectors · Why CPC · Case studies · Knowledge Hub · Dual CTA · Footer · Client Portal in nav</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 1 of 12<div class="sh-pgnum">HP</div></div>
+  </div>
+  <div class="sh-body">
+    <!-- Nav -->
+    <div class="nav-mock" style="margin-bottom:0;">
+      <span class="nm-logo">CPC.</span>
+      <span class="nm-link">Sectors ▾</span>
+      <span class="nm-link">Knowledge Hub</span>
+      <span class="nm-link">Case Studies</span>
+      <span class="nm-link">About</span>
+      <span class="nm-link">Contact</span>
+      <span class="nm-spacer"></span>
+      <span class="nm-btn-g">Get a Quote</span>
+      <span class="nm-btn-b" style="margin-left:2mm;">DD Hub</span>
+      <span class="nm-btn-ghost" style="margin-left:2mm;">🔒 Client Portal</span>
+    </div>
+    <!-- Hero -->
+    <div class="hero-mock" style="border-radius:0 0 4px 4px;margin-bottom:3mm;">
+      <div class="hero-eyebrow">Commercial Property Cleaning · Australia</div>
+      <div class="hero-h1">National Cleaning Built for <em>Regulated Environments</em></div>
+      <div class="hero-sub">ISO-certified, carbon neutral and compliance-driven — for government, councils, industrial, education and office portfolios across Australia.</div>
+      <span class="hero-btn-g">Request a Proposal →</span>
+      <span class="hero-btn-ghost">View Our Credentials</span>
+      <div class="hero-pills">
+        <span class="hero-pill">ISO 9001 · 14001 · 45001</span>
+        <span class="hero-pill">Carbon Neutral · Verified</span>
+        <span class="hero-pill">5-State National Coverage</span>
+        <span class="hero-pill">Modern Slavery Compliant</span>
+      </div>
+      <div style="font-size:7.5px;color:rgba(255,255,255,0.18);margin-top:2mm;text-align:center;">[ Full-screen looping video — site operations / team / facilities ] · Scroll indicator ↓</div>
+    </div>
+    <!-- Trust bar -->
+    <div class="trust-bar" style="border-radius:4px;margin-bottom:3mm;">
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">ISO 9001</div><div class="trust-sub">Quality Management</div></div></div>
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">ISO 14001</div><div class="trust-sub">Environmental</div></div></div>
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">ISO 45001</div><div class="trust-sub">Safety Management</div></div></div>
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">Carbon Neutral</div><div class="trust-sub">Verified Program</div></div></div>
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">Social Procurement</div><div class="trust-sub">Indigenous Partnerships</div></div></div>
+      <div class="trust-item"><div class="trust-check">✓</div><div><div class="trust-label">Modern Slavery</div><div class="trust-sub">Act Compliant</div></div></div>
+    </div>
+    <!-- Stats + Sectors side by side -->
+    <div class="cols-2" style="gap:4mm;">
+      <div>
+        <span class="sec-label">Section 04 — National Scale Stats</span>
+        <div class="cols-4" style="gap:2mm;margin-bottom:3mm;">
+          <div class="card" style="text-align:center;border-top:2px solid #00d4aa;"><div style="font-size:18px;font-weight:900;color:#0a0f1a;line-height:1;">500+</div><div style="font-size:7.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-top:1mm;">Staff Nationally</div></div>
+          <div class="card" style="text-align:center;border-top:2px solid #00d4aa;"><div style="font-size:18px;font-weight:900;color:#0a0f1a;line-height:1;">200+</div><div style="font-size:7.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-top:1mm;">Govt &amp; Council Sites</div></div>
+          <div class="card" style="text-align:center;border-top:2px solid #00d4aa;"><div style="font-size:18px;font-weight:900;color:#0a0f1a;line-height:1;">10+</div><div style="font-size:7.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-top:1mm;">Regulated Sectors</div></div>
+          <div class="card" style="text-align:center;border-top:2px solid #00d4aa;"><div style="font-size:18px;font-weight:900;color:#0a0f1a;line-height:1;">3</div><div style="font-size:7.5px;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-top:1mm;">ISO Certifications</div></div>
+        </div>
+        <span class="sec-label">Section 05 — Sectors (3×2 grid)</span>
+        <div class="sector-grid">
+          <div class="sector-card"><div class="sector-icon">🏛️</div><div class="sector-name">Government &amp; Defence</div><div class="sector-desc">Procurement frameworks · Security-sensitive · ISO-aligned</div><div class="sector-lnk">Explore sector →</div></div>
+          <div class="sector-card featured"><div class="sector-icon">🏢</div><div class="sector-name">Councils &amp; Local Govt ★</div><div class="sector-desc">Multi-facility · Public accountability · Procurement</div><div class="sector-lnk">Explore sector →</div></div>
+          <div class="sector-card"><div class="sector-icon">⚡</div><div class="sector-name">Industrial &amp; Warehouse</div><div class="sector-desc">Power stations · Permit-to-work · Dust control</div><div class="sector-lnk">Explore sector →</div></div>
+          <div class="sector-card"><div class="sector-icon">🎓</div><div class="sector-name">Education &amp; TAFE</div><div class="sector-desc">Safeguarding · Infection control · Calendar scheduling</div><div class="sector-lnk">Explore sector →</div></div>
+          <div class="sector-card featured"><div class="sector-icon">🏙️</div><div class="sector-name">Office Towers ★</div><div class="sector-desc">A-grade CBD · After-hours · Digital audit</div><div class="sector-lnk">Explore sector →</div></div>
+          <div class="sector-card"><div class="sector-icon">🏥</div><div class="sector-name">Healthcare</div><div class="sector-desc">Clinical · Infection protocols · Regulated standards</div><div class="sector-lnk">Explore sector →</div></div>
+        </div>
+      </div>
+      <div>
+        <span class="sec-label">Section 06 — Why CPC (dark bg · 3×2 grid)</span>
+        <div class="why-grid" style="margin-bottom:3mm;">
+          <div class="why-card"><div class="why-icon">📋</div><div class="why-title">Documented Systems</div><div class="why-desc">ISO-aligned procedures applied at every site, every shift.</div></div>
+          <div class="why-card"><div class="why-icon">🔍</div><div class="why-title">Digital Audit Trail</div><div class="why-desc">Timestamped, photographic. Cannot be retrospectively altered.</div></div>
+          <div class="why-card"><div class="why-icon">🌿</div><div class="why-title">Carbon Neutral</div><div class="why-desc">Verified offset. ESG reporting data available to clients.</div></div>
+          <div class="why-card"><div class="why-icon">⚖️</div><div class="why-title">Ethical Labour</div><div class="why-desc">Award-compliant. Modern slavery compliant. Indigenous partnerships.</div></div>
+          <div class="why-card"><div class="why-icon">📍</div><div class="why-title">National Coverage</div><div class="why-desc">5-state permanent teams. One relationship. Portfolio visibility.</div></div>
+          <div class="why-card"><div class="why-icon">🏆</div><div class="why-title">Proven at Scale</div><div class="why-desc">200+ govt sites. Power stations. Education networks.</div></div>
+        </div>
+        <span class="sec-label">Section 09 — Dual CTA</span>
+        <div class="dual-cta">
+          <div class="cta-block cta-block-gold">
+            <div class="cta-eyebrow-g">For New Clients</div>
+            <div class="cta-title">Get a Cleaning Proposal</div>
+            <div class="cta-body">Tell us about your sector and sites. We'll design a program around your compliance obligations.</div>
+            <ul class="cta-list"><li><span class="cta-check">✓</span>Site assessment included</li><li><span class="cta-check">✓</span>Sector-specific proposal</li><li><span class="cta-check">✓</span>Response within 5 business days</li></ul>
+            <span class="btn-gold">Request a Proposal →</span>
+          </div>
+          <div class="cta-block cta-block-blue">
+            <div class="cta-eyebrow-b">For Procurement Teams</div>
+            <div class="cta-title">Due Diligence Hub</div>
+            <div class="cta-body">All compliance credentials in one place for formal procurement evaluation.</div>
+            <ul class="cta-list"><li><span class="cta-check">✓</span>ISO 9001 / 14001 / 45001 certificates</li><li><span class="cta-check">✓</span>Modern slavery statement</li><li><span class="cta-check">✓</span>Social procurement documentation</li><li><span class="cta-check">✓</span>Insurance and WHS documentation</li></ul>
+            <span class="btn-blue">Access the DD Hub →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E1 Homepage · Sheet 1 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E2 — KNOWLEDGE HUB
+════════════════════════════════════ -->
+<div class="sheet" id="e2">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E2 · Knowledge Hub · /knowledge-hub</div>
+      <div class="sh-title">The CPC Authority Library — Knowledge Hub</div>
+      <div class="sh-sub">Central AI authority index · 10 authority pages · 30 articles grouped by cluster · 4 case studies · AI citation engine</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 2 of 12<div class="sh-pgnum">KH</div></div>
+  </div>
+  <div class="sh-body">
+    <h1>The CPC Authority Library</h1>
+    <div class="intro">Practical guidance on commercial cleaning in regulated environments. CPC publishes structured knowledge across 10 authority topics and 30 articles — covering government, councils, industrial, education, office towers, sustainability, compliance, national operations, technology and ethical supply chain.</div>
+
+    <span class="sec-label">10 Authority Pages — Full Index</span>
+    <div class="cols-2" style="gap:4mm;margin-bottom:4mm;">
+      <div class="cols-2" style="gap:3mm;">
+        <div class="card g"><div class="card-tag">A1</div><div class="card-title">Government &amp; Defence Cleaning</div><div class="card-body">Procurement frameworks, security access, compliance evidence, performance standards. ISO 9001 · QBuild aligned.</div></div>
+        <div class="card t"><div class="card-tag">A2 · NEW</div><div class="card-title">Local Government &amp; Councils</div><div class="card-body">Council procurement, multi-site portfolio management, public accountability, social procurement.</div></div>
+        <div class="card b"><div class="card-tag">A3</div><div class="card-title">Industrial &amp; Power Station</div><div class="card-body">Specialist training, dust control, permit-to-work, industrial equipment, ISO 45001 safety systems.</div></div>
+        <div class="card r"><div class="card-tag">A4</div><div class="card-title">Education &amp; TAFE</div><div class="card-body">Safeguarding compliance, infection control, deep clean programs, education compliance frameworks.</div></div>
+        <div class="card t"><div class="card-tag">A5 · NEW</div><div class="card-title">Commercial Office Towers</div><div class="card-body">After-hours delivery, multi-tenancy, large floor plate management, CBD building standards.</div></div>
+        <div class="card g"><div class="card-tag">A6</div><div class="card-title">Carbon Neutral Cleaning</div><div class="card-body">Emissions measurement, verified offsets, eco-certified products, ESG reporting data available.</div></div>
+        <div class="card y"><div class="card-tag">A7</div><div class="card-title">ISO 9001 / 14001 / 45001</div><div class="card-body">Triple ISO certification — quality, environmental and safety management systems. JAS-ANZ accredited.</div></div>
+        <div class="card b"><div class="card-tag">A8</div><div class="card-title">National Operations</div><div class="card-body">5-state permanent teams, central governance, portfolio management, standardised reporting.</div></div>
+        <div class="card p"><div class="card-tag">A9</div><div class="card-title">Technology &amp; Robotics</div><div class="card-body">Autonomous systems, digital audit tools, AI-assisted scheduling, evidence-based performance management.</div></div>
+        <div class="card p"><div class="card-tag">A10</div><div class="card-title">Modern Slavery &amp; Ethics</div><div class="card-body">Ethical labour governance, Modern Slavery Act compliance, supply chain due diligence, Indigenous partnerships.</div></div>
+      </div>
+      <div>
+        <span class="sec-label">30 Articles — By Cluster</span>
+        <table class="pg" style="margin-bottom:4mm;">
+          <tr><th>Cluster</th><th>Auth</th><th>Articles</th></tr>
+          <tr><td style="font-weight:700;color:#3b82f6;">Government &amp; Defence</td><td>A1</td><td style="font-size:9px;">1 Govt vs office · 2 Standards · 3 Pricing · 4 KPIs · 5 ISO meaning · 6 Modern slavery · 7 Compliance function</td></tr>
+          <tr><td style="font-weight:700;color:#f59e0b;">Industrial</td><td>A3</td><td style="font-size:9px;">8 Power stations · 9 Industrial risks · 10 Dust control · 11 Robotics industrial · 12 Training · 13 Low cost myth</td></tr>
+          <tr><td style="font-weight:700;color:#f43f5e;">Education</td><td>A4</td><td style="font-size:9px;">14 School vs office · 15 Deep clean · 16 Infection risks · 17 Education compliance</td></tr>
+          <tr><td style="font-weight:700;color:#10b981;">Carbon Neutral</td><td>A6</td><td style="font-size:9px;">18 What is carbon neutral · 19 Measuring emissions · 20 Eco products · 21 In practice</td></tr>
+          <tr><td style="font-weight:700;color:#8b5cf6;">Procurement</td><td>A8/A10</td><td style="font-size:9px;">22 How to choose · 23 Questions to ask · 24 Cheap vs compliant · 25 Red flags · 26 Evaluate performance · 27 Contract structures</td></tr>
+          <tr><td style="font-weight:700;color:#ec4899;">Technology</td><td>A9</td><td style="font-size:9px;">28 AI in cleaning · 29 Future of FM · 30 Robotics reshape labour</td></tr>
+        </table>
+        <span class="sec-label">4 Case Studies</span>
+        <div class="cols-2" style="gap:2mm;">
+          <div class="card b"><div class="card-tag">CS1</div><div class="card-title">Government Portfolio — QLD</div><div class="card-body">12+ sites · Zero compliance deficiencies · Contract renewed 3 years</div></div>
+          <div class="card y"><div class="card-tag">CS2</div><div class="card-title">Industrial Power Station</div><div class="card-body">Zero LTI · 100% PTW compliance · Dust in threshold</div></div>
+          <div class="card g"><div class="card-tag">CS3</div><div class="card-title">National Industrial Multi-State</div><div class="card-body">QLD · NSW · VIC · extended to WA · Single account</div></div>
+          <div class="card p"><div class="card-tag">CS4</div><div class="card-title">Education Campus Portfolio</div><div class="card-body">Zero WWCC incidents · 100% deep clean on time · Praised</div></div>
+        </div>
+        <div class="cta-row" style="margin-top:3mm;">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E2 Knowledge Hub · Sheet 2 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E3 — REQUEST A PROPOSAL
+════════════════════════════════════ -->
+<div class="sheet" id="e3">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E3 · Request a Proposal · /request-a-proposal</div>
+      <div class="sh-title">Request a Cleaning Proposal</div>
+      <div class="sh-sub">Primary prospect CTA · Sector-specific proposal · Site assessment included · Response within 5 business days</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 3 of 12<div class="sh-pgnum">RFP</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-2" style="gap:6mm;">
+      <div>
+        <h1>Request a Proposal</h1>
+        <div class="intro">Tell CPC about your environment, sector and sites. We'll design a cleaning program around your compliance obligations and operational requirements — not a generic specification applied regardless of your context.</div>
+
+        <span class="sec-label">Proposal Request Form</span>
+        <div class="form-mock">
+          <div class="cols-2" style="gap:3mm;">
+            <div class="form-field"><div class="form-label">Organisation Name *</div><div class="form-input"></div></div>
+            <div class="form-field"><div class="form-label">Your Name *</div><div class="form-input"></div></div>
+            <div class="form-field"><div class="form-label">Email Address *</div><div class="form-input"></div></div>
+            <div class="form-field"><div class="form-label">Phone Number</div><div class="form-input"></div></div>
+          </div>
+          <div class="cols-2" style="gap:3mm;">
+            <div class="form-field">
+              <div class="form-label">Sector *</div>
+              <div class="form-select" style="display:flex;align-items:center;padding:0 3mm;font-size:9px;color:#94a3b8;">Government / Council / Industrial / Education / Office Tower / Healthcare / Other</div>
+            </div>
+            <div class="form-field"><div class="form-label">Number of Sites</div><div class="form-input"></div></div>
+          </div>
+          <div class="cols-2" style="gap:3mm;">
+            <div class="form-field"><div class="form-label">States / Locations</div><div class="form-input"></div></div>
+            <div class="form-field"><div class="form-label">Approximate Floor Area (m²)</div><div class="form-input"></div></div>
+          </div>
+          <div class="form-field"><div class="form-label">Current Cleaning Arrangement</div><div class="form-select" style="display:flex;align-items:center;padding:0 3mm;font-size:9px;color:#94a3b8;">In-house / Current external provider / New facility / Tender process</div></div>
+          <div class="form-field"><div class="form-label">Compliance Requirements and Additional Notes</div><div class="form-textarea"></div></div>
+          <div style="display:flex;gap:3mm;align-items:center;margin-top:2mm;">
+            <span class="btn-g" style="font-size:10px;padding:3mm 8mm;">Submit Proposal Request →</span>
+            <span style="font-size:8.5px;color:#94a3b8;">Or call us directly to discuss your requirements</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2>What Happens Next</h2>
+        <div class="card g" style="margin-bottom:3mm;">
+          <div class="card-tag">Step 1 — Within 24 Hours</div>
+          <div class="card-title">Acknowledgement &amp; Scope Review</div>
+          <div class="card-body">CPC's proposal team reviews your submission and confirms receipt. If additional information is required to prepare an accurate proposal, we will contact you within 24 hours of submission.</div>
+        </div>
+        <div class="card g" style="margin-bottom:3mm;">
+          <div class="card-tag">Step 2 — Within 5 Business Days</div>
+          <div class="card-title">Site Assessment (if required)</div>
+          <div class="card-body">For complex facilities or new sites, CPC may request a site visit or virtual walkthrough to ensure the proposal accurately reflects your facility's requirements. Site assessments are provided at no cost and without obligation.</div>
+        </div>
+        <div class="card g" style="margin-bottom:3mm;">
+          <div class="card-tag">Step 3 — Sector-Specific Proposal</div>
+          <div class="card-title">Tailored Proposal Document</div>
+          <div class="card-body">CPC provides a formal proposal aligned to your sector, compliance requirements and operational schedule — not a standard rate schedule. The proposal includes service specification, compliance documentation list, management structure and pricing.</div>
+        </div>
+
+        <h2>For Procurement Teams</h2>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:3.5mm 4mm;">
+          <p style="font-size:9.5px;color:#1e40af;margin-bottom:2mm;font-weight:500;">If you need compliance documentation for procurement evaluation before or alongside a proposal, access CPC's Due Diligence Hub directly — ISO certificates, insurance, modern slavery statement and social procurement documentation are available immediately without a formal request process.</p>
+          <span class="btn-b">Access Due Diligence Hub →</span>
+        </div>
+
+        <h2 style="margin-top:3mm;">Sectors We Serve</h2>
+        <div class="tag-row">
+          <span class="tag">Government &amp; Defence</span>
+          <span class="tag">Local Government &amp; Councils</span>
+          <span class="tag">Industrial &amp; Power Stations</span>
+          <span class="tag">Education &amp; TAFE</span>
+          <span class="tag">Commercial Office Towers</span>
+          <span class="tag">Healthcare</span>
+          <span class="tag">National Portfolios</span>
+          <span class="tag">QBuild Tender Aligned</span>
+        </div>
+
+        <h2 style="margin-top:3mm;">National Coverage</h2>
+        <div class="cols-5" style="gap:2mm;margin-top:2mm;">
+          <div class="card" style="text-align:center;"><div style="font-size:11px;font-weight:900;color:#0a0f1a;">QLD</div><div style="font-size:8px;color:#64748b;">Queensland</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:11px;font-weight:900;color:#0a0f1a;">NSW</div><div style="font-size:8px;color:#64748b;">New South Wales</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:11px;font-weight:900;color:#0a0f1a;">VIC</div><div style="font-size:8px;color:#64748b;">Victoria</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:11px;font-weight:900;color:#0a0f1a;">WA</div><div style="font-size:8px;color:#64748b;">Western Australia</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:11px;font-weight:900;color:#0a0f1a;">SA</div><div style="font-size:8px;color:#64748b;">South Australia</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E3 Request a Proposal · Sheet 3 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E4 — ABOUT CPC
+════════════════════════════════════ -->
+<div class="sheet" id="e4">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E4 · About · /about</div>
+      <div class="sh-title">About Commercial Property Cleaning (CPC)</div>
+      <div class="sh-sub">Company overview · National footprint · ISO certifications · Sustainability · Ethical labour · Leadership in regulated sector cleaning</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 4 of 12<div class="sh-pgnum">ABT</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>About Commercial Property Cleaning</h1>
+        <div class="intro">Commercial Property Cleaning (CPC) is a national commercial cleaning company operating across government, council, industrial, education, office tower and other regulated sectors in Australia. CPC is distinguished by its ISO-certified management systems, verified carbon neutral program, modern slavery compliance documentation and permanent state-based operational teams across five states.</div>
+
+        <h2>What We Do</h2>
+        <p>CPC delivers commercial cleaning services to regulated, complex and compliance-driven environments. Our clients include state and federal government agencies, local councils, industrial operators, education portfolios, commercial property managers and national corporate clients. CPC approaches cleaning as a compliance function — not a labour commodity — and our management systems, reporting tools and workforce governance reflect that positioning.</p>
+
+        <h2>How We Operate</h2>
+        <p>CPC operates with permanent local teams in Queensland, New South Wales, Victoria, Western Australia and South Australia, supported by centralised contract management, national management systems and digital audit infrastructure. Local teams provide responsiveness and community knowledge. Central systems provide governance consistency, portfolio-level reporting and compliance management across all jurisdictions.</p>
+        <p>A single national account management model means that clients managing multi-site or multi-state portfolios have one point of contact, one reporting format and one compliance documentation source regardless of the geographic scope of their portfolio.</p>
+
+        <h2>Our Management Philosophy</h2>
+        <p>CPC treats cleaning as an operational control — a compliance function that requires documented systems, trained personnel, performance evidence and continuous improvement — rather than a commodity service managed primarily on price. This philosophy drives our investment in ISO certification, digital audit tools, modern slavery compliance systems, carbon neutral programs and workforce governance.</p>
+        <p>It also drives our approach to client relationships: long-term partnerships built on transparent performance evidence, proactive compliance management and genuine sector expertise — rather than transactional price competition that produces short-term wins and long-term governance risk for clients.</p>
+      </div>
+      <div>
+        <h2>Our Certifications</h2>
+        <div class="cols-3" style="gap:2mm;margin-bottom:3mm;">
+          <div class="cert-card"><div class="cert-icon">📋</div><div class="cert-name">ISO 9001</div><div class="cert-desc">Quality Management System. Documented procedures, performance measurement, corrective action and continuous improvement across all operations.</div><div class="cert-status">✓ Certified</div><div class="cert-download">↓ Download certificate</div></div>
+          <div class="cert-card"><div class="cert-icon">🌿</div><div class="cert-name">ISO 14001</div><div class="cert-desc">Environmental Management System. Chemical management, waste, water, energy and emissions managed within a documented framework with measurable objectives.</div><div class="cert-status">✓ Certified</div><div class="cert-download">↓ Download certificate</div></div>
+          <div class="cert-card"><div class="cert-icon">⛑️</div><div class="cert-name">ISO 45001</div><div class="cert-desc">Occupational Health and Safety Management System. Proactive hazard identification, documented risk controls, incident management and worker participation.</div><div class="cert-status">✓ Certified</div><div class="cert-download">↓ Download certificate</div></div>
+        </div>
+
+        <h2>Carbon Neutral Program</h2>
+        <p>CPC operates a verified carbon neutral program with documented emissions measurement across Scope 1, 2 and material Scope 3 sources. Annual reduction initiatives and verified offset procurement maintain carbon neutral status year-on-year. Emissions data is available to clients for Scope 3 supply chain sustainability reporting. CPC uses eco-certified cleaning products as standard across all commercial programs.</p>
+
+        <h2>Modern Slavery and Ethical Labour</h2>
+        <p>CPC publishes an annual Modern Slavery Statement with a documented risk assessment methodology. Workforce management practices include direct employment wherever operationally possible, award-compliant payroll systems, verified right-to-work checking and accessible grievance mechanisms. Supplier due diligence is applied to labour hire and key product supply chain partners. Indigenous employment partnerships and social enterprise relationships form part of CPC's social procurement commitments.</p>
+      </div>
+      <div>
+        <h2>National Footprint</h2>
+        <div style="margin-bottom:3mm;">
+          <div class="cols-2" style="gap:2mm;">
+            <div class="state-card"><div class="state-name-tag">QLD</div><div class="state-title">Queensland</div><div class="state-desc">Brisbane headquarters · FNQ regional presence · Government and council portfolio · QBuild tender aligned</div></div>
+            <div class="state-card"><div class="state-name-tag">NSW</div><div class="state-title">New South Wales</div><div class="state-desc">Sydney · Regional centres · Government, education and commercial portfolios</div></div>
+            <div class="state-card"><div class="state-name-tag">VIC</div><div class="state-title">Victoria</div><div class="state-desc">Melbourne · Regional · Government and commercial portfolios</div></div>
+            <div class="state-card"><div class="state-name-tag">WA</div><div class="state-title">Western Australia</div><div class="state-desc">Perth · Regional · Industrial and government portfolios</div></div>
+          </div>
+          <div class="state-card" style="margin-top:2mm;"><div class="state-name-tag">SA</div><div class="state-title">South Australia</div><div class="state-desc">Adelaide · Government and commercial portfolios</div></div>
+        </div>
+
+        <h2>The Sectors We Serve</h2>
+        <div class="tag-row">
+          <span class="tag">Government &amp; Defence</span>
+          <span class="tag">Local Government &amp; Councils</span>
+          <span class="tag">Industrial &amp; Power Stations</span>
+          <span class="tag">Education &amp; TAFE</span>
+          <span class="tag">Commercial Office Towers</span>
+          <span class="tag">Healthcare</span>
+          <span class="tag">National Portfolios</span>
+        </div>
+
+        <div class="cta-row" style="margin-top:3mm;">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Access Due Diligence Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E4 About CPC · Sheet 4 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E5 — CAREERS
+════════════════════════════════════ -->
+<div class="sheet" id="e5">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E5 · Careers · /careers</div>
+      <div class="sh-title">Careers at Commercial Property Cleaning</div>
+      <div class="sh-sub">Recruitment · Training pathways · Career progression · Workforce development · 5-state employer · Regulated sector specialist</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 5 of 12<div class="sh-pgnum">CAR</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Careers at CPC</h1>
+        <div class="intro">CPC is a national employer operating across government, industrial, education and commercial sectors in Australia. We offer structured training pathways, career progression and a professional working environment for people who want to build a career in facilities and cleaning management — not just fill a shift.</div>
+
+        <h2>Why Work at CPC</h2>
+        <p>CPC is a compliance-driven organisation — which means our workforce is taken seriously. We invest in training, credential management, safety systems and career development because the quality of our workforce is the primary determinant of our contract performance. We offer award-compliant employment with correct entitlements, genuine training pathways from operative to supervisor to contract manager, and the stability of a national employer with a diversified client portfolio across multiple sectors and states.</p>
+        <p>CPC's ISO-certified management systems create a professional working environment with documented processes, clear expectations and structured performance management. Our people know what is expected of them, have the training and equipment to deliver it, and are managed by supervisors who are trained to support their development as well as their performance.</p>
+
+        <h2>Our Commitment to Our Workforce</h2>
+        <p>CPC pays award-compliant wages with correct entitlements — including penalty rates, leave entitlements and superannuation — as a fundamental operating principle, not an aspiration. Right-to-work verification is a standard pre-employment step. Grievance mechanisms are accessible and functional. Modern slavery compliance is integrated into our workforce management rather than treated as a compliance document separate from operations.</p>
+        <p>CPC is an equal opportunity employer. We actively recruit from diverse backgrounds and have Indigenous employment partnerships as part of our social procurement commitments.</p>
+      </div>
+      <div>
+        <h2>Current Opportunities</h2>
+        <div class="card g" style="margin-bottom:2.5mm;">
+          <div class="card-tag">Cleaning Operative · All States · Full-time and Part-time</div>
+          <div class="card-title">Site Cleaning Operative</div>
+          <div class="card-body">Deliver routine and periodic cleaning services across government, education and commercial facilities. Training provided. Award-compliant employment. Career pathway to supervisor role for high performers.</div>
+        </div>
+        <div class="card g" style="margin-bottom:2.5mm;">
+          <div class="card-tag">Site Supervisor · QLD · NSW · VIC · WA · SA</div>
+          <div class="card-title">Cleaning Supervisor</div>
+          <div class="card-body">Lead and supervise cleaning teams across multi-site portfolios. Digital audit tool operation. Client communication. Credential management. Pathway to contract manager role.</div>
+        </div>
+        <div class="card b" style="margin-bottom:2.5mm;">
+          <div class="card-tag">Contract Manager · National</div>
+          <div class="card-title">Contract Manager</div>
+          <div class="card-body">Manage client relationships and operational delivery across portfolio contracts. Performance reporting. Compliance management. Pathway to national account manager role.</div>
+        </div>
+        <div class="card b" style="margin-bottom:2.5mm;">
+          <div class="card-tag">Industrial Specialist · QLD · WA</div>
+          <div class="card-title">Industrial Cleaning Specialist</div>
+          <div class="card-body">Deliver cleaning services at power stations, industrial facilities and high-risk environments. Specific safety competencies required or training provided. Higher remuneration reflecting specialist nature.</div>
+        </div>
+        <div class="card y" style="margin-bottom:2.5mm;">
+          <div class="card-tag">National Account Manager · National · Senior Role</div>
+          <div class="card-title">National Account Manager</div>
+          <div class="card-body">Lead multi-state client relationships for national portfolio clients. Single point of contact accountability. Senior leadership pathway.</div>
+        </div>
+      </div>
+      <div>
+        <h2>Career Pathway at CPC</h2>
+        <div class="card" style="margin-bottom:2.5mm;">
+          <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.5mm;">
+            <div style="width:24px;height:24px;background:#00d4aa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0a0f1a;flex-shrink:0;">1</div>
+            <div class="card-title" style="margin:0;">Site Cleaning Operative</div>
+          </div>
+          <div class="card-body">Entry point. Site induction, basic cleaning skills, safety awareness. Award-compliant employment from day one.</div>
+        </div>
+        <div class="card" style="margin-bottom:2.5mm;">
+          <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.5mm;">
+            <div style="width:24px;height:24px;background:#00d4aa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0a0f1a;flex-shrink:0;">2</div>
+            <div class="card-title" style="margin:0;">Lead Operative / Senior Operative</div>
+          </div>
+          <div class="card-body">Experienced operatives taking responsibility for specific areas or shift coordination. Additional training in quality standards and client communication.</div>
+        </div>
+        <div class="card" style="margin-bottom:2.5mm;">
+          <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.5mm;">
+            <div style="width:24px;height:24px;background:#00d4aa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#0a0f1a;flex-shrink:0;">3</div>
+            <div class="card-title" style="margin:0;">Site Supervisor</div>
+          </div>
+          <div class="card-body">Team leadership, digital audit operations, client interface, credential management and escalation responsibility.</div>
+        </div>
+        <div class="card" style="margin-bottom:2.5mm;">
+          <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.5mm;">
+            <div style="width:24px;height:24px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;flex-shrink:0;">4</div>
+            <div class="card-title" style="margin:0;">Contract Manager</div>
+          </div>
+          <div class="card-body">Portfolio management, client relationship ownership, compliance reporting and continuous improvement leadership.</div>
+        </div>
+        <div class="card" style="margin-bottom:3mm;">
+          <div style="display:flex;align-items:center;gap:3mm;margin-bottom:1.5mm;">
+            <div style="width:24px;height:24px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;flex-shrink:0;">5</div>
+            <div class="card-title" style="margin:0;">National Account Manager</div>
+          </div>
+          <div class="card-body">National client accountability, multi-state portfolio leadership, senior stakeholder relationship management.</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Apply Now</span>
+          <span class="btn-b">Learn More About CPC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E5 Careers · Sheet 5 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E6 — CONTACT
+════════════════════════════════════ -->
+<div class="sheet" id="e6">
+  <div class="sh-hdr">
+    <div>
+      <div class="sh-eyebrow">Core Page E6 · Contact · /contact</div>
+      <div class="sh-title">Contact Commercial Property Cleaning</div>
+      <div class="sh-sub">Enquiry form · Regional offices · 5-state coverage · Proposal pathway · DD Hub access</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 6 of 12<div class="sh-pgnum">CON</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Contact CPC</h1>
+        <div class="intro">CPC operates permanent regional teams across Queensland, New South Wales, Victoria, Western Australia and South Australia. Whether you need a cleaning proposal, compliance documentation, a capability briefing or a general enquiry, the right contact is below.</div>
+
+        <span class="sec-label">Enquiry Form</span>
+        <div class="form-mock">
+          <div class="form-field"><div class="form-label">Your Name *</div><div class="form-input"></div></div>
+          <div class="form-field"><div class="form-label">Organisation *</div><div class="form-input"></div></div>
+          <div class="form-field"><div class="form-label">Email Address *</div><div class="form-input"></div></div>
+          <div class="form-field"><div class="form-label">Phone</div><div class="form-input"></div></div>
+          <div class="form-field">
+            <div class="form-label">State / Location</div>
+            <div class="form-select" style="display:flex;align-items:center;padding:0 3mm;font-size:9px;color:#94a3b8;">QLD / NSW / VIC / WA / SA / National</div>
+          </div>
+          <div class="form-field">
+            <div class="form-label">Enquiry Type</div>
+            <div class="form-select" style="display:flex;align-items:center;padding:0 3mm;font-size:9px;color:#94a3b8;">Proposal request / Compliance documentation / Capability briefing / Employment / General</div>
+          </div>
+          <div class="form-field"><div class="form-label">Message</div><div class="form-textarea"></div></div>
+          <span class="btn-g" style="margin-top:2mm;font-size:10px;padding:2.5mm 6mm;">Send Enquiry →</span>
+        </div>
+      </div>
+      <div>
+        <span class="sec-label">Regional Offices</span>
+        <div class="state-card" style="margin-bottom:2.5mm;">
+          <div class="state-name-tag">QLD — HEADQUARTERS</div>
+          <div class="state-title">Queensland</div>
+          <div class="state-desc">Brisbane metropolitan and FNQ regional presence. Government and council portfolio hub. QBuild FNQ3254 tender aligned. Key contact for northern operations.</div>
+        </div>
+        <div class="state-card" style="margin-bottom:2.5mm;">
+          <div class="state-name-tag">NSW</div>
+          <div class="state-title">New South Wales</div>
+          <div class="state-desc">Sydney metropolitan and regional NSW. Government, education and commercial portfolios. Industrial operations support from NSW state base.</div>
+        </div>
+        <div class="state-card" style="margin-bottom:2.5mm;">
+          <div class="state-name-tag">VIC</div>
+          <div class="state-title">Victoria</div>
+          <div class="state-desc">Melbourne and regional Victoria. Government, education and commercial portfolios. Key contact for southern operations.</div>
+        </div>
+        <div class="state-card" style="margin-bottom:2.5mm;">
+          <div class="state-name-tag">WA</div>
+          <div class="state-title">Western Australia</div>
+          <div class="state-desc">Perth metropolitan and regional WA. Industrial and government portfolios. Resource sector and infrastructure cleaning capability.</div>
+        </div>
+        <div class="state-card">
+          <div class="state-name-tag">SA</div>
+          <div class="state-title">South Australia</div>
+          <div class="state-desc">Adelaide and regional SA. Government and commercial portfolios.</div>
+        </div>
+      </div>
+      <div>
+        <span class="sec-label">Quick Access</span>
+        <div class="card g" style="margin-bottom:3mm;">
+          <div class="card-tag">New Client</div>
+          <div class="card-title">Request a Proposal</div>
+          <div class="card-body">Submit a proposal request form and CPC will respond within 5 business days with a sector-specific proposal aligned to your compliance requirements.</div>
+          <div style="margin-top:2mm;"><span class="btn-g" style="font-size:9px;">Request a Proposal →</span></div>
+        </div>
+        <div class="card b" style="margin-bottom:3mm;">
+          <div class="card-tag">Procurement Team</div>
+          <div class="card-title">Access Due Diligence Hub</div>
+          <div class="card-body">Access CPC's compliance documentation immediately — ISO certificates, modern slavery statement, insurance, WHS and social procurement documentation — without waiting for a formal request response.</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:9px;">Access DD Hub →</span></div>
+        </div>
+        <div class="card y" style="margin-bottom:3mm;">
+          <div class="card-tag">Existing Client</div>
+          <div class="card-title">Client Portal Login</div>
+          <div class="card-body">Access audit reports, compliance documents, service schedules and submit service requests through the CPC Client Portal.</div>
+          <div style="margin-top:2mm;"><span style="background:#f59e0b;color:#0a0f1a;font-size:9px;font-weight:800;padding:2mm 5mm;border-radius:4px;">🔒 Client Portal →</span></div>
+        </div>
+        <div class="card" style="margin-bottom:3mm;">
+          <div class="card-tag">Employment</div>
+          <div class="card-title">Work at CPC</div>
+          <div class="card-body">View current opportunities and career pathways across our national operations.</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:9px;border-color:#00d4aa;color:#00b894;">View Careers →</span></div>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:4px;padding:3mm 4mm;">
+          <div style="font-size:8.5px;font-weight:700;color:#374151;margin-bottom:1.5mm;">Response Times</div>
+          <div style="font-size:9px;color:#64748b;line-height:1.6;">Proposal requests — within 5 business days<br/>Compliance documentation — immediate via DD Hub<br/>General enquiries — within 2 business days<br/>Emergency service issues (existing clients) — same day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E6 Contact · Sheet 6 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E7 — DUE DILIGENCE HUB (main)
+════════════════════════════════════ -->
+<div class="sheet" id="e7">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">Core Page E7 · Due Diligence Hub · /due-diligence</div>
+      <div class="sh-title">CPC Due Diligence Hub</div>
+      <div class="sh-sub">Centralised compliance credentials for procurement evaluation · 5 sub-pages · ISO certs · Insurance · WHS · Modern slavery · Social procurement · Management approach · Testimonials · Case studies</div>
+    </div>
+    <div class="sh-meta">Core Pages · Set E<br/>Sheet 7 of 12<div class="sh-pgnum">DD</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>CPC Due Diligence Hub</h1>
+        <div class="intro">The CPC Due Diligence Hub is designed for procurement teams conducting formal evaluation of CPC as a cleaning services provider. All compliance documentation, certificates, governance statements and reference case studies are centralised here for efficient procurement due diligence — available without a formal documentation request process.</div>
+
+        <h2>Who This Is For</h2>
+        <p>Government procurement officers conducting pre-qualification assessment for cleaning contracts. Corporate procurement and supplier management teams evaluating cleaning providers against ESG and compliance criteria. Facilities managers and property managers requiring compliance documentation from their existing or prospective cleaning provider. Tender evaluation teams requiring compliant documentation packages.</p>
+
+        <h2>What Is Available</h2>
+        <p>The Due Diligence Hub contains five sub-pages, each providing documented evidence for a specific area of compliance evaluation. Documents are maintained current and are available for immediate access without a formal request or waiting period.</p>
+        <p>All documentation provided through the Due Diligence Hub is authentic, current and available in procurement-ready formats. CPC does not require procurement teams to contact a sales representative to access compliance documentation — it is available independently through the Hub.</p>
+
+        <h2>Tender Use</h2>
+        <p>For formal tender submissions, CPC's compliance documentation can be referenced from the Due Diligence Hub or provided as attachment files in procurement-specified formats. CPC's procurement team can assemble a formal compliance documentation package aligned to specific tender requirements on request, typically within two business days of receiving the tender documentation requirements.</p>
+      </div>
+      <div>
+        <h2>The Five Sub-Pages</h2>
+        <div class="card b" style="margin-bottom:3mm;">
+          <div class="card-tag">DD Sub-Page 1 · /due-diligence/compliance-centre</div>
+          <div class="card-title">Compliance Centre</div>
+          <div class="card-body">ISO 9001 certificate · ISO 14001 certificate · ISO 45001 certificate · Public liability insurance certificate · Professional indemnity insurance certificate · Workers compensation insurance · WHS management system documentation · Modern Slavery Statement · All documents current and downloadable</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;">Access Compliance Centre →</span></div>
+        </div>
+        <div class="card g" style="margin-bottom:3mm;">
+          <div class="card-tag">DD Sub-Page 2 · /due-diligence/social-procurement</div>
+          <div class="card-title">Social Procurement</div>
+          <div class="card-body">Indigenous employment partnership documentation · Social enterprise supplier relationships · Community impact reporting · Local content commitments · Reconciliation commitment statement · Commonwealth Indigenous Procurement Policy alignment evidence</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#00d4aa;color:#00b894;">View Social Procurement →</span></div>
+        </div>
+        <div class="card y" style="margin-bottom:3mm;">
+          <div class="card-tag">DD Sub-Page 3 · /due-diligence/management-approach</div>
+          <div class="card-title">Management Approach</div>
+          <div class="card-body">Contract methodology overview · Service delivery framework · Escalation procedures · Reporting cadence and formats · Digital audit system overview · Technology systems description · Performance management framework · Quality review process</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#f59e0b;color:#b45309;">View Management Approach →</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="card p" style="margin-bottom:3mm;">
+          <div class="card-tag">DD Sub-Page 4 · /due-diligence/testimonials</div>
+          <div class="card-title">Client Testimonials</div>
+          <div class="card-body">Named reference testimonials from government, industrial and education clients · Sector-specific references available · Contact details for reference checks · Reference client portfolio summary · Performance evidence extracts from comparable contracts</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#8b5cf6;color:#6d28d9;">Read Testimonials →</span></div>
+        </div>
+        <div class="card r" style="margin-bottom:3mm;">
+          <div class="card-tag">DD Sub-Page 5 · /due-diligence/case-studies</div>
+          <div class="card-title">Case Studies Index</div>
+          <div class="card-body">CS1 Government portfolio — QLD regional · CS2 Industrial power station · CS3 National industrial multi-state · CS4 Education campus portfolio · All structured with Environment, Risk, Scope, Complexity, System and Result sections · No contract values published</div>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#ef4444;color:#b91c1c;">View Case Studies →</span></div>
+        </div>
+
+        <div style="background:#eff6ff;border:1.5px solid #3b82f6;border-radius:4px;padding:3.5mm 4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#1e40af;margin-bottom:1.5mm;">For Formal Tender Requirements</div>
+          <div style="font-size:9px;color:#1e40af;line-height:1.65;">If you require compliance documentation assembled in a specific format for a formal tender submission, contact CPC's procurement team directly. A compliance documentation package aligned to your tender requirements can typically be prepared within 2 business days of receiving the requirements specification.</div>
+        </div>
+
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Contact CPC Directly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au</span>
+    <span class="sh-footer-text">Set E · Core Pages · E7 Due Diligence Hub · Sheet 7 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E8 — DD: COMPLIANCE CENTRE
+════════════════════════════════════ -->
+<div class="sheet" id="e8">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">DD Sub-Page 1 · Compliance Centre · /due-diligence/compliance-centre</div>
+      <div class="sh-title">Compliance Centre — Certificates, Insurance and WHS</div>
+      <div class="sh-sub">ISO 9001 · ISO 14001 · ISO 45001 · Public Liability · Professional Indemnity · Workers Compensation · WHS Documentation · Modern Slavery Statement</div>
+    </div>
+    <div class="sh-meta">Due Diligence Hub<br/>Sheet 8 of 12<div class="sh-pgnum">DD1</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Compliance Centre</h1>
+        <div class="intro">The Compliance Centre provides current compliance documentation for procurement evaluation and due diligence. All documents are maintained current, available in PDF format and can be downloaded directly or provided as part of a formal compliance documentation package for tender submissions.</div>
+
+        <h2>ISO Certificates</h2>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">📋</div>
+          <div class="cert-name">ISO 9001:2015 — Quality Management System</div>
+          <div class="cert-desc">Certification covers the provision of commercial cleaning services across government, industrial, education and commercial facility types nationally. Issued by a JAS-ANZ accredited certification body. Includes scope statement, certification number and surveillance audit schedule.</div>
+          <div class="cert-status">✓ Current Certificate</div>
+          <div class="cert-download">↓ Download ISO 9001 Certificate (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">🌿</div>
+          <div class="cert-name">ISO 14001:2015 — Environmental Management System</div>
+          <div class="cert-desc">Environmental management system covering chemical management, waste, water use, energy consumption and greenhouse gas emissions across all CPC operations. Underpins CPC's carbon neutral program.</div>
+          <div class="cert-status">✓ Current Certificate</div>
+          <div class="cert-download">↓ Download ISO 14001 Certificate (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">⛑️</div>
+          <div class="cert-name">ISO 45001:2018 — Occupational Health and Safety</div>
+          <div class="cert-desc">WHS management system covering hazard identification, risk controls, incident management and worker participation across all CPC operations including industrial and high-risk site cleaning.</div>
+          <div class="cert-status">✓ Current Certificate</div>
+          <div class="cert-download">↓ Download ISO 45001 Certificate (PDF)</div>
+        </div>
+      </div>
+      <div>
+        <h2>Insurance Documentation</h2>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">🛡️</div>
+          <div class="cert-name">Public Liability Insurance</div>
+          <div class="cert-desc">Current public liability insurance certificate with coverage level and expiry date. Provides evidence of liability cover for cleaning operations at client facilities. Coverage level appropriate for government and corporate contracts.</div>
+          <div class="cert-status">✓ Current · Valid [expiry date]</div>
+          <div class="cert-download">↓ Download PL Insurance Certificate (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">📑</div>
+          <div class="cert-name">Professional Indemnity Insurance</div>
+          <div class="cert-desc">Professional indemnity insurance covering CPC's professional services and management activities. Current certificate with coverage level and expiry date.</div>
+          <div class="cert-status">✓ Current · Valid [expiry date]</div>
+          <div class="cert-download">↓ Download PI Insurance Certificate (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">👷</div>
+          <div class="cert-name">Workers Compensation Insurance</div>
+          <div class="cert-desc">Current workers compensation insurance across all states of operation. Policy numbers and coverage confirmation by state. Current certificate available.</div>
+          <div class="cert-status">✓ Current · All States</div>
+          <div class="cert-download">↓ Download Workers Comp Certificate (PDF)</div>
+        </div>
+      </div>
+      <div>
+        <h2>WHS Documentation</h2>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">📁</div>
+          <div class="cert-name">WHS Management System Overview</div>
+          <div class="cert-desc">Summary document describing CPC's ISO 45001-aligned WHS management system. Covers hazard identification methodology, risk assessment framework, incident reporting process, worker participation mechanisms and management review process.</div>
+          <div class="cert-status">✓ Current Document</div>
+          <div class="cert-download">↓ Download WHS System Overview (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-icon">📋</div>
+          <div class="cert-name">Modern Slavery Statement</div>
+          <div class="cert-desc">Current annual Modern Slavery Statement with documented risk assessment methodology, description of governance processes, workforce verification practices and supply chain due diligence approach. Complies with Modern Slavery Act 2018 (Cth) reporting requirements.</div>
+          <div class="cert-status">✓ Current · Annual Publication</div>
+          <div class="cert-download">↓ Download Modern Slavery Statement (PDF)</div>
+        </div>
+
+        <h2>Document Request</h2>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:3mm 4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;color:#1e40af;line-height:1.65;">All documents in the Compliance Centre are available for immediate download. If you require documents in a specific format for tender submission, or if you need additional documentation not listed here, contact CPC's procurement team directly — additional documentation is typically available within 2 business days.</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Back to DD Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Due Diligence Hub</span>
+    <span class="sh-footer-text">Set E · Core Pages · E8 DD Compliance Centre · Sheet 8 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E9 — DD: SOCIAL PROCUREMENT
+════════════════════════════════════ -->
+<div class="sheet" id="e9">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">DD Sub-Page 2 · Social Procurement · /due-diligence/social-procurement</div>
+      <div class="sh-title">Social Procurement — Indigenous Partnerships and Community Commitments</div>
+      <div class="sh-sub">Indigenous employment partnerships · Social enterprise suppliers · Community impact · Local content · Commonwealth IPP alignment · QBuild §2.4.2 §2.4.3 §2.4.4</div>
+    </div>
+    <div class="sh-meta">Due Diligence Hub<br/>Sheet 9 of 12<div class="sh-pgnum">DD2</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Social Procurement</h1>
+        <div class="intro">CPC's social procurement commitments are genuine operational practices — not tender-time commitments assembled from aspirational policies. Indigenous employment partnerships, social enterprise supplier relationships and community impact activities are integrated into CPC's ongoing operations and documented for procurement evaluation and reporting purposes.</div>
+
+        <h2>Why Social Procurement Matters in Cleaning</h2>
+        <p>Commercial cleaning is a labour-intensive sector that employs people from diverse backgrounds across all geographic areas of Australia — including regional and remote communities where employment opportunities are limited. A cleaning company with genuine social procurement commitments can create meaningful employment and economic participation for Indigenous Australians and people from disadvantaged backgrounds at scale, not as a pilot program.</p>
+        <p>For government procurement teams evaluating social procurement requirements — whether under the Commonwealth Indigenous Procurement Policy, state-level social procurement policies or tender-specific social value criteria — CPC's documented social procurement evidence provides substantive material for evaluation, not just policy statements.</p>
+
+        <h2>Indigenous Employment Partnerships</h2>
+        <p>CPC maintains active Indigenous employment partnerships that create pathways for Aboriginal and Torres Strait Islander people into employment, training and career development in the cleaning sector. These partnerships are maintained year-round and documented with employment outcomes, training completions and career progression evidence. CPC's commitment to reconciliation is reflected in operational practice rather than symbolic statement.</p>
+      </div>
+      <div>
+        <h2>Social Enterprise Supplier Relationships</h2>
+        <p>CPC maintains commercial relationships with social enterprise suppliers for cleaning products, consumables and ancillary services where quality requirements are met and commercial terms are viable. These relationships are documented with supplier descriptions, procurement volumes and social impact data that can be provided to clients requiring supply chain social enterprise evidence for their own procurement reporting obligations.</p>
+
+        <h2>Community Impact Reporting</h2>
+        <p>CPC documents community impact outcomes associated with its social procurement activities, including employment hours created for disadvantaged community members, training completions and qualifications achieved by Indigenous employees, procurement spend with social enterprise suppliers, and community engagement activities. This data is provided to government clients requiring supply chain social impact reporting for procurement acquittal and program evaluation.</p>
+
+        <h2>Local Content Commitments</h2>
+        <p>Where CPC operates in regional and remote areas — including far north Queensland, regional Western Australia and other areas with local content expectations in government procurement — CPC prioritises employment of local community members, engagement of local subcontractors and suppliers where quality and cost requirements are met, and investment in local training and development.</p>
+
+        <h2>Commonwealth Indigenous Procurement Policy</h2>
+        <p>The Commonwealth Indigenous Procurement Policy (IPP) requires Commonwealth Government agencies to consider Indigenous enterprises and employment in their procurement activities. CPC's Indigenous employment and enterprise engagement practices are documented to support client agencies in meeting their IPP reporting and activity requirements through their cleaning contracts.</p>
+      </div>
+      <div>
+        <h2>Documentation Available</h2>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-name">Indigenous Employment Partnership Documentation</div>
+          <div class="cert-desc">Description of current Indigenous employment partnerships, employment pathways, training programs and outcomes achieved. Updated annually.</div>
+          <div class="cert-download">↓ Download (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-name">Social Enterprise Supplier Register</div>
+          <div class="cert-desc">Current register of social enterprise suppliers in CPC's supply chain with descriptions of the social enterprise, procurement relationship and procurement volumes.</div>
+          <div class="cert-download">↓ Download (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2.5mm;">
+          <div class="cert-name">Community Impact Report</div>
+          <div class="cert-desc">Annual report on social procurement outcomes — employment hours, training completions, social enterprise spend, community engagement activities.</div>
+          <div class="cert-download">↓ Download (PDF)</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:3mm;">
+          <div class="cert-name">Reconciliation Commitment Statement</div>
+          <div class="cert-desc">CPC's formal commitment to reconciliation and Indigenous economic participation, with description of actions taken and planned.</div>
+          <div class="cert-download">↓ Download (PDF)</div>
+        </div>
+
+        <h2>Tender Criterion Alignment</h2>
+        <table class="pg">
+          <tr><th>Criterion</th><th>CPC Evidence</th></tr>
+          <tr><td>Indigenous Business §2.4.2</td><td>Indigenous employment partnership documentation</td></tr>
+          <tr><td>Social Enterprise §2.4.3</td><td>Social enterprise supplier register</td></tr>
+          <tr><td>Social Impact §2.4.4</td><td>Community impact report + Modern Slavery Statement</td></tr>
+          <tr><td>IPP Alignment</td><td>Indigenous employment + enterprise documentation</td></tr>
+        </table>
+        <div class="cta-row" style="margin-top:3mm;">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Back to DD Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Due Diligence Hub</span>
+    <span class="sh-footer-text">Set E · Core Pages · E9 DD Social Procurement · Sheet 9 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E10 — DD: MANAGEMENT APPROACH
+════════════════════════════════════ -->
+<div class="sheet" id="e10">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">DD Sub-Page 3 · Management Approach · /due-diligence/management-approach</div>
+      <div class="sh-title">Management Approach — How CPC Delivers and Governs Contracts</div>
+      <div class="sh-sub">Contract methodology · Service delivery framework · Reporting · Escalation · Digital audit · Technology systems · Performance management · QBuild §2.3.1</div>
+    </div>
+    <div class="sh-meta">Due Diligence Hub<br/>Sheet 10 of 12<div class="sh-pgnum">DD3</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>CPC Management Approach</h1>
+        <div class="intro">CPC's contract management approach is designed to provide clients with transparent performance evidence, proactive compliance management and responsive escalation — rather than reactive problem resolution triggered by client complaints. This page describes how CPC structures and governs cleaning contracts from mobilisation through to performance review.</div>
+
+        <h2>Mobilisation Process</h2>
+        <p>Contract mobilisation begins before service commencement with three parallel workstreams: workforce mobilisation (credential verification, site inductions, deployment planning), systems configuration (audit tool setup for site-specific requirements, reporting format alignment, KPI threshold confirmation), and compliance documentation delivery (ISO certificates, insurance, modern slavery statement and any contract-specific documentation required within the mobilisation period).</p>
+        <p>CPC's standard mobilisation commitment is to have full compliance documentation delivered and all required credentials completed within five business days of contract commencement — not within the first inspection period. Compliance readiness from day one is a contractual commitment, not an aspiration.</p>
+
+        <h2>Account Management Structure</h2>
+        <p>Each CPC contract has a nominated contract manager who is the single point of contact for the client facility or portfolio. For national or multi-state contracts, a national account manager sits above state contract managers and holds accountability for portfolio-level performance and client relationship management. The account management structure is documented at mobilisation — clients are never uncertain about who to call when an issue arises.</p>
+      </div>
+      <div>
+        <h2>Digital Audit and Reporting</h2>
+        <p>CPC uses a digital inspection platform across all contracts as standard — not as an optional add-on. Inspections capture timestamped, geolocated photographic evidence of completed areas, defect identification with severity classification, and rectification assignments with completion verification. Clients receive regular performance reports in the format required by their governance obligations — weekly, monthly or quarterly as specified in the contract.</p>
+        <p>The digital audit system eliminates the information asymmetry that paper-based inspection records create. Clients have access to the same performance data CPC uses internally, presented in a format that supports their own governance and reporting requirements without requiring manual data compilation.</p>
+
+        <h2>Defect Management</h2>
+        <p>When a defect is identified — whether through CPC's scheduled audit program, a client report or a supervisor inspection — it is recorded in CPC's digital system with a severity classification, assigned to the responsible supervisor and tracked to verified resolution. Defect response time commitments are specified in the contract and monitored against performance data. Persistent defect patterns — the same area failing repeatedly — trigger an investigation and corrective action process rather than continued reactive rectification.</p>
+
+        <h2>Escalation Procedures</h2>
+        <p>CPC's escalation framework has defined levels that match the severity and urgency of the issue. Operational issues (single-shift performance deficiency) are resolved by the site supervisor within the contracted response time. Contract management issues (persistent performance pattern, compliance documentation requirement) are managed by the contract manager. Strategic issues (contract-level performance concern, significant compliance event) are escalated to the national account manager and CPC's senior leadership. Clients always know which level of CPC leadership is accountable for managing their issue.</p>
+      </div>
+      <div>
+        <h2>Performance Review Process</h2>
+        <p>CPC conducts regular formal performance review meetings with clients — monthly for active contract management, quarterly as a minimum for stable contracts. Review meetings are based on performance data — audit scores, defect records, attendance data — not anecdotal discussion. Meetings produce a written record with agreed actions, accountability owners and completion timeframes that form part of the contract management file.</p>
+
+        <h2>Technology Systems</h2>
+        <div class="cert-card" style="margin-bottom:2mm;">
+          <div class="cert-name">Digital Inspection Platform</div>
+          <div class="cert-desc">Mobile-based inspection tool with photo capture, GPS, timestamping, defect tracking and report generation. Used for all scheduled and unscheduled site inspections.</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2mm;">
+          <div class="cert-name">Workforce Management System</div>
+          <div class="cert-desc">National credential tracking, induction management, right-to-work verification, WWCC management and attendance recording. Real-time visibility of all workforce credentials.</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:2mm;">
+          <div class="cert-name">Client Reporting Portal</div>
+          <div class="cert-desc">Client-facing reporting access to inspection reports, defect records, compliance documentation and performance trend data. Available 24/7 without requiring CPC staff involvement.</div>
+        </div>
+        <div class="cert-card" style="margin-bottom:3mm;">
+          <div class="cert-name">Scheduling and Resource Management</div>
+          <div class="cert-desc">National scheduling system managing workforce deployment across all sites and states. Supports optimised coverage and rapid reallocation when circumstances change.</div>
+        </div>
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Back to DD Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Due Diligence Hub</span>
+    <span class="sh-footer-text">Set E · Core Pages · E10 DD Management Approach · Sheet 10 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E11 — DD: CLIENT TESTIMONIALS
+════════════════════════════════════ -->
+<div class="sheet" id="e11">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">DD Sub-Page 4 · Client Testimonials · /due-diligence/testimonials</div>
+      <div class="sh-title">Client Testimonials and Reference Evidence</div>
+      <div class="sh-sub">Named reference testimonials · Government · Industrial · Education · National portfolio · Reference checks available · QBuild §2.5</div>
+    </div>
+    <div class="sh-meta">Due Diligence Hub<br/>Sheet 11 of 12<div class="sh-pgnum">DD4</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Client Testimonials</h1>
+        <div class="intro">Client testimonials in the CPC Due Diligence Hub are provided by named representatives from organisations whose contracts are comparable to the work being tendered. Contact details for reference checks are available on request. CPC welcomes direct reference contact — clients are asked before their names and testimonials are published and are prepared to take calls from procurement evaluation teams.</div>
+
+        <h2>Government and Council Reference</h2>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#1e40af;margin-bottom:1.5mm;">State Government Facilities Management · QLD Regional Portfolio</div>
+          <div style="font-size:10.5px;color:#1e40af;font-style:italic;line-height:1.7;margin-bottom:2mm;">"The compliance documentation was ready before we asked for it. The reporting format was right from the first report. The performance data was exactly what we needed for our annual review. Simple things, but they matter enormously in government contract management."</div>
+          <div style="font-size:8.5px;color:#3b82f6;font-weight:600;">Facilities Management Representative · State Government Agency · [reference contact available on request]</div>
+        </div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#1e40af;margin-bottom:1.5mm;">Local Government Authority · Council Facility Portfolio</div>
+          <div style="font-size:10.5px;color:#1e40af;font-style:italic;line-height:1.7;margin-bottom:2mm;">"Managing cleaning across twelve council facilities used to require constant follow-up. With CPC, the reports come on time, the audit scores are consistent and the compliance documentation is always current. We've had zero council complaints about cleaning performance since the contract commenced."</div>
+          <div style="font-size:8.5px;color:#3b82f6;font-weight:600;">Director of Infrastructure · Local Government Authority · [reference contact available on request]</div>
+        </div>
+      </div>
+      <div>
+        <h2>Industrial Reference</h2>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:4px;padding:4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#92400e;margin-bottom:1.5mm;">Power Generation Facility · Plant Safety Manager</div>
+          <div style="font-size:10.5px;color:#92400e;font-style:italic;line-height:1.7;margin-bottom:2mm;">"The permit documentation was complete from day one. We hadn't seen that from a cleaning contractor before. The dust measurement approach was exactly what we needed — matching frequency to accumulation rather than just running a fixed schedule. And the outage planning process meant we never had an incomplete outage clean again."</div>
+          <div style="font-size:8.5px;color:#b45309;font-weight:600;">Plant Safety Manager · Power Generation Facility · [reference contact available on request]</div>
+        </div>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:4px;padding:4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#92400e;margin-bottom:1.5mm;">National Manufacturing Group · National Facilities Manager</div>
+          <div style="font-size:10.5px;color:#92400e;font-style:italic;line-height:1.7;margin-bottom:2mm;">"We went from three different report formats, three different billing systems and three different phone numbers to call when something went wrong — to one of each. The time saving for our national FM team was real. And being able to actually compare performance across sites for the first time gave us management information we simply hadn't had before."</div>
+          <div style="font-size:8.5px;color:#b45309;font-weight:600;">National Facilities Manager · Manufacturing Group · [reference contact available on request]</div>
+        </div>
+      </div>
+      <div>
+        <h2>Education Reference</h2>
+        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:4px;padding:4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;font-weight:700;color:#4c1d95;margin-bottom:1.5mm;">State Education Authority · Senior Facilities Manager</div>
+          <div style="font-size:10.5px;color:#4c1d95;font-style:italic;line-height:1.7;margin-bottom:2mm;">"We had two WWCC incidents with the previous provider. With CPC we've had zero — and we're now three years in. The holiday deep cleans have been on time and complete every term without exception. During the gastroenteritis outbreak last winter, the response was immediate and exactly what the situation required."</div>
+          <div style="font-size:8.5px;color:#6d28d9;font-weight:600;">Senior Facilities Manager · State Education Authority · [reference contact available on request]</div>
+        </div>
+
+        <h2>Reference Check Process</h2>
+        <div style="background:#f0fdf9;border:1px solid #86efac;border-radius:4px;padding:3.5mm 4mm;margin-bottom:3mm;">
+          <p style="font-size:9.5px;color:#065f46;line-height:1.65;font-weight:500;">Contact details for all testimonial clients are available to procurement evaluation teams on request. CPC provides reference contact details within one business day of a request. References are briefed that contact may be made by evaluation teams and are prepared to discuss their experience with CPC's service delivery, compliance management and contract performance in detail.</p>
+        </div>
+
+        <h2>Additional References</h2>
+        <p>Additional references from comparable facility types and sectors are available on request. If you require references from a specific sector, state or facility type not represented in the published testimonials above, contact CPC's procurement team and sector-specific references will be identified and provided.</p>
+
+        <div class="cta-row" style="margin-top:3mm;">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Back to DD Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Due Diligence Hub</span>
+    <span class="sh-footer-text">Set E · Core Pages · E11 DD Testimonials · Sheet 11 of 12 · March 2026</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     E12 — DD: CASE STUDIES INDEX
+════════════════════════════════════ -->
+<div class="sheet" id="e12">
+  <div class="dd-banner">
+    <div>
+      <div class="sh-eyebrow">DD Sub-Page 5 · Case Studies Index · /due-diligence/case-studies</div>
+      <div class="sh-title">Case Studies — Operational Evidence of Capability</div>
+      <div class="sh-sub">4 structured case studies · Environment · Risk · Scope · Complexity · System · Result · No contract values · Scale and complexity published · QBuild §2.5</div>
+    </div>
+    <div class="sh-meta">Due Diligence Hub<br/>Sheet 12 of 12<div class="sh-pgnum">DD5</div></div>
+  </div>
+  <div class="sh-body">
+    <div class="cols-3">
+      <div>
+        <h1>Case Studies</h1>
+        <div class="intro">CPC's case studies are structured to provide procurement evaluation teams with specific operational evidence of capability — not general capability statements. Each case study describes the environment, the risk, the scope, the complexity, the system CPC used and the result achieved. Contract values are not published. Scale, complexity and outcomes are.</div>
+
+        <h2>Case Study 1 — Government Facility Portfolio</h2>
+        <div class="card b" style="margin-bottom:3mm;">
+          <table class="pg">
+            <tr><th>Element</th><th>Detail</th></tr>
+            <tr><td style="font-weight:700;">Sector</td><td>State Government · Public Sector</td></tr>
+            <tr><td style="font-weight:700;">Location</td><td>Regional Queensland · multi-site portfolio</td></tr>
+            <tr><td style="font-weight:700;">Scale</td><td>12+ facilities · govt offices · service centres · community facilities</td></tr>
+            <tr><td style="font-weight:700;">Key Risk</td><td>Previous provider unable to supply ISO certs or digital audit evidence for procurement review</td></tr>
+            <tr><td style="font-weight:700;">CPC System</td><td>ISO 9001 · dedicated contract manager · digital audit platform · compliance documentation package</td></tr>
+            <tr><td style="font-weight:700;">Key Results</td><td>Zero compliance deficiencies at annual review · 97–99% audit scores · contract renewed 3 years</td></tr>
+          </table>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;">Read Full Case Study →</span></div>
+        </div>
+
+        <h2>Case Study 2 — Industrial Power Station</h2>
+        <div class="card y" style="margin-bottom:3mm;">
+          <table class="pg">
+            <tr><th>Element</th><th>Detail</th></tr>
+            <tr><td style="font-weight:700;">Sector</td><td>Industrial · Power Generation</td></tr>
+            <tr><td style="font-weight:700;">Environment</td><td>Coal-fired power station · active plant · 24/7 operations</td></tr>
+            <tr><td style="font-weight:700;">Key Risk</td><td>Permit-to-work compliance failure · dust accumulation at combustion threshold</td></tr>
+            <tr><td style="font-weight:700;">CPC System</td><td>ISO 45001 · PTW integration · explosion-proof equipment · dust measurement · outage planning</td></tr>
+            <tr><td style="font-weight:700;">Key Results</td><td>Zero LTI · 100% PTW compliance · dust in threshold · all outage cleans on schedule</td></tr>
+          </table>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#f59e0b;color:#b45309;">Read Full Case Study →</span></div>
+        </div>
+      </div>
+      <div>
+        <h2>Case Study 3 — National Industrial Portfolio</h2>
+        <div class="card g" style="margin-bottom:3mm;">
+          <table class="pg">
+            <tr><th>Element</th><th>Detail</th></tr>
+            <tr><td style="font-weight:700;">Sector</td><td>National Industrial · Manufacturing &amp; Warehouse</td></tr>
+            <tr><td style="font-weight:700;">States</td><td>QLD · NSW · VIC · extended to WA during contract</td></tr>
+            <tr><td style="font-weight:700;">Key Challenge</td><td>3 separate state providers · 3 report formats · 3 billing systems · inconsistent standards</td></tr>
+            <tr><td style="font-weight:700;">CPC System</td><td>National account manager · standardised reporting · single billing · central governance</td></tr>
+            <tr><td style="font-weight:700;">Key Results</td><td>FM team overhead reduced · portfolio visibility achieved · WA extended · no transition gaps</td></tr>
+          </table>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#10b981;color:#047857;">Read Full Case Study →</span></div>
+        </div>
+
+        <h2>Case Study 4 — Education Campus Portfolio</h2>
+        <div class="card p" style="margin-bottom:3mm;">
+          <table class="pg">
+            <tr><th>Element</th><th>Detail</th></tr>
+            <tr><td style="font-weight:700;">Sector</td><td>Education · State School Authority</td></tr>
+            <tr><td style="font-weight:700;">Sites</td><td>Primary and secondary schools · regional and metropolitan</td></tr>
+            <tr><td style="font-weight:700;">Key Risk</td><td>Previous provider WWCC incidents · incomplete holiday deep cleans</td></tr>
+            <tr><td style="font-weight:700;">CPC System</td><td>WWCC credential management · pre-planned holiday programs · pre-planned outbreak protocols</td></tr>
+            <tr><td style="font-weight:700;">Key Results</td><td>Zero WWCC incidents · 100% deep clean on time · outbreak response praised</td></tr>
+          </table>
+          <div style="margin-top:2mm;"><span class="btn-b" style="font-size:8.5px;border-color:#8b5cf6;color:#6d28d9;">Read Full Case Study →</span></div>
+        </div>
+      </div>
+      <div>
+        <h2>How Case Studies Are Used in Procurement</h2>
+        <p>CPC's case studies are designed to provide evaluation teams with specific evidence that CPC has delivered comparable work in comparable environments — not generic capability claims. Each case study is structured to address the standard evaluation questions: Has CPC worked in this sector? At this scale? With these compliance requirements? With what result?</p>
+        <p>For tender submissions requiring comparable contract evidence, case studies can be extracted and formatted to meet specific tender response requirements. Detailed case study documentation — including additional performance data and extended descriptions of the systems used — is available for significant tender submissions on request.</p>
+
+        <h2>Sector Coverage Matrix</h2>
+        <table class="pg" style="margin-bottom:3mm;">
+          <tr><th>Sector</th><th>Case Study Available</th><th>Reference Available</th></tr>
+          <tr><td>State Government</td><td>✓ CS1</td><td>✓ Yes</td></tr>
+          <tr><td>Local Government</td><td>References available</td><td>✓ Yes</td></tr>
+          <tr><td>Industrial / Power Station</td><td>✓ CS2</td><td>✓ Yes</td></tr>
+          <tr><td>National Multi-State</td><td>✓ CS3</td><td>✓ Yes</td></tr>
+          <tr><td>Education / Schools</td><td>✓ CS4</td><td>✓ Yes</td></tr>
+          <tr><td>Commercial Office</td><td>References available</td><td>✓ Yes</td></tr>
+        </table>
+
+        <div style="background:#f0fdf9;border:1px solid #86efac;border-radius:4px;padding:3mm 4mm;margin-bottom:3mm;">
+          <div style="font-size:9px;color:#065f46;line-height:1.65;font-weight:500;">Full case study documents with extended operational detail are available for significant tender submissions. Contact CPC's procurement team with the sector and scale requirements and the relevant case study documentation will be assembled within 2 business days.</div>
+        </div>
+
+        <div class="cta-row">
+          <span class="btn-g">Request a Proposal</span>
+          <span class="btn-b">Back to DD Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Due Diligence Hub</span>
+    <span class="sh-footer-text">Set E · Core Pages · E12 DD Case Studies Index · Sheet 12 of 12 · End of Set E · March 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

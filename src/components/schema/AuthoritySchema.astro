@@ -46,6 +46,19 @@ const schemas: object[] = [
       "@type": "OfferCatalog",
       "name": `${title} Services`
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "url": url,
+    "name": title,
+    "description": description,
+    "isPartOf": { "@id": `${siteUrl}/#website` },
+    "about": { "@id": `${siteUrl}/#organization` },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".auth-tldr-block", ".auth-subtitle"]
+    }
   }
 ]
 

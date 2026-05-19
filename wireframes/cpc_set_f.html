@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>CPC Set F — Client Portal</title>
+<style>
+@page { size: A3 landscape; margin: 8mm; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  body { background: #fff !important; }
+  .sheet { page-break-after: always; page-break-inside: avoid; box-shadow: none !important; margin: 0 !important; }
+  .sheet:last-child { page-break-after: auto; }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #d1d5db; color: #1a202c; }
+
+/* ── Toolbar ── */
+.toolbar { position: sticky; top: 0; z-index: 100; background: #0a0f1a; border-bottom: 3px solid #00d4aa; padding: 10px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.toolbar-logo { font-size: 14px; font-weight: 900; color: #00d4aa; }
+.toolbar-info { font-size: 10px; color: #64748b; }
+.toolbar-btn { margin-left: auto; padding: 9px 22px; background: #00d4aa; color: #0a0f1a; font-weight: 800; font-size: 12px; border: none; cursor: pointer; border-radius: 4px; }
+.toolbar-btn:hover { background: #00f0c4; }
+
+/* ── Sheet ── */
+.sheet { width: 404mm; min-height: 279mm; background: #f0f4f8; margin: 12px auto; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden; }
+
+/* ── Portal header band ── */
+.portal-hdr { background: #0a0f1a; padding: 4mm 8mm 3.5mm; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #00d4aa; flex-shrink: 0; }
+.ph-eyebrow { font-size: 8px; font-weight: 700; color: #00d4aa; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+.ph-title { font-size: 17px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 3px; }
+.ph-sub { font-size: 9px; color: #94a3b8; line-height: 1.5; max-width: 250mm; }
+.ph-meta { text-align: right; font-size: 9px; color: #475569; white-space: nowrap; padding-left: 8mm; flex-shrink: 0; }
+.ph-pgnum { font-size: 20px; font-weight: 900; color: #00d4aa; line-height: 1; margin-top: 2mm; }
+
+/* ── Portal nav bar ── */
+.portal-nav { background: #111827; border-bottom: 2px solid #1e293b; padding: 0 8mm; display: flex; align-items: stretch; gap: 0; flex-shrink: 0; }
+.pn-item { padding: 2.5mm 5mm; font-size: 9.5px; font-weight: 700; color: #64748b; border-bottom: 2.5px solid transparent; cursor: pointer; display: flex; align-items: center; gap: 2mm; }
+.pn-item.active { color: #00d4aa; border-bottom-color: #00d4aa; }
+.pn-logo { color: #00d4aa; font-size: 13px; font-weight: 900; padding-right: 5mm; border-right: 1px solid #1e293b; margin-right: 3mm; }
+.pn-spacer { flex: 1; }
+.pn-user { font-size: 8.5px; color: #64748b; padding: 2.5mm 0; display: flex; align-items: center; gap: 2mm; }
+.pn-user-avatar { width: 20px; height: 20px; background: #00d4aa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 900; color: #0a0f1a; }
+
+/* ── Body ── */
+.sh-body { flex: 1; padding: 4mm 6mm; overflow: hidden; }
+
+/* ── KPI strip ── */
+.kpi-strip { display: grid; grid-template-columns: repeat(6,1fr); gap: 3mm; margin-bottom: 4mm; }
+.kpi-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 5px; padding: 3mm 4mm; }
+.kpi-card.green { border-top: 3px solid #00d4aa; }
+.kpi-card.blue { border-top: 3px solid #3b82f6; }
+.kpi-card.amber { border-top: 3px solid #f59e0b; }
+.kpi-card.red { border-top: 3px solid #ef4444; }
+.kpi-card.purple { border-top: 3px solid #8b5cf6; }
+.kpi-n { font-size: 20px; font-weight: 900; line-height: 1; margin-bottom: 1mm; }
+.kpi-n.green { color: #00b894; }
+.kpi-n.blue { color: #3b82f6; }
+.kpi-n.amber { color: #f59e0b; }
+.kpi-n.red { color: #ef4444; }
+.kpi-n.purple { color: #8b5cf6; }
+.kpi-label { font-size: 7.5px; color: #64748b; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+.kpi-sub { font-size: 7.5px; color: #94a3b8; margin-top: 0.5mm; }
+
+/* ── Main grid ── */
+.main-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; }
+.main-grid-wide { display: grid; grid-template-columns: 2fr 1fr; gap: 4mm; margin-bottom: 4mm; }
+
+/* ── Panel ── */
+.panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
+.panel-hdr { background: #f8fafc; border-bottom: 1px solid #e5e7eb; padding: 2.5mm 4mm; display: flex; justify-content: space-between; align-items: center; }
+.panel-title { font-size: 9.5px; font-weight: 800; color: #0a0f1a; }
+.panel-action { font-size: 8px; font-weight: 700; color: #00d4aa; cursor: pointer; }
+.panel-body { padding: 3mm 4mm; }
+
+/* ── Table rows ── */
+.trow { display: flex; justify-content: space-between; align-items: center; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; }
+.trow:last-child { border-bottom: none; }
+.trow-left { flex: 1; }
+.trow-title { font-size: 9.5px; font-weight: 700; color: #0a0f1a; line-height: 1.3; }
+.trow-sub { font-size: 8px; color: #94a3b8; margin-top: 0.5mm; }
+.trow-right { flex-shrink: 0; padding-left: 3mm; }
+
+/* ── Badges ── */
+.badge { display: inline-block; padding: 1.5px 6px; border-radius: 3px; font-size: 7.5px; font-weight: 800; letter-spacing: .04em; }
+.bg-green { background: #f0fdf9; color: #065f46; border: 1px solid #86efac; }
+.bg-blue { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+.bg-amber { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.bg-red { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.bg-slate { background: #f8fafc; color: #475569; border: 1px solid #e5e7eb; }
+.bg-purple { background: #f5f3ff; color: #4c1d95; border: 1px solid #ddd6fe; }
+
+/* ── Score bar ── */
+.score-bar-wrap { margin: 1.5mm 0; }
+.score-bar-track { height: 5px; background: #f1f5f9; border-radius: 3px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 3px; }
+.score-label { font-size: 7.5px; color: #94a3b8; margin-top: 1mm; display: flex; justify-content: space-between; }
+
+/* ── Mini chart (fake bars) ── */
+.mini-chart { display: flex; align-items: flex-end; gap: 2px; height: 28px; }
+.mc-bar { flex: 1; background: #e5e7eb; border-radius: 2px 2px 0 0; }
+.mc-bar.active { background: #00d4aa; }
+
+/* ── Doc row ── */
+.doc-row { display: flex; justify-content: space-between; align-items: center; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; }
+.doc-row:last-child { border-bottom: none; }
+.doc-name { font-size: 9px; font-weight: 700; color: #0a0f1a; }
+.doc-meta { font-size: 7.5px; color: #94a3b8; margin-top: 0.5mm; }
+.doc-btn { font-size: 8px; font-weight: 700; color: #00d4aa; cursor: pointer; white-space: nowrap; }
+
+/* ── Form field ── */
+.ff { margin-bottom: 2.5mm; }
+.ff-label { font-size: 8px; font-weight: 700; color: #374151; display: block; margin-bottom: 1mm; }
+.ff-input { height: 6.5mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; }
+.ff-select { height: 6.5mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; display: flex; align-items: center; padding: 0 2mm; font-size: 8.5px; color: #94a3b8; }
+.ff-textarea { height: 12mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; width: 100%; }
+
+/* ── Btn ── */
+.btn-g { background: #00d4aa; color: #0a0f1a; font-size: 8.5px; font-weight: 800; padding: 2mm 5mm; border-radius: 4px; border: none; display: inline-block; cursor: pointer; }
+.btn-b { border: 1.5px solid #3b82f6; color: #3b82f6; font-size: 8.5px; font-weight: 700; padding: 2mm 5mm; border-radius: 4px; background: transparent; display: inline-block; }
+.btn-sm { font-size: 8px; font-weight: 700; padding: 1.5mm 3.5mm; border-radius: 3px; border: none; cursor: pointer; }
+.btn-sm-g { background: #00d4aa; color: #0a0f1a; }
+.btn-sm-b { background: #3b82f6; color: #fff; }
+.btn-sm-ghost { background: transparent; border: 1px solid #e5e7eb; color: #64748b; }
+
+/* ── Login screen ── */
+.login-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 8mm; }
+.login-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8mm 10mm; width: 100mm; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.login-logo { font-size: 18px; font-weight: 900; color: #0a0f1a; text-align: center; margin-bottom: 1mm; }
+.login-logo span { color: #00d4aa; }
+.login-sub { font-size: 9px; color: #64748b; text-align: center; margin-bottom: 5mm; }
+
+/* ── Alert / notification ── */
+.alert { border-radius: 4px; padding: 2.5mm 3.5mm; margin-bottom: 2.5mm; display: flex; align-items: flex-start; gap: 2mm; }
+.alert-g { background: #f0fdf9; border: 1px solid #86efac; }
+.alert-b { background: #eff6ff; border: 1px solid #bfdbfe; }
+.alert-y { background: #fffbeb; border: 1px solid #fde68a; }
+.alert-icon { font-size: 11px; flex-shrink: 0; margin-top: 0.5mm; }
+.alert-text { font-size: 8.5px; color: #374151; line-height: 1.55; }
+.alert-title { font-weight: 700; margin-bottom: 0.5mm; }
+
+/* ── Schedule item ── */
+.sched-item { display: flex; gap: 3mm; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; align-items: flex-start; }
+.sched-item:last-child { border-bottom: none; }
+.sched-date { background: #0a0f1a; color: #fff; border-radius: 3px; padding: 1.5mm 2.5mm; text-align: center; flex-shrink: 0; min-width: 14mm; }
+.sched-day { font-size: 8px; color: #94a3b8; }
+.sched-num { font-size: 12px; font-weight: 900; line-height: 1; }
+.sched-title { font-size: 9.5px; font-weight: 700; color: #0a0f1a; margin-bottom: 1mm; }
+.sched-meta { font-size: 8px; color: #94a3b8; }
+
+/* ── Defect item ── */
+.defect-item { display: flex; gap: 2.5mm; align-items: flex-start; padding: 1.5mm 0; border-bottom: 1px solid #f1f5f9; }
+.defect-item:last-child { border-bottom: none; }
+.defect-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 1.5mm; }
+.defect-title { font-size: 9px; font-weight: 700; color: #0a0f1a; }
+.defect-meta { font-size: 7.5px; color: #94a3b8; margin-top: 0.5mm; }
+
+/* ── Module pages (Sheet 2) ── */
+.module-strip { background: #111827; border-bottom: 2px solid #1e293b; padding: 2mm 8mm; display: flex; gap: 4mm; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
+.ms-item { font-size: 8.5px; font-weight: 700; color: #64748b; padding: 1mm 3mm; border-radius: 3px; }
+.ms-item.active { background: #1e293b; color: #00d4aa; }
+
+/* ── AI assistant ── */
+.ai-msg { padding: 2.5mm 3mm; border-radius: 4px; margin-bottom: 2mm; font-size: 9px; line-height: 1.6; max-width: 90%; }
+.ai-msg-user { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; margin-left: auto; }
+.ai-msg-bot { background: #f0fdf9; border: 1px solid #86efac; color: #065f46; }
+.ai-msg-label { font-size: 7.5px; font-weight: 700; margin-bottom: 1mm; }
+.ai-input-bar { display: flex; gap: 2mm; margin-top: 3mm; }
+.ai-input { flex: 1; height: 7mm; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 3px; }
+
+/* ── Carbon widget ── */
+.carbon-stat { background: #f0fdf9; border: 1px solid #86efac; border-radius: 4px; padding: 3mm; text-align: center; }
+.carbon-n { font-size: 18px; font-weight: 900; color: #00b894; line-height: 1; margin-bottom: 1mm; }
+.carbon-l { font-size: 7.5px; color: #065f46; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ── Invoice row ── */
+.inv-row { display: flex; justify-content: space-between; align-items: center; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; }
+.inv-row:last-child { border-bottom: none; }
+.inv-num { font-size: 9px; font-weight: 700; color: #0a0f1a; }
+.inv-meta { font-size: 8px; color: #94a3b8; }
+.inv-amt { font-size: 10px; font-weight: 800; color: #0a0f1a; }
+
+/* ── Footer ── */
+.sh-footer { background: #f8fafc; border-top: 1px solid #e5e7eb; padding: 2mm 8mm; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+.sh-footer-text { font-size: 7.5px; color: #94a3b8; }
+
+/* ── Typography ── */
+h2 { font-size: 10.5px; font-weight: 800; color: #0a0f1a; margin: 3mm 0 1.5mm; border-left: 3px solid #00d4aa; padding-left: 3mm; }
+p { font-size: 9.5px; color: #374151; line-height: 1.65; margin-bottom: 2mm; }
+.sec-label { font-size: 8px; font-weight: 700; color: #00d4aa; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2mm; padding-bottom: 1mm; border-bottom: 1px solid #e5e7eb; display: block; }
+
+/* ── Cols ── */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; }
+.cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3mm; }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <div class="toolbar-logo">CPC · Set F — Client Portal</div>
+  <div class="toolbar-info">2 sheets · A3 Landscape · Login + Dashboard · All Modules · v2 March 2026</div>
+  <button class="toolbar-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SHEET F1 — LOGIN + FULL DASHBOARD
+════════════════════════════════════════════ -->
+<div class="sheet">
+  <div class="portal-hdr">
+    <div>
+      <div class="ph-eyebrow">Client Portal · Sheet 1 of 2 · /client-portal</div>
+      <div class="ph-title">CPC Client Portal — Login Screen and Main Dashboard</div>
+      <div class="ph-sub">Secure login · Active client access only · Dashboard · Audit reports · Compliance documents · Service schedule · Service requests · AI assistant · Carbon neutral · Invoicing</div>
+    </div>
+    <div class="ph-meta">Client Portal · Set F<br/>Sheet 1 of 2<div class="ph-pgnum">F1</div></div>
+  </div>
+
+  <div class="sh-body">
+    <div class="cols-2" style="gap:5mm;height:100%;">
+
+      <!-- LEFT COL: Login screen + architecture -->
+      <div>
+        <span class="sec-label">Login Screen — /client-portal/login</span>
+        <div style="background:#f0f4f8;border:1px solid #e5e7eb;border-radius:6px;padding:5mm;margin-bottom:4mm;display:flex;justify-content:center;">
+          <!-- Login box -->
+          <div class="login-box">
+            <div style="text-align:center;margin-bottom:4mm;">
+              <div class="login-logo">CPC<span>.</span></div>
+              <div class="login-sub">Client Portal · Secure Access</div>
+            </div>
+            <div class="ff"><div class="ff-label">Email Address</div><div class="ff-input"></div></div>
+            <div class="ff"><div class="ff-label">Password</div><div class="ff-input"></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3mm;">
+              <div style="display:flex;align-items:center;gap:1.5mm;"><div style="width:10px;height:10px;border:1.5px solid #e5e7eb;border-radius:2px;"></div><span style="font-size:8px;color:#64748b;">Remember me</span></div>
+              <span style="font-size:8px;color:#3b82f6;font-weight:700;cursor:pointer;">Forgot password?</span>
+            </div>
+            <button class="btn-g" style="width:100%;text-align:center;padding:3mm;font-size:10px;">Sign In →</button>
+            <div style="text-align:center;margin-top:3mm;font-size:8px;color:#94a3b8;">Not a client yet? <span style="color:#00d4aa;font-weight:700;">Request a Proposal</span></div>
+            <div style="text-align:center;margin-top:2mm;font-size:7.5px;color:#cbd5e1;">🔒 Secure · Active clients only · 256-bit encryption</div>
+          </div>
+        </div>
+
+        <span class="sec-label">Portal Architecture — 8 Modules</span>
+        <div class="cols-2" style="gap:2.5mm;">
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #00d4aa;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">📊 Dashboard</div>
+            <div style="font-size:8px;color:#64748b;">KPI overview · recent audits · alerts · upcoming schedule · quick actions</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #3b82f6;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">📋 Audit Reports</div>
+            <div style="font-size:8px;color:#64748b;">All inspection reports · photographic evidence · defect records · trend charts</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #8b5cf6;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">📄 Documents</div>
+            <div style="font-size:8px;color:#64748b;">ISO certs · insurance · modern slavery · WHS · all downloadable</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #f59e0b;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">📅 Schedule</div>
+            <div style="font-size:8px;color:#64748b;">Upcoming services · deep clean calendar · audit schedule · holiday programs</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #ef4444;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">📨 Service Requests</div>
+            <div style="font-size:8px;color:#64748b;">Submit requests · track status · additional services · issue escalation</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #10b981;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">🌿 Carbon Neutral</div>
+            <div style="font-size:8px;color:#64748b;">Emissions data · offset certificates · ESG reporting · Scope 3 data export</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #ec4899;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">💬 AI Assistant</div>
+            <div style="font-size:8px;color:#64748b;">Ask questions about your contract · compliance · performance · guidance</div>
+          </div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-left:3px solid #64748b;border-radius:4px;padding:2.5mm 3mm;">
+            <div style="font-size:9px;font-weight:800;color:#0a0f1a;margin-bottom:0.5mm;">🧾 Invoicing</div>
+            <div style="font-size:8px;color:#64748b;">Invoice history · current period · payment status · purchase order management</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COL: Full Dashboard -->
+      <div>
+        <span class="sec-label">Dashboard — Logged In View (demo: QLD Govt Client)</span>
+
+        <!-- Portal nav mock -->
+        <div class="portal-nav" style="border-radius:4px 4px 0 0;margin-bottom:0;">
+          <span class="pn-logo">CPC.</span>
+          <span class="pn-item active">📊 Dashboard</span>
+          <span class="pn-item">📋 Audits</span>
+          <span class="pn-item">📄 Docs</span>
+          <span class="pn-item">📅 Schedule</span>
+          <span class="pn-item">📨 Requests</span>
+          <span class="pn-item">🌿 Carbon</span>
+          <span class="pn-item">💬 AI</span>
+          <span class="pn-item">🧾 Invoicing</span>
+          <span class="pn-spacer"></span>
+          <span class="pn-user"><div class="pn-user-avatar">JW</div>Jane Wilson · QLD Gov</span>
+        </div>
+
+        <!-- KPI strip -->
+        <div style="background:#fff;padding:3mm 4mm;border:1px solid #e5e7eb;border-top:none;border-bottom:none;">
+          <div class="kpi-strip">
+            <div class="kpi-card green"><div class="kpi-n green">12</div><div class="kpi-label">Active Sites</div><div class="kpi-sub">QLD Regional Portfolio</div></div>
+            <div class="kpi-card green"><div class="kpi-n green">98.2%</div><div class="kpi-label">Avg Audit Score</div><div class="kpi-sub">Last 30 days</div></div>
+            <div class="kpi-card green"><div class="kpi-n green">0</div><div class="kpi-label">Open Defects</div><div class="kpi-sub">All resolved</div></div>
+            <div class="kpi-card blue"><div class="kpi-n blue">3</div><div class="kpi-label">Upcoming Services</div><div class="kpi-sub">Next 7 days</div></div>
+            <div class="kpi-card green"><div class="kpi-n green">100%</div><div class="kpi-label">Attendance</div><div class="kpi-sub">This month</div></div>
+            <div class="kpi-card purple"><div class="kpi-n purple">0.0</div><div class="kpi-label">tCO₂e</div><div class="kpi-sub">Net emissions · YTD</div></div>
+          </div>
+        </div>
+
+        <!-- Dashboard panels -->
+        <div style="background:#f0f4f8;border:1px solid #e5e7eb;border-radius:0 0 4px 4px;padding:3mm;display:grid;grid-template-columns:1fr 1fr;gap:3mm;">
+
+          <!-- Recent Audits -->
+          <div class="panel">
+            <div class="panel-hdr"><div class="panel-title">📋 Recent Audit Reports</div><div class="panel-action">View All →</div></div>
+            <div class="panel-body">
+              <div class="trow">
+                <div class="trow-left"><div class="trow-title">Site A — Govt Office — Weekly Inspection</div><div class="trow-sub">19 Mar 2026 · Jane Smith (Inspector) · 47 areas checked</div></div>
+                <div class="trow-right"><span class="badge bg-green">99%</span></div>
+              </div>
+              <div class="trow">
+                <div class="trow-left"><div class="trow-title">Site B — Service Centre — Monthly Deep Audit</div><div class="trow-sub">15 Mar 2026 · Mark Chen (Inspector) · 62 areas checked</div></div>
+                <div class="trow-right"><span class="badge bg-green">97%</span></div>
+              </div>
+              <div class="trow">
+                <div class="trow-left"><div class="trow-title">Site C — Community Hall — Weekly Inspection</div><div class="trow-sub">14 Mar 2026 · Jane Smith (Inspector) · 28 areas checked</div></div>
+                <div class="trow-right"><span class="badge bg-green">98%</span></div>
+              </div>
+              <div class="trow">
+                <div class="trow-left"><div class="trow-title">Site D — Admin Building — Unscheduled Check</div><div class="trow-sub">12 Mar 2026 · Contract Manager · Post-maintenance check</div></div>
+                <div class="trow-right"><span class="badge bg-green">100%</span></div>
+              </div>
+              <div class="trow">
+                <div class="trow-left"><div class="trow-title">Site E — Depot — Weekly Inspection</div><div class="trow-sub">10 Mar 2026 · Mark Chen (Inspector) · 22 areas checked</div></div>
+                <div class="trow-right"><span class="badge bg-green">96%</span></div>
+              </div>
+              <!-- Mini trend chart -->
+              <div style="margin-top:3mm;padding-top:2mm;border-top:1px solid #f1f5f9;">
+                <div style="font-size:7.5px;color:#94a3b8;margin-bottom:1.5mm;">Audit score trend — last 12 weeks</div>
+                <div class="mini-chart">
+                  <div class="mc-bar" style="height:75%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:80%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:85%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:90%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:88%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:92%;background:#d1fae5;"></div>
+                  <div class="mc-bar" style="height:95%;background:#86efac;"></div>
+                  <div class="mc-bar" style="height:93%;background:#86efac;"></div>
+                  <div class="mc-bar" style="height:96%;background:#86efac;"></div>
+                  <div class="mc-bar" style="height:97%;background:#34d399;"></div>
+                  <div class="mc-bar" style="height:98%;background:#34d399;"></div>
+                  <div class="mc-bar active" style="height:99%;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:1mm;"><span style="font-size:7px;color:#94a3b8;">12 weeks ago</span><span style="font-size:7px;color:#00d4aa;font-weight:700;">This week: 98.2% avg</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column panels -->
+          <div style="display:flex;flex-direction:column;gap:3mm;">
+
+            <!-- Compliance Documents -->
+            <div class="panel">
+              <div class="panel-hdr"><div class="panel-title">📄 Compliance Documents</div><div class="panel-action">View All →</div></div>
+              <div class="panel-body">
+                <div class="doc-row"><div><div class="doc-name">ISO 9001 Certificate</div><div class="doc-meta">Valid Dec 2026 · PDF · JAS-ANZ Accredited</div></div><div class="doc-btn">↓ Download</div></div>
+                <div class="doc-row"><div><div class="doc-name">ISO 14001 Certificate</div><div class="doc-meta">Valid Dec 2026 · PDF · JAS-ANZ Accredited</div></div><div class="doc-btn">↓ Download</div></div>
+                <div class="doc-row"><div><div class="doc-name">ISO 45001 Certificate</div><div class="doc-meta">Valid Dec 2026 · PDF · JAS-ANZ Accredited</div></div><div class="doc-btn">↓ Download</div></div>
+                <div class="doc-row"><div><div class="doc-name">Modern Slavery Statement 2025</div><div class="doc-meta">Annual publication · PDF</div></div><div class="doc-btn">↓ Download</div></div>
+                <div class="doc-row"><div><div class="doc-name">Public Liability Insurance</div><div class="doc-meta">Valid Jun 2026 · PDF</div></div><div class="doc-btn">↓ Download</div></div>
+              </div>
+            </div>
+
+            <!-- Upcoming Schedule -->
+            <div class="panel">
+              <div class="panel-hdr"><div class="panel-title">📅 Upcoming Schedule</div><div class="panel-action">Full Calendar →</div></div>
+              <div class="panel-body">
+                <div class="sched-item">
+                  <div class="sched-date"><div class="sched-day">MON</div><div class="sched-num">20</div></div>
+                  <div><div class="sched-title">Site A — Routine Weekly Clean</div><div class="sched-meta">6:00pm – 10:00pm · 3 staff · After hours</div></div>
+                  <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">SCHEDULED</span>
+                </div>
+                <div class="sched-item">
+                  <div class="sched-date"><div class="sched-day">WED</div><div class="sched-num">22</div></div>
+                  <div><div class="sched-title">Site B — Monthly Deep Service + Audit</div><div class="sched-meta">7:00pm – 11:00pm · 5 staff · Contract manager on site</div></div>
+                  <span class="badge bg-amber" style="margin-left:auto;flex-shrink:0;">AUDIT</span>
+                </div>
+                <div class="sched-item">
+                  <div class="sched-date"><div class="sched-day">FRI</div><div class="sched-num">24</div></div>
+                  <div><div class="sched-title">Site C — Routine Weekly Clean</div><div class="sched-meta">5:30pm – 8:30pm · 2 staff</div></div>
+                  <span class="badge bg-blue" style="margin-left:auto;flex-shrink:0;">SCHEDULED</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Client Portal</span>
+    <span class="sh-footer-text">Set F · Client Portal · Sheet 1 of 2 · Login + Dashboard · Continues overleaf →</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SHEET F2 — ALL MODULE SUB-PAGES
+════════════════════════════════════════════ -->
+<div class="sheet">
+  <div class="portal-hdr">
+    <div>
+      <div class="ph-eyebrow">Client Portal · Sheet 2 of 2 · All Module Sub-Pages</div>
+      <div class="ph-title">Client Portal — Audit Reports · Documents · Requests · Carbon Neutral · AI Assistant · Invoicing</div>
+      <div class="ph-sub">Full content layouts for all 7 portal modules · Each module shown in active state with demo data · Design reference for development</div>
+    </div>
+    <div class="ph-meta">Client Portal · Set F<br/>Sheet 2 of 2<div class="ph-pgnum">F2</div></div>
+  </div>
+  <div class="module-strip">
+    <span class="ms-item active">📋 Audit Reports</span>
+    <span class="ms-item">📄 Documents</span>
+    <span class="ms-item">📅 Schedule</span>
+    <span class="ms-item">📨 Service Requests</span>
+    <span class="ms-item">🌿 Carbon Neutral</span>
+    <span class="ms-item">💬 AI Assistant</span>
+    <span class="ms-item">🧾 Invoicing</span>
+  </div>
+
+  <div class="sh-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3mm;height:100%;">
+
+      <!-- MODULE 1: AUDIT REPORTS (detailed) -->
+      <div style="display:flex;flex-direction:column;gap:3mm;">
+        <span class="sec-label">📋 Audit Reports Module</span>
+
+        <!-- Filter bar -->
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:2mm 3mm;display:flex;gap:2mm;align-items:center;flex-wrap:wrap;">
+          <span style="font-size:8px;font-weight:700;color:#374151;">Filter:</span>
+          <div class="ff-select" style="width:28mm;height:5.5mm;font-size:7.5px;">All Sites ▾</div>
+          <div class="ff-select" style="width:28mm;height:5.5mm;font-size:7.5px;">Last 3 Months ▾</div>
+          <div class="ff-select" style="width:22mm;height:5.5mm;font-size:7.5px;">All Types ▾</div>
+          <span class="btn-sm btn-sm-g" style="margin-left:auto;">Export PDF</span>
+        </div>
+
+        <!-- Individual report card -->
+        <div class="panel" style="flex:1;">
+          <div class="panel-hdr" style="background:#0a0f1a;">
+            <div class="panel-title" style="color:#fff;">Site A — Govt Office · Weekly Inspection</div>
+            <span class="badge bg-green">99%</span>
+          </div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;margin-bottom:2mm;flex-wrap:wrap;gap:1mm;">
+              <span style="font-size:8px;color:#64748b;">📅 19 Mar 2026 · 7:14pm</span>
+              <span style="font-size:8px;color:#64748b;">👤 Inspector: Jane Smith</span>
+              <span style="font-size:8px;color:#64748b;">📍 47 areas checked</span>
+            </div>
+            <!-- Score breakdown -->
+            <div class="score-bar-wrap" style="margin-bottom:2mm;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:1mm;"><span style="font-size:8px;font-weight:700;color:#374151;">Offices &amp; Workstations</span><span style="font-size:8px;font-weight:900;color:#00b894;">100%</span></div>
+              <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:#00d4aa;"></div></div>
+            </div>
+            <div class="score-bar-wrap" style="margin-bottom:2mm;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:1mm;"><span style="font-size:8px;font-weight:700;color:#374151;">Toilets &amp; Amenities</span><span style="font-size:8px;font-weight:900;color:#00b894;">98%</span></div>
+              <div class="score-bar-track"><div class="score-bar-fill" style="width:98%;background:#00d4aa;"></div></div>
+            </div>
+            <div class="score-bar-wrap" style="margin-bottom:2mm;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:1mm;"><span style="font-size:8px;font-weight:700;color:#374151;">Kitchen &amp; Breakroom</span><span style="font-size:8px;font-weight:900;color:#00b894;">100%</span></div>
+              <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:#00d4aa;"></div></div>
+            </div>
+            <div class="score-bar-wrap" style="margin-bottom:2mm;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:1mm;"><span style="font-size:8px;font-weight:700;color:#374151;">Entry &amp; Reception</span><span style="font-size:8px;font-weight:900;color:#f59e0b;">97%</span></div>
+              <div class="score-bar-track"><div class="score-bar-fill" style="width:97%;background:#fbbf24;"></div></div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:3px;padding:2mm;margin-top:2mm;">
+              <div style="font-size:7.5px;font-weight:700;color:#374151;margin-bottom:1mm;">Defects: 1 Minor (Resolved)</div>
+              <div class="defect-item"><div class="defect-dot" style="background:#f59e0b;"></div><div><div class="defect-title">Entry mat position — slip risk identified</div><div class="defect-meta">Identified 7:32pm · Resolved 7:34pm · Photo evidence captured · Inspector: Jane Smith</div></div><span class="badge bg-green" style="margin-left:auto;flex-shrink:0;">RESOLVED</span></div>
+            </div>
+            <div style="display:flex;gap:2mm;margin-top:2mm;">
+              <span class="btn-sm btn-sm-g">↓ Download PDF</span>
+              <span class="btn-sm btn-sm-ghost">📸 View Photos (47)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 2: SERVICE REQUESTS + DOCUMENTS -->
+      <div style="display:flex;flex-direction:column;gap:3mm;">
+        <span class="sec-label">📨 Service Requests Module</span>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-title">Submit a Service Request</div></div>
+          <div class="panel-body">
+            <div class="ff"><div class="ff-label">Site</div><div class="ff-select">Site A — Govt Office, 123 Main St ▾</div></div>
+            <div class="ff"><div class="ff-label">Request Type</div><div class="ff-select">Additional clean / Issue report / Deep clean booking / Other ▾</div></div>
+            <div class="ff"><div class="ff-label">Priority</div><div class="ff-select">Normal / Urgent / Emergency ▾</div></div>
+            <div class="ff"><div class="ff-label">Description</div><div class="ff-textarea"></div></div>
+            <div style="display:flex;gap:2mm;align-items:center;"><span class="btn-sm btn-sm-g">Submit Request</span><span style="font-size:7.5px;color:#94a3b8;">Response within 4 business hours</span></div>
+          </div>
+        </div>
+
+        <div class="panel" style="flex:1;">
+          <div class="panel-hdr"><div class="panel-title">Request History</div><div class="panel-action">View All →</div></div>
+          <div class="panel-body">
+            <div class="trow">
+              <div class="trow-left"><div class="trow-title">SR-2847 · Additional clean after event</div><div class="trow-sub">Site C · Submitted 15 Mar · Completed 16 Mar</div></div>
+              <span class="badge bg-green">COMPLETE</span>
+            </div>
+            <div class="trow">
+              <div class="trow-left"><div class="trow-title">SR-2831 · Carpet stain — urgent</div><div class="trow-sub">Site A · Submitted 8 Mar · Completed same day</div></div>
+              <span class="badge bg-green">COMPLETE</span>
+            </div>
+            <div class="trow">
+              <div class="trow-left"><div class="trow-title">SR-2819 · Holiday deep clean booking — Term 1</div><div class="trow-sub">All sites · Submitted 1 Mar · Scheduled 4–7 Apr</div></div>
+              <span class="badge bg-blue">SCHEDULED</span>
+            </div>
+            <div class="trow">
+              <div class="trow-left"><div class="trow-title">SR-2806 · Window cleaning — exterior</div><div class="trow-sub">Site B · Submitted 22 Feb · Pending quote</div></div>
+              <span class="badge bg-amber">PENDING</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="sec-label" style="margin-top:1mm;">📅 Schedule Module (preview)</span>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-title">April Holiday Deep Clean Program</div><span class="badge bg-amber">BOOKED</span></div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2mm;">
+              <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:3px;padding:2mm;">
+                <div style="font-size:8px;font-weight:800;color:#0a0f1a;">4–5 April</div>
+                <div style="font-size:7.5px;color:#64748b;">Sites A, B · Floor resurfacing · High-level clean</div>
+              </div>
+              <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:3px;padding:2mm;">
+                <div style="font-size:8px;font-weight:800;color:#0a0f1a;">6–7 April</div>
+                <div style="font-size:7.5px;color:#64748b;">Sites C, D · Carpet extraction · Kitchen deep clean</div>
+              </div>
+            </div>
+            <div style="font-size:7.5px;color:#94a3b8;margin-top:2mm;">All programs confirmed before term end · Completion reports within 24hrs of each program</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 3: CARBON NEUTRAL + AI ASSISTANT -->
+      <div style="display:flex;flex-direction:column;gap:3mm;">
+        <span class="sec-label">🌿 Carbon Neutral Module</span>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-title">Carbon Status — Your Contract</div><span class="badge bg-green">✓ CARBON NEUTRAL</span></div>
+          <div class="panel-body">
+            <div class="cols-3" style="gap:2mm;margin-bottom:3mm;">
+              <div class="carbon-stat"><div class="carbon-n">0.0</div><div class="carbon-l">Net tCO₂e YTD</div></div>
+              <div class="carbon-stat"><div class="carbon-n">4.2</div><div class="carbon-l">Gross tCO₂e</div></div>
+              <div class="carbon-stat"><div class="carbon-n">4.2</div><div class="carbon-l">Offset Retired</div></div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:3px;padding:2.5mm;margin-bottom:2mm;">
+              <div style="font-size:8px;font-weight:700;color:#374151;margin-bottom:1.5mm;">Emission Sources — YTD Breakdown</div>
+              <div class="score-bar-wrap" style="margin-bottom:1.5mm;"><div style="display:flex;justify-content:space-between;margin-bottom:0.5mm;"><span style="font-size:7.5px;color:#64748b;">Vehicle fleet (Scope 1)</span><span style="font-size:7.5px;font-weight:700;color:#374151;">1.8 tCO₂e</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:43%;background:#00d4aa;"></div></div></div>
+              <div class="score-bar-wrap" style="margin-bottom:1.5mm;"><div style="display:flex;justify-content:space-between;margin-bottom:0.5mm;"><span style="font-size:7.5px;color:#64748b;">Equipment electricity (Scope 2)</span><span style="font-size:7.5px;font-weight:700;color:#374151;">1.4 tCO₂e</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:33%;background:#34d399;"></div></div></div>
+              <div class="score-bar-wrap"><div style="display:flex;justify-content:space-between;margin-bottom:0.5mm;"><span style="font-size:7.5px;color:#64748b;">Chemicals &amp; consumables (Scope 3)</span><span style="font-size:7.5px;font-weight:700;color:#374151;">1.0 tCO₂e</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:24%;background:#86efac;"></div></div></div>
+            </div>
+            <div style="font-size:7.5px;color:#064e3b;background:#f0fdf9;border:1px solid #86efac;border-radius:3px;padding:2mm;margin-bottom:2mm;">
+              <strong>Offset Certificates:</strong> 4.2 ACCUs retired from Climate Active registered project — certificate available for download below
+            </div>
+            <div style="display:flex;gap:2mm;flex-wrap:wrap;">
+              <span class="btn-sm btn-sm-g">↓ Offset Certificate</span>
+              <span class="btn-sm btn-sm-ghost">↓ ESG Data Export (CSV)</span>
+              <span class="btn-sm btn-sm-ghost">↓ Scope 3 Report</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="sec-label">💬 AI Assistant Module</span>
+        <div class="panel" style="flex:1;">
+          <div class="panel-hdr"><div class="panel-title">CPC AI Assistant</div><span style="font-size:7.5px;color:#00d4aa;">● Online</span></div>
+          <div class="panel-body" style="display:flex;flex-direction:column;">
+            <div class="ai-msg ai-msg-bot">
+              <div class="ai-msg-label">CPC Assistant</div>
+              Hi Jane — I can see your portfolio audit scores are at 98.2% this month, up from 96.1% last month. All 12 sites are performing above the 95% KPI threshold. Is there anything you'd like to review?
+            </div>
+            <div class="ai-msg ai-msg-user">
+              <div class="ai-msg-label" style="text-align:right;">Jane Wilson</div>
+              When is the Term 1 deep clean scheduled and which sites are included?
+            </div>
+            <div class="ai-msg ai-msg-bot">
+              <div class="ai-msg-label">CPC Assistant</div>
+              Your Term 1 deep clean is scheduled for 4–7 April. Sites A and B are on 4–5 April (floor resurfacing + high-level). Sites C and D are on 6–7 April (carpet extraction + kitchen). Sites E through L are scheduled across 8–11 April. All programs will be completed before teacher preparation days on 14 April.
+            </div>
+            <div class="ai-input-bar">
+              <div class="ai-input"></div>
+              <span class="btn-sm btn-sm-g">Send</span>
+            </div>
+            <div style="font-size:7.5px;color:#94a3b8;margin-top:1.5mm;">Ask about: audit scores · compliance documents · schedule · carbon data · service history · contract terms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 4: INVOICING + ACCOUNT -->
+      <div style="display:flex;flex-direction:column;gap:3mm;">
+        <span class="sec-label">🧾 Invoicing Module</span>
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-title">Current Period</div><span class="badge bg-amber">DUE 30 MAR</span></div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2mm;">
+              <div>
+                <div style="font-size:8.5px;font-weight:700;color:#374151;">INV-2026-047</div>
+                <div style="font-size:8px;color:#94a3b8;">March 2026 · All 12 sites · Routine services</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:14px;font-weight:900;color:#0a0f1a;">$[Amount]</div>
+                <div style="font-size:7.5px;color:#94a3b8;">Contract value not published</div>
+              </div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:3px;padding:2mm;margin-bottom:2mm;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1mm;font-size:8px;color:#64748b;">
+                <div>Routine services — 12 sites</div><div style="text-align:right;color:#0a0f1a;font-weight:700;">Included</div>
+                <div>Consumables — March</div><div style="text-align:right;color:#0a0f1a;font-weight:700;">Included</div>
+                <div>SR-2847 additional clean</div><div style="text-align:right;color:#0a0f1a;font-weight:700;">Variation</div>
+                <div>Carbon offset levy — YTD</div><div style="text-align:right;color:#00b894;font-weight:700;">Included</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:2mm;">
+              <span class="btn-sm btn-sm-g">↓ Download Invoice</span>
+              <span class="btn-sm btn-sm-b">Pay Now</span>
+              <span class="btn-sm btn-sm-ghost">PO Management</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hdr"><div class="panel-title">Invoice History</div><div class="panel-action">View All →</div></div>
+          <div class="panel-body">
+            <div class="inv-row"><div><div class="inv-num">INV-2026-039</div><div class="inv-meta">February 2026 · All 12 sites</div></div><div style="text-align:right;"><div class="inv-amt">Paid</div><span class="badge bg-green">PAID</span></div></div>
+            <div class="inv-row"><div><div class="inv-num">INV-2026-031</div><div class="inv-meta">January 2026 · All 12 sites</div></div><div style="text-align:right;"><div class="inv-amt">Paid</div><span class="badge bg-green">PAID</span></div></div>
+            <div class="inv-row"><div><div class="inv-num">INV-2025-119</div><div class="inv-meta">December 2025 · All 12 sites + Year-end deep clean</div></div><div style="text-align:right;"><div class="inv-amt">Paid</div><span class="badge bg-green">PAID</span></div></div>
+            <div class="inv-row"><div><div class="inv-num">INV-2025-111</div><div class="inv-meta">November 2025 · All 12 sites</div></div><div style="text-align:right;"><div class="inv-amt">Paid</div><span class="badge bg-green">PAID</span></div></div>
+          </div>
+        </div>
+
+        <span class="sec-label">👤 Account &amp; Settings</span>
+        <div class="panel" style="flex:1;">
+          <div class="panel-hdr"><div class="panel-title">Account Details</div><div class="panel-action">Edit →</div></div>
+          <div class="panel-body">
+            <table style="width:100%;border-collapse:collapse;font-size:8.5px;">
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;width:40%;">Organisation</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">QLD Government Agency</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Contact Name</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">Jane Wilson</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Email</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">j.wilson@[agency].qld.gov.au</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Contract</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">CPC-QLD-2024-047</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Contract Manager</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">Mark Thompson · m.thompson@cpclean.com.au</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Contract Term</td><td style="padding:1.5mm 0;font-weight:700;color:#0a0f1a;">1 Jan 2024 – 31 Dec 2026</td></tr>
+              <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:1.5mm 0;color:#94a3b8;">Renewal Option</td><td style="padding:1.5mm 0;"><span class="badge bg-blue">3YR OPTION AVAILABLE</span></td></tr>
+              <tr><td style="padding:1.5mm 0;color:#94a3b8;">Portal Access Level</td><td style="padding:1.5mm 0;"><span class="badge bg-green">FULL ACCESS</span></td></tr>
+            </table>
+            <div style="margin-top:3mm;padding-top:2mm;border-top:1px solid #f1f5f9;">
+              <div style="font-size:8px;font-weight:700;color:#374151;margin-bottom:1.5mm;">Portal Notifications</div>
+              <div style="display:flex;flex-direction:column;gap:1mm;">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:8px;"><span style="color:#374151;">New audit reports available</span><span class="badge bg-green">ON</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:8px;"><span style="color:#374151;">Service request status updates</span><span class="badge bg-green">ON</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:8px;"><span style="color:#374151;">Schedule changes</span><span class="badge bg-green">ON</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:8px;"><span style="color:#374151;">New compliance documents</span><span class="badge bg-green">ON</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:8px;"><span style="color:#374151;">Invoice available</span><span class="badge bg-green">ON</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="sh-footer">
+    <span class="sh-footer-text">Commercial Property Cleaning · cpclean.com.au · Client Portal</span>
+    <span class="sh-footer-text">Set F · Client Portal · Sheet 2 of 2 · All Module Sub-Pages · End of Set F · End of Full Deck · March 2026</span>
+  </div>
+</div>
+
+</body>
+</html>
